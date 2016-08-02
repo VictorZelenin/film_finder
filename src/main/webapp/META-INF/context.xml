@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<Context>
+    <Resource name="jdbc/film_finder_db"
+              auth="Container"
+              type="javax.sql.DataSource"
+              driverClassName="com.mysql.jdbc.Driver"
+              url="jdbc:mysql://localhost:3306/film_finder_db"
+              username="root"
+              password="root"
+
+              maxActive="20"
+              maxIdle="10"
+              minIdle="5"
+              maxWait="10000"
+
+              poolPreparedStatements="true"
+              maxOpenPreparedStatments="100"/>
+</Context>
