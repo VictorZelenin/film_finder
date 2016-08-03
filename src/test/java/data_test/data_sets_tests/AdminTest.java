@@ -13,7 +13,6 @@ import static org.mockito.Mockito.mock;
 /**
  * Created by victor on 01.08.16.
  */
-
 public class AdminTest {
 
     private Admin admin;

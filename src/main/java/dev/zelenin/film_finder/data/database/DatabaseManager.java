@@ -1,4 +1,4 @@
-package dev.zelenin.film_finder.data.database_manager;
+package dev.zelenin.film_finder.data.database;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -17,6 +17,7 @@ public class DatabaseManager implements PoolConnectionInterface {
     @Override
     public Connection getConnection() throws SQLException, NamingException {
         initialContext = new InitialContext();
+        // TODO create property file for DB
         dataSource = (DataSource) initialContext.lookup("java:/comp/env/jdbc/film_finder_db");
 
         return dataSource.getConnection();

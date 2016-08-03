@@ -1,4 +1,4 @@
-package dev.zelenin.film_finder.data.database_manager;
+package dev.zelenin.film_finder.data.database;
 
 import java.sql.Connection;
 

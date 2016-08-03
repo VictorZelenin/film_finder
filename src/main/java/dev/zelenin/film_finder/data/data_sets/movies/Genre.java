@@ -16,6 +16,8 @@ public enum Genre {
 
     CRIME,
 
+    DETECTIVE,
+
     DOCUMENTARY,
 
     DRAMA,
@@ -31,6 +33,8 @@ public enum Genre {
     HISTORY,
 
     HORROR,
+
+    MELODRAMA,
 
     MUSIC,
 

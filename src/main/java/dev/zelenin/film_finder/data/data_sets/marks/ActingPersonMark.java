@@ -1,6 +1,7 @@
 package dev.zelenin.film_finder.data.data_sets.marks;
 
 import dev.zelenin.film_finder.data.data_sets.acting_person.ActingPerson;
+import dev.zelenin.film_finder.data.data_sets.users.Client;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -11,14 +12,17 @@ import java.util.Date;
 // TODO rewrite hashcode and equals
 public class ActingPersonMark extends Mark implements Serializable {
     private ActingPerson actingPerson;
+    private Client client;
 
-    public ActingPersonMark(){
+    public ActingPersonMark() {
     }
 
-    public ActingPersonMark(int mark, Date date, String description, int actingPersonMarkId, ActingPerson actingPerson) {
+    public ActingPersonMark(long id, int mark, Date date, String description, ActingPerson actingPerson,
+                            Client client) {
         super(mark, date, description);
-        this.id = actingPersonMarkId;
+        this.id = id;
         this.actingPerson = actingPerson;
+        this.client = client;
     }
 
     public ActingPerson getActingPerson() {
@@ -27,6 +31,14 @@ public class ActingPersonMark extends Mark implements Serializable {
 
     public void setActingPerson(ActingPerson actingPerson) {
         this.actingPerson = actingPerson;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
     }
 
     @Override
@@ -45,7 +57,7 @@ public class ActingPersonMark extends Mark implements Serializable {
     public int hashCode() {
         long result = id;
         result = 31 * result + (actingPerson != null ? actingPerson.hashCode() : 0);
-        return (int)result;
+        return (int) result;
     }
 
     @Override

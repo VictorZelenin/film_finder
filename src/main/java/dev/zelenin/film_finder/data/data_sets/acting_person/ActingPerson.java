@@ -1,19 +1,17 @@
 package dev.zelenin.film_finder.data.data_sets.acting_person;
 
 import dev.zelenin.film_finder.data.data_sets.DataSet;
-import dev.zelenin.film_finder.data.data_sets.movies.Genre;
-import dev.zelenin.film_finder.data.data_sets.movies.Movie;
 
 import java.io.Serializable;
-import java.util.*;
+import java.util.Date;
 
 /**
  * Created by victor on 01.08.16.
  */
 // TODO rewrite hashcode and equals
+// TODO implement id DAO getRoles and genres
 public class ActingPerson extends DataSet implements Serializable {
     private String name;
-    private Date birthday;
     private double height;
     private String country;
     private int age;
@@ -21,48 +19,26 @@ public class ActingPerson extends DataSet implements Serializable {
     private Date deathDate;
     private String photoURL;
 
-    private Set<ActingRole> rolesList;
-    private List<Genre> genres;
-    private List<Movie> bestMovies;
+//    private Set<ActingRole> rolesList;
+//    private List<Genre> genres;
 
     private double averageClientMark;
 
     public ActingPerson() {
-        rolesList = new HashSet<>();
-        genres = new ArrayList<>();
-        bestMovies = new ArrayList<>();
     }
 
-    public ActingPerson(int actingPersonId, String name, Date birthday,
-                        double height, String country, int age, int totalMoviesNumber) {
+    public ActingPerson(long actingPersonId, String name, double height, String country,
+                        int age, Date deathDate, int totalMoviesNumber, double averageClientMark,
+                        String photoURL) {
         this.id = actingPersonId;
         this.name = name;
-        this.birthday = birthday;
         this.height = height;
         this.country = country;
         this.age = age;
-        this.totalMoviesNumber = totalMoviesNumber;
-        rolesList = new HashSet<>();
-        genres = new ArrayList<>();
-        bestMovies = new ArrayList<>();
-
-    }
-
-    public ActingPerson(int actingPersonId, String name, Date birthday, Set<ActingRole> rolesList,
-                        List<Genre> genres, List<Movie> bestMovies, double height, String country,
-                        int age, int totalMoviesNumber, double averageClientMark, Date deathDate) {
-        this.id = actingPersonId;
-        this.name = name;
-        this.birthday = birthday;
-        this.rolesList = rolesList;
-        this.genres = genres;
-        this.bestMovies = bestMovies;
-        this.height = height;
-        this.country = country;
-        this.age = age;
+        this.deathDate = deathDate;
         this.totalMoviesNumber = totalMoviesNumber;
         this.averageClientMark = averageClientMark;
-        this.deathDate = deathDate;
+        this.photoURL = photoURL;
     }
 
     public String getName() {
@@ -71,38 +47,6 @@ public class ActingPerson extends DataSet implements Serializable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Date getBirthday() {
-        return birthday;
-    }
-
-    public void setBirthday(Date birthday) {
-        this.birthday = birthday;
-    }
-
-    public Set<ActingRole> getRolesList() {
-        return rolesList;
-    }
-
-    public void setRolesList(Set<ActingRole> rolesList) {
-        this.rolesList = rolesList;
-    }
-
-    public List<Genre> getGenres() {
-        return genres;
-    }
-
-    public void setGenres(List<Genre> genres) {
-        this.genres = genres;
-    }
-
-    public List<Movie> getBestMovies() {
-        return bestMovies;
-    }
-
-    public void setBestMovies(List<Movie> bestMovies) {
-        this.bestMovies = bestMovies;
     }
 
     public double getHeight() {
@@ -153,30 +97,6 @@ public class ActingPerson extends DataSet implements Serializable {
         this.deathDate = deathDate;
     }
 
-    public void addRole(ActingRole role) {
-        rolesList.add(role);
-    }
-
-    public boolean removeRole(ActingRole role) {
-        return rolesList.remove(role);
-    }
-
-    public void addGenre(Genre genre) {
-        genres.add(genre);
-    }
-
-    public boolean removeGenre(Genre genre) {
-        return genres.remove(genre);
-    }
-
-    public void addBestMovie(Movie movie) {
-        bestMovies.add(movie);
-    }
-
-    public boolean removeBestMovie(Movie movie) {
-        return bestMovies.remove(movie);
-    }
-
     public String getPhotoURL() {
         return photoURL;
     }
@@ -185,62 +105,39 @@ public class ActingPerson extends DataSet implements Serializable {
         this.photoURL = photoURL;
     }
 
-    public boolean isActor() {
-        return rolesList.contains(ActingRole.ACTOR);
-    }
-
-    public boolean isDirector() {
-        return rolesList.contains(ActingRole.DIRECTOR);
-    }
-
-    public boolean isScreenWriter() {
-        return rolesList.contains(ActingRole.SCREEN_WRITER);
-    }
-
-    public boolean isProducer() {
-        return rolesList.contains(ActingRole.PRODUCER);
-    }
-
     @Override
     public boolean equals(Object o) {
-
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
         ActingPerson that = (ActingPerson) o;
 
-        if (id != that.id) return false;
         if (Double.compare(that.height, height) != 0) return false;
         if (age != that.age) return false;
         if (totalMoviesNumber != that.totalMoviesNumber) return false;
         if (Double.compare(that.averageClientMark, averageClientMark) != 0) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
-        if (birthday != null ? !birthday.equals(that.birthday) : that.birthday != null) return false;
-        if (rolesList != null ? !rolesList.equals(that.rolesList) : that.rolesList != null) return false;
-        if (genres != null ? !genres.equals(that.genres) : that.genres != null) return false;
-        if (bestMovies != null ? !bestMovies.equals(that.bestMovies) : that.bestMovies != null) return false;
-        return country != null ? country.equals(that.country) : that.country == null;
+        if (country != null ? !country.equals(that.country) : that.country != null) return false;
+        if (deathDate != null ? !deathDate.equals(that.deathDate) : that.deathDate != null) return false;
+        return photoURL != null ? photoURL.equals(that.photoURL) : that.photoURL == null;
 
     }
 
     @Override
     public int hashCode() {
-        long result;
+        int result;
         long temp;
-        result = id;
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (birthday != null ? birthday.hashCode() : 0);
-        result = 31 * result + (rolesList != null ? rolesList.hashCode() : 0);
-        result = 31 * result + (genres != null ? genres.hashCode() : 0);
-        result = 31 * result + (bestMovies != null ? bestMovies.hashCode() : 0);
+        result = name != null ? name.hashCode() : 0;
         temp = Double.doubleToLongBits(height);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         result = 31 * result + (country != null ? country.hashCode() : 0);
         result = 31 * result + age;
         result = 31 * result + totalMoviesNumber;
+        result = 31 * result + (deathDate != null ? deathDate.hashCode() : 0);
+        result = 31 * result + (photoURL != null ? photoURL.hashCode() : 0);
         temp = Double.doubleToLongBits(averageClientMark);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
-        return (int) result;
+        return result;
     }
 
     @Override

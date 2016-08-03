@@ -4,6 +4,7 @@
 CREATE TABLE IF NOT EXISTS `clients` (
   `id`        INTEGER     NOT NULL UNIQUE AUTO_INCREMENT,
   `name`      VARCHAR(45) NOT NULL,
+  `gender`    VARCHAR (10),
   `email`     VARCHAR(60) UNIQUE,
   `password`  VARCHAR(60),
   `photo_url` VARCHAR(45),

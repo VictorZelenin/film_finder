@@ -1,69 +1,68 @@
 # acting people
-INSERT INTO `acting_people`(`name`, `height`, `country`, `age`, `total_movies_number`, `photo_url`)
+INSERT INTO `acting_people` (`name`, `height`, `country`, `age`, `total_movies_number`, `photo_url`)
 VALUES ('Brad Pitt', 180, 'USA', 52, 263,
-'/home/victor/images/acting_person_images/actors/Brad_Pitt.jpg');
+        '/home/victor/images/acting_person_images/actors/Brad_Pitt.jpg');
 
-INSERT INTO `acting_people`(`name`, `height`, `country`, `age`, `total_movies_number`, `photo_url`)
+INSERT INTO `acting_people` (`name`, `height`, `country`, `age`, `total_movies_number`, `photo_url`)
 VALUES ('Jim Carrey', 188, 'USA', 54, 207,
-'/home/victor/images/acting_person_images/actors/Jim_Carrey.jpg');
+        '/home/victor/images/acting_person_images/actors/Jim_Carrey.jpg');
 
-INSERT INTO `acting_people`(`name`, `height`, `country`, `age`, `total_movies_number`, `photo_url`)
+INSERT INTO `acting_people` (`name`, `height`, `country`, `age`, `total_movies_number`, `photo_url`)
 VALUES ('Kit Harington', 173, 'UK', 29, 39,
-'/home/victor/images/acting_person_images/actors/Kit_Harington.jpg');
+        '/home/victor/images/acting_person_images/actors/Kit_Harington.jpg');
 
-INSERT INTO `acting_people`(`name`, `height`, `country`, `age`, `total_movies_number`, `photo_url`)
+INSERT INTO `acting_people` (`name`, `height`, `country`, `age`, `total_movies_number`, `photo_url`)
 VALUES ('Rachel McAdams', 163, 'Canada', 37, 79,
-'/home/victor/images/acting_person_images/actors/Rachel_McAdams.jpg');
+        '/home/victor/images/acting_person_images/actors/Rachel_McAdams.jpg');
 
-INSERT INTO `acting_people`(`name`, `height`, `country`, `age`, `total_movies_number`, `photo_url`)
+INSERT INTO `acting_people` (`name`, `height`, `country`, `age`, `total_movies_number`, `photo_url`)
 VALUES ('Emilia Clarke', 157, 'UK', 29, 50,
-'/home/victor/images/acting_person_images/actors/Emilia_Clarke.jpg');
+        '/home/victor/images/acting_person_images/actors/Emilia_Clarke.jpg');
 
-INSERT INTO `acting_people`(`name`, `height`, `country`, `age`, `death_date`, `total_movies_number`,
-`photo_url`)
+INSERT INTO `acting_people` (`name`, `height`, `country`, `age`, `death_date`, `total_movies_number`,
+                             `photo_url`)
 VALUES ('Stanley Kubrick', 169, 'USA', 70, '1999-03-07', 40,
-'/home/victor/images/acting_person_images/directors/Stanley_Kubrick.jpg');
+        '/home/victor/images/acting_person_images/directors/Stanley_Kubrick.jpg');
 
-INSERT INTO `acting_people`(`name`, `height`, `country`, `age`, `total_movies_number`,
-`photo_url`)
+INSERT INTO `acting_people` (`name`, `height`, `country`, `age`, `total_movies_number`,
+                             `photo_url`)
 VALUES ('Quentin Tarantino', 185, 'USA', 53, 189,
-'/home/victor/images/acting_person_images/directors/Quentin_Tarantino.jpg');
+        '/home/victor/images/acting_person_images/directors/Quentin_Tarantino.jpg');
 
-INSERT INTO `acting_people`(`name`, `height`, `country`, `age`, `total_movies_number`,
-`photo_url`)
+INSERT INTO `acting_people` (`name`, `height`, `country`, `age`, `total_movies_number`,
+                             `photo_url`)
 VALUES ('Martin Scorsese', 163, 'USA', 73, 300,
-'/home/victor/images/acting_person_images/directors/Martin_Scorsese.jpg');
+        '/home/victor/images/acting_person_images/directors/Martin_Scorsese.jpg');
 
 # genres
-insert into genres(genre) values('action');
-insert into genres(genre) values('adventure');
-insert into genres(genre) values('animation');
-insert into genres(genre) values('biography');
-insert into genres(genre) values('comedy');
-insert into genres(genre) values('crime');
-insert into genres(genre) values('documentary');
-insert into genres(genre) values('drama');
-insert into genres(genre) values('family');
-insert into genres(genre) values('fantasy');
-insert into genres(genre) values('film_noir');
-insert into genres(genre) values('game_show');
-insert into genres(genre) values('history');
-insert into genres(genre) values('horror');
-insert into genres(genre) values('music');
-insert into genres(genre) values('musical');
-insert into genres(genre) values('mystery');
-insert into genres(genre) values('news');
-insert into genres(genre) values('reality');
-insert into genres(genre) values('romance');
-insert into genres(genre) values('sci_fi');
-insert into genres(genre) values('sport');
-insert into genres(genre) values('talk_show');
-insert into genres(genre) values('thriller');
-insert into genres(genre) values('war');
-insert into genres(genre) values('western');
-insert into genres(genre) values ('melodrama');
-insert into genres(genre) values ('detective');
-
+INSERT INTO genres (genre) VALUES ('action');
+INSERT INTO genres (genre) VALUES ('adventure');
+INSERT INTO genres (genre) VALUES ('animation');
+INSERT INTO genres (genre) VALUES ('biography');
+INSERT INTO genres (genre) VALUES ('comedy');
+INSERT INTO genres (genre) VALUES ('crime');
+INSERT INTO genres (genre) VALUES ('documentary');
+INSERT INTO genres (genre) VALUES ('drama');
+INSERT INTO genres (genre) VALUES ('family');
+INSERT INTO genres (genre) VALUES ('fantasy');
+INSERT INTO genres (genre) VALUES ('film_noir');
+INSERT INTO genres (genre) VALUES ('game_show');
+INSERT INTO genres (genre) VALUES ('history');
+INSERT INTO genres (genre) VALUES ('horror');
+INSERT INTO genres (genre) VALUES ('music');
+INSERT INTO genres (genre) VALUES ('musical');
+INSERT INTO genres (genre) VALUES ('mystery');
+INSERT INTO genres (genre) VALUES ('news');
+INSERT INTO genres (genre) VALUES ('reality');
+INSERT INTO genres (genre) VALUES ('romance');
+INSERT INTO genres (genre) VALUES ('sci_fi');
+INSERT INTO genres (genre) VALUES ('sport');
+INSERT INTO genres (genre) VALUES ('talk_show');
+INSERT INTO genres (genre) VALUES ('thriller');
+INSERT INTO genres (genre) VALUES ('war');
+INSERT INTO genres (genre) VALUES ('western');
+INSERT INTO genres (genre) VALUES ('melodrama');
+INSERT INTO genres (genre) VALUES ('detective');
 
 #acting peson genres
 INSERT INTO acting_person_genres VALUES (3, 9);
@@ -92,9 +91,9 @@ INSERT INTO acting_person_genres VALUES (10, 8);
 INSERT INTO acting_person_genres VALUES (10, 7);
 
 #clients
-INSERT INTO clients VALUES (1, 'Tamara Kuznichenko', 'tamara_kuz@mail.ru', '1q2w3e4r5t', NULL);
-INSERT INTO clients VALUES (2, 'Victor Zelenin', 'zelenin.victor95@gmail.com', '1q2w3e4r5t', NULL);
-INSERT INTO clients VALUES (3, 'vic', 'vitjazelenin@rambler.ru', '1q2w3e4r5t', NULL);
+INSERT INTO clients VALUES (1, 'Tamara Kuznichenko', 'female', 'tamara_kuz@mail.ru', '1q2w3e4r5t', NULL);
+INSERT INTO clients VALUES (2, 'Victor Zelenin', 'male', 'zelenin.victor95@gmail.com', '1q2w3e4r5t', NULL);
+INSERT INTO clients VALUES (3, 'vic', 'male', 'vitjazelenin@rambler.ru', '1q2w3e4r5t', NULL);
 
 #acting person marks
 INSERT INTO acting_person_marks VALUES (1, 10, '2016-08-02', 'Great actor, loves his films', 4, 2);
@@ -105,9 +104,9 @@ INSERT INTO acting_person_marks VALUES (4, 10, '2016-08-02', 'Тарантино
 #movies
 INSERT INTO movies
 VALUES (1, 'The Departed', 'movie', '2006-10-06', 151,
-        'An undercover cop and a mole in the police attempt to identify each other while infiltrating
-        an Irish gang in South Boston.', 'USA', 8.5, 860.751, NULL,
-        '/home/victor/images/movies/The_Departed.jpg');
+           'An undercover cop and a mole in the police attempt to identify each other while infiltrating
+           an Irish gang in South Boston.', 'USA', 8.5, 860.751, NULL,
+           '/home/victor/images/movies/The_Departed.jpg');
 INSERT INTO movies
 VALUES (2, 'Sherlock Holmes', 'movie', '2009-12-25', 128,
            'Detective Sherlock Holmes and his stalwart partner Watson engage in a battle of wits and
@@ -134,10 +133,10 @@ VALUES (5, 'Kill Bill: Vol. 1', 'movie', '2003-10-10', 111,
            '/home/victor/images/movies/Kill_bill_1.jpg');
 INSERT INTO movies
 VALUES (6, 'Москва слезам не верит', 'movie', '1980-02-11', 150,
-'Москва пятидесятых годов. Три молодые провинциалки приезжают в Москву в поисках того, что ищут люди во
-всех столицах мира — любви, счастья и достатка. Их судьбы складываются именно так, как предполагает
-характер каждой из девушек. ', 'СССР', 8.37, 775.4, NULL,
-'/home/victor/images/movies/M_S_N_V.jpg');
+           'Москва пятидесятых годов. Три молодые провинциалки приезжают в Москву в поисках того, что ищут люди во
+           всех столицах мира — любви, счастья и достатка. Их судьбы складываются именно так, как предполагает
+           характер каждой из девушек. ', 'СССР', 8.37, 775.4, NULL,
+           '/home/victor/images/movies/M_S_N_V.jpg');
 
 #acting person movies
 INSERT INTO acting_person_movies VALUES (3, 4);
@@ -146,10 +145,10 @@ INSERT INTO acting_person_movies VALUES (6, 2);
 INSERT INTO acting_person_movies VALUES (10, 1);
 
 #roles in movie
-INSERT INTO roles_in_movie(role) VALUE ('actor');
-INSERT INTO roles_in_movie(role) VALUE ('director');
-INSERT INTO roles_in_movie(role) VALUE ('producer');
-INSERT INTO roles_in_movie(role) VALUE ('screen_writer');
+INSERT INTO roles_in_movie (role) VALUE ('actor');
+INSERT INTO roles_in_movie (role) VALUE ('director');
+INSERT INTO roles_in_movie (role) VALUE ('producer');
+INSERT INTO roles_in_movie (role) VALUE ('screen_writer');
 
 #acting person roles
 INSERT INTO acting_person_roles VALUES (3, 1);
@@ -173,8 +172,8 @@ INSERT INTO acting_person_roles VALUES (10, 1);
 INSERT INTO acting_person_roles VALUES (10, 4);
 
 #admins
-INSERT INTO admins(name, email, password) VALUES('main_admin', 'zelenin.victor95@gmail.com', '12345');
-INSERT INTO admins(name, email, password) VALUES('victor', 'vitjazelenin@rambler.ru', '1q2w3e4r5t');
+INSERT INTO admins (name, email, password) VALUES ('main_admin', 'zelenin.victor95@gmail.com', '12345');
+INSERT INTO admins (name, email, password) VALUES ('victor', 'vitjazelenin@rambler.ru', '1q2w3e4r5t');
 
 #chosen movies by client
 INSERT INTO clients_movies VALUES (3, 2);
@@ -201,8 +200,8 @@ INSERT INTO messages_to_admins VALUES (5, 3);
 #movie marks
 INSERT INTO movie_marks VALUES (1, 10, '2016-08-02', 'Ohh .. Di Caprio', 1, 1);
 INSERT INTO movie_marks VALUES (2, 8, '2016-08-02', 'Fabulous series!!', 3, 2);
-INSERT INTO movie_marks VALUES (3, 2, '2016-08-02', NULL , 6, 3);
-INSERT INTO movie_marks VALUES (4, 10, '2016-08-02', 'Любимый фильм' , 6, 1);
+INSERT INTO movie_marks VALUES (3, 2, '2016-08-02', NULL, 6, 3);
+INSERT INTO movie_marks VALUES (4, 10, '2016-08-02', 'Любимый фильм', 6, 1);
 
 # movie genres
 INSERT INTO movies_genres VALUES (1, 25);
