@@ -20,9 +20,10 @@ import static org.junit.Assert.*;
  * Created by victor on 03.08.16.
  */
 // TODO create a sets of tests
+// TODO при логировании дописать обработки ошибок при работе с ДАО
 public class ClientDAOTests {
     private static final String DATABASE_URL = "jdbc:mysql://localhost:3306/film_finder_db" +
-            "?useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull";
+            "?useUnicode=true&characterEncoding=UTF8";
     private static final String USERNAME = "root";
     private static final String PASSWORD = "root";
 
@@ -53,9 +54,18 @@ public class ClientDAOTests {
 
     @Test
     public void testGet() {
-        Client client = clientDAO.get(1);
-        System.out.println(client.getGender());
+        Client client = clientDAO.get(13);
         assertNotNull(client);
+    }
+
+    @Test
+    public void getNotExistedClientTest() {
+        assertNull(clientDAO.get(100));
+    }
+
+    @Test
+    public void existsTest() {
+        assertTrue(clientDAO.exists(clientDAO.get(13)));
     }
 
     @Test
@@ -108,5 +118,4 @@ public class ClientDAOTests {
     public void testGetClientsByGender() {
         assertTrue(clientDAO.getClientsByGender(Gender.MALE).size() > 1);
     }
-
 }

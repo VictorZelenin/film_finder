@@ -17,8 +17,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import static dev.zelenin.film_finder.utils.Util.parseGender;
-import static dev.zelenin.film_finder.utils.Util.parseMovieType;
+import static dev.zelenin.film_finder.utils.Util.*;
 
 /**
  * Created by victor on 03.08.16.
@@ -52,20 +51,6 @@ public class ClientDAO extends DAO<Client> implements IClientDAO {
         return updated;
     }
 
-    private String parseStringGender(Gender gender) {
-        if (gender == null) {
-            return null;
-        }
-        switch (gender) {
-            case MALE:
-                return "male";
-            case FEMALE:
-                return "female";
-            default:
-                return "unknown";
-        }
-    }
-
     @Override
     public Client get(long id) {
         String selectClientByIdQuery = "select * from clients where id =" + id;
@@ -80,9 +65,11 @@ public class ClientDAO extends DAO<Client> implements IClientDAO {
             });
             // logging
         } catch (SQLException e) {
-            e.printStackTrace();
+//            e.printStackTrace();
+            System.err.println("This client doesn't exist");
             // logging
         }
+
         return null;
     }
 
@@ -134,7 +121,6 @@ public class ClientDAO extends DAO<Client> implements IClientDAO {
             e.printStackTrace();
         }
 
-
         return updated;
     }
 
@@ -161,6 +147,12 @@ public class ClientDAO extends DAO<Client> implements IClientDAO {
         }
 
         return -1;
+    }
+
+    @Override
+    public boolean exists(Client client) {
+        return client != null && this.get(client.getId()) != null;
+
     }
 
     @Override
@@ -229,7 +221,7 @@ public class ClientDAO extends DAO<Client> implements IClientDAO {
     @Override
     public List<ActingPersonMark> getClientActingPersonMarks(Client client) {
         String getActingPersonMarksQuery = "select distinct acting_person_marks.id, mark, date, description, " +
-                "acting_people.id, name, height, country, age, death_date, total_movies_number," +
+                "acting_people.id, name, gender,  height, country, age, death_date, total_movies_number," +
                 " average_client_mark, photo_url from acting_person_marks " +
                 "join acting_people on person_id = acting_people.id where client_id = " + client.getId();
 
@@ -271,7 +263,6 @@ public class ClientDAO extends DAO<Client> implements IClientDAO {
             e.printStackTrace();
         }
 
-
         return clients;
     }
 
@@ -282,17 +273,8 @@ public class ClientDAO extends DAO<Client> implements IClientDAO {
     }
 
     private ActingPerson parseActingPerson(ResultSet result) throws SQLException {
-        return new ActingPerson(result.getLong(5), result.getString(6), result.getDouble(7),
-                result.getString(8), result.getInt(9), validateDate(result), result.getInt(11),
-                result.getDouble(12), result.getString(13));
-    }
-
-    private Date validateDate(ResultSet resultSet) throws SQLException {
-        java.sql.Date date = resultSet.getDate(10);
-        if (date == null) {
-            return null;
-        } else {
-            return new Date(date.getTime());
-        }
+        return new ActingPerson(result.getLong(5), result.getString(6), parseGender(result.getString(7)),
+                result.getDouble(8), result.getString(9), result.getInt(10), parseUtilDateFromSQLDate(result, 11),
+                result.getInt(12), result.getDouble(13), result.getString(14));
     }
 }

@@ -1,37 +1,38 @@
 # acting people
-INSERT INTO `acting_people` (`name`, `height`, `country`, `age`, `total_movies_number`, `photo_url`)
-VALUES ('Brad Pitt', 180, 'USA', 52, 263,
+INSERT INTO `acting_people` (`name`, `gender`, `height`, `country`, `age`, `total_movies_number`,
+                             `photo_url`)
+VALUES ('Brad Pitt', 'male', 180, 'USA', 52, 263,
         '/home/victor/images/acting_person_images/actors/Brad_Pitt.jpg');
 
-INSERT INTO `acting_people` (`name`, `height`, `country`, `age`, `total_movies_number`, `photo_url`)
-VALUES ('Jim Carrey', 188, 'USA', 54, 207,
+INSERT INTO `acting_people` (`name`, `gender`, `height`, `country`, `age`, `total_movies_number`, `photo_url`)
+VALUES ('Jim Carrey','male', 188, 'USA', 54, 207,
         '/home/victor/images/acting_person_images/actors/Jim_Carrey.jpg');
 
-INSERT INTO `acting_people` (`name`, `height`, `country`, `age`, `total_movies_number`, `photo_url`)
-VALUES ('Kit Harington', 173, 'UK', 29, 39,
+INSERT INTO `acting_people` (`name`, `gender`, `height`, `country`, `age`, `total_movies_number`, `photo_url`)
+VALUES ('Kit Harington', 'male', 173, 'UK', 29, 39,
         '/home/victor/images/acting_person_images/actors/Kit_Harington.jpg');
 
-INSERT INTO `acting_people` (`name`, `height`, `country`, `age`, `total_movies_number`, `photo_url`)
-VALUES ('Rachel McAdams', 163, 'Canada', 37, 79,
+INSERT INTO `acting_people` (`name`, `gender`, `height`, `country`, `age`, `total_movies_number`, `photo_url`)
+VALUES ('Rachel McAdams', 'female', 163, 'Canada', 37, 79,
         '/home/victor/images/acting_person_images/actors/Rachel_McAdams.jpg');
 
-INSERT INTO `acting_people` (`name`, `height`, `country`, `age`, `total_movies_number`, `photo_url`)
-VALUES ('Emilia Clarke', 157, 'UK', 29, 50,
+INSERT INTO `acting_people` (`name`, `gender`, `height`, `country`, `age`, `total_movies_number`, `photo_url`)
+VALUES ('Emilia Clarke', 'female', 157, 'UK', 29, 50,
         '/home/victor/images/acting_person_images/actors/Emilia_Clarke.jpg');
 
-INSERT INTO `acting_people` (`name`, `height`, `country`, `age`, `death_date`, `total_movies_number`,
+INSERT INTO `acting_people` (`name`, `gender`, `height`, `country`, `age`, `death_date`, `total_movies_number`,
                              `photo_url`)
-VALUES ('Stanley Kubrick', 169, 'USA', 70, '1999-03-07', 40,
+VALUES ('Stanley Kubrick', 'male', 169, 'USA', 70, '1999-03-07', 40,
         '/home/victor/images/acting_person_images/directors/Stanley_Kubrick.jpg');
 
-INSERT INTO `acting_people` (`name`, `height`, `country`, `age`, `total_movies_number`,
+INSERT INTO `acting_people` (`name`, `gender`, `height`, `country`, `age`, `total_movies_number`,
                              `photo_url`)
-VALUES ('Quentin Tarantino', 185, 'USA', 53, 189,
+VALUES ('Quentin Tarantino', 'male', 185, 'USA', 53, 189,
         '/home/victor/images/acting_person_images/directors/Quentin_Tarantino.jpg');
 
-INSERT INTO `acting_people` (`name`, `height`, `country`, `age`, `total_movies_number`,
+INSERT INTO `acting_people` (`name`, `gender`, `height`, `country`, `age`, `total_movies_number`,
                              `photo_url`)
-VALUES ('Martin Scorsese', 163, 'USA', 73, 300,
+VALUES ('Martin Scorsese', 'male', 163, 'USA', 73, 300,
         '/home/victor/images/acting_person_images/directors/Martin_Scorsese.jpg');
 
 # genres

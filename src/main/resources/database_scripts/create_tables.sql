@@ -52,6 +52,7 @@ CREATE TABLE IF NOT EXISTS `acting_people` (
   `id`                  INTEGER NOT NULL UNIQUE AUTO_INCREMENT,
   `name`                VARCHAR(45)             DEFAULT NULL,
   `height`              DOUBLE                  DEFAULT NULL,
+  `gender`              VARCHAR (10),
   `country`             VARCHAR(45)             DEFAULT NULL,
   `age`                 INTEGER                 DEFAULT NULL,
   `death_date`          DATE                    DEFAULT NULL,

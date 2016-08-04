@@ -1,13 +1,21 @@
 package data_test.dao_tests;
 
 import dev.zelenin.film_finder.data.dao.dao_impl.MovieDAO;
-import org.junit.Assert;
+import dev.zelenin.film_finder.data.data_sets.acting_person.ActingPerson;
+import dev.zelenin.film_finder.data.data_sets.movies.Genre;
+import dev.zelenin.film_finder.data.data_sets.movies.Movie;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by victor on 03.08.16.
@@ -30,8 +38,102 @@ public class MovieDAOTests {
 
     @Test
     public void testGet() {
-        Assert.assertNotNull(movieDAO.get(1));
+        Movie movie = movieDAO.get(1);
+        System.out.println(movie);
+        assertNotNull(movie);
     }
 
+    @Test
+    public void saveTest() {
+        assertTrue(movieDAO.save(new Movie()) == 1);
+    }
 
+    @Test
+    public void getAllTest() {
+        List<Movie> movies = movieDAO.getAll();
+        System.out.println(movies);
+        assertTrue(movies.size() > 1);
+    }
+
+    @Test
+    public void updateTest() {
+        Movie movie = movieDAO.get(3);
+
+        assertTrue(movieDAO.update(7, movie) == 1);
+    }
+
+    @Test
+    public void removeTest() {
+        assertTrue(movieDAO.remove(movieDAO.get(7)) == 1);
+    }
+
+    @Test
+    public void getGenres() {
+        List<Genre> genres = movieDAO.getMovieGenres(movieDAO.get(6));
+        System.out.println(genres);
+        assertTrue(genres.size() > 1);
+    }
+
+    @Test
+    public void getMoviesByGenres() {
+        List<Genre> genres = new ArrayList<>();
+        genres.add(Genre.COMEDY);
+        genres.add(Genre.CRIME);
+
+        List<Movie> movies = movieDAO.getMoviesByGenres(genres);
+        System.out.println(movies);
+        assertTrue(movies.size() > 1);
+    }
+
+    @Test
+    public void getMoviesByActingPerson() {
+        ActingPerson actingPerson = new ActingPerson();
+        actingPerson.setId(3);
+        List<Movie> movies = movieDAO.getMoviesByActingPerson(actingPerson);
+        System.out.println(movies);
+        assertTrue(movies.size() > 0);
+    }
+
+    @Test
+    public void getMoviesByDate() {
+        List<Movie> movies = movieDAO.getMoviesEarlierByDate(new Date("01 Jan 2003"));
+        System.out.println(movies);
+        assertTrue(movies.size() > 1);
+    }
+
+    @Test
+    public void getMoviesByCountry() {
+        List<Movie> movies = movieDAO.getMoviesByCountry("СССР");
+        System.out.println(movies);
+        assertNotNull(movies);
+        assertTrue(movies.size() > 0);
+    }
+
+    @Test
+    public void getMoviesByImdbRating() {
+        List<Movie> movies = movieDAO.getMoviesByImdbRating(8.5);
+        System.out.println(movies);
+        assertTrue(movies.size() > 1);
+    }
+
+    @Test
+    public void getTheMostPopularMovies() {
+        List<Movie> movies = movieDAO.getTheMostChosenMovies(1);
+        System.out.println(movies);
+        assertTrue(movies.size() > 1);
+    }
+
+    @Test
+    public void getMoviesByMales() {
+        List<Movie> movies = movieDAO.getTheMostChosenMoviesByMale(1);
+        System.out.println(movies);
+        assertTrue(movies.size() > 1);
+    }
+
+    @Test
+    public void getMoviesByFemales() {
+        List<Movie> movies = movieDAO.getTheMostChosenMoviesByFemale(0);
+        System.out.println(movies);
+        assertTrue(movies.size() > 0);
+    }
 }

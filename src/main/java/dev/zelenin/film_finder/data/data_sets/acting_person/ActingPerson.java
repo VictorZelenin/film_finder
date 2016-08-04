@@ -1,6 +1,7 @@
 package dev.zelenin.film_finder.data.data_sets.acting_person;
 
 import dev.zelenin.film_finder.data.data_sets.DataSet;
+import dev.zelenin.film_finder.data.data_sets.users.util.Gender;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -9,9 +10,10 @@ import java.util.Date;
  * Created by victor on 01.08.16.
  */
 // TODO rewrite hashcode and equals
-// TODO implement id DAO getRoles and genres
+// TODO implement in DAO getRoles and genres
 public class ActingPerson extends DataSet implements Serializable {
     private String name;
+    private Gender gender;
     private double height;
     private String country;
     private int age;
@@ -27,11 +29,27 @@ public class ActingPerson extends DataSet implements Serializable {
     public ActingPerson() {
     }
 
-    public ActingPerson(long actingPersonId, String name, double height, String country,
+    public ActingPerson(String name, Gender gender, double height, String country,
+                        int age, Date deathDate, int totalMoviesNumber, double averageClientMark,
+                        String photoURL) {
+        this.name = name;
+        this.gender = gender;
+        this.height = height;
+        this.country = country;
+        this.age = age;
+        this.deathDate = deathDate;
+        this.totalMoviesNumber = totalMoviesNumber;
+        this.averageClientMark = averageClientMark;
+        this.photoURL = photoURL;
+    }
+
+
+    public ActingPerson(long actingPersonId, String name, Gender gender, double height, String country,
                         int age, Date deathDate, int totalMoviesNumber, double averageClientMark,
                         String photoURL) {
         this.id = actingPersonId;
         this.name = name;
+        this.gender = gender;
         this.height = height;
         this.country = country;
         this.age = age;
@@ -103,6 +121,14 @@ public class ActingPerson extends DataSet implements Serializable {
 
     public void setPhotoURL(String photoURL) {
         this.photoURL = photoURL;
+    }
+
+    public Gender getGender() {
+        return gender;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
     }
 
     @Override

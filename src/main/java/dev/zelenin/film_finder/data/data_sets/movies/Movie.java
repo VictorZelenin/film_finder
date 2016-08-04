@@ -10,6 +10,7 @@ import java.util.Date;
  */
 // TODO check roles when will add new person
 // TODO rewrite equals and hashcode methods
+// TODO store info about actors/directors ...
 public class Movie extends DataSet implements Serializable {
     private String title;
     private MovieType movieType;
@@ -33,11 +34,7 @@ public class Movie extends DataSet implements Serializable {
 
 
     public Movie() {
-//        genres = new ArrayList<>();
-//        actorsList = new ArrayList<>();
-//        screenWriters = new ArrayList<>();
-//        producers = new ArrayList<>();
-    }
+   }
 
     public Movie(long movieId, String title, MovieType movieType, Date releaseDate, int runtime,
                  String plot, String country, double imdbRating,

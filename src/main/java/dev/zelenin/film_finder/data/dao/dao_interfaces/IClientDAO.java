@@ -20,4 +20,6 @@ public interface IClientDAO extends IDAO<Client> {
 
     List<Client> getClientsByGender(Gender gender);
 
+    boolean exists(Client client);
+
 }
