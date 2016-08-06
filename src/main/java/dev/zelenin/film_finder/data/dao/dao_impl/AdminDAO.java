@@ -1,5 +1,6 @@
 package dev.zelenin.film_finder.data.dao.dao_impl;
 
+import dev.zelenin.film_finder.data.dao.dao_interfaces.IAdminDAO;
 import dev.zelenin.film_finder.data.data_sets.users.Admin;
 import dev.zelenin.film_finder.data.database.executor.Executor;
 
@@ -13,7 +14,7 @@ import java.util.List;
  * Created by victor on 04.08.16.
  */
 //TODO logging here
-public class AdminDAO extends DAO<Admin> {
+public class AdminDAO extends DAO<Admin> implements IAdminDAO {
     public AdminDAO(Connection connection) {
         super(connection);
     }

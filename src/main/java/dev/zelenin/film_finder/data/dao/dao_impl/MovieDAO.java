@@ -338,8 +338,17 @@ public class MovieDAO extends DAO<Movie> implements IMovieDAO {
     }
 
     @Override
-    public boolean exists(Movie movie) {
-        return false;
+    public int addGenreToMovie(Movie movie, Genre genre) {
+        String query = String.format("insert into movies_genres values(%d, %d)", movie.getId(),
+                genre.ordinal() + 1);
+
+        try {
+            return Executor.executeUpdate(connection, query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return -1;
     }
 
     private int putMovie(Movie movie, String query) throws SQLException {

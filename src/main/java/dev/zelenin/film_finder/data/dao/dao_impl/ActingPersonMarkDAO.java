@@ -5,7 +5,7 @@ import dev.zelenin.film_finder.data.data_sets.acting_person.ActingPerson;
 import dev.zelenin.film_finder.data.data_sets.marks.ActingPersonMark;
 import dev.zelenin.film_finder.data.data_sets.users.Client;
 import dev.zelenin.film_finder.data.database.executor.Executor;
-import dev.zelenin.film_finder.utils.Util;
+import dev.zelenin.film_finder.exceptions.IncorrectMarkException;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,6 +13,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import static dev.zelenin.film_finder.utils.Util.*;
 
 /**
  * Created by victor on 04.08.16.
@@ -38,7 +40,14 @@ public class ActingPersonMarkDAO extends DAO<ActingPersonMark> implements IActin
 
     @Override
     public ActingPersonMark get(long id) {
-        String query = "select * from acting_person_marks where id = " + id;
+        String query = "select acting_person_marks.id, mark, acting_person_marks.date, description, " +
+                "acting_people.id, acting_people.name, acting_people.gender, height, country, age, death_date, " +
+                "total_movies_number, average_client_mark, acting_people.photo_url, clients.id, clients.name, " +
+                "clients.gender, email, password, clients.photo_url " +
+                "from acting_person_marks " +
+                "join acting_people on acting_people.id = person_id " +
+                "join clients on clients.id = client_id " +
+                "where acting_person_marks.id = " + id;
 
         try {
             return Executor.executeQuery(connection, query, resultSet -> {
@@ -55,7 +64,13 @@ public class ActingPersonMarkDAO extends DAO<ActingPersonMark> implements IActin
 
     @Override
     public List<ActingPersonMark> getAll() {
-        String query = "select * from action_person_marks";
+        String query = "select acting_person_marks.id, mark, acting_person_marks.date, description, " +
+                "acting_people.id, acting_people.name, acting_people.gender, height, country, age, death_date, " +
+                "total_movies_number, average_client_mark, acting_people.photo_url, clients.id, clients.name, " +
+                "clients.gender, email, password, clients.photo_url " +
+                "from acting_person_marks " +
+                "join acting_people on acting_people.id = person_id " +
+                "join clients on clients.id = client_id ";
         List<ActingPersonMark> actingPersonMarks = new ArrayList<>();
 
         try {
@@ -69,23 +84,28 @@ public class ActingPersonMarkDAO extends DAO<ActingPersonMark> implements IActin
 
     @Override
     public int update(long id, ActingPersonMark newObject) {
-        String query = "update action_person_marks " +
+        String query = "update acting_person_marks " +
                 "set " +
                 "mark = ?, " +
                 "date = ?, " +
-                "description = ?, " +
-                "person_id = ?, " +
-                "client_id = ? " +
+                "description = ? " +
                 "where id = " + id;
-
+        int updated = -1;
 
         try {
-            return putPersonMark(newObject, query);
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1, newObject.getMark());
+            statement.setDate(2, parseSQLDate(newObject.getDate()));
+            statement.setString(3, newObject.getDescription());
+            statement.execute();
+
+            updated = statement.getUpdateCount();
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return -1;
+        return updated;
     }
 
     @Override
@@ -116,13 +136,57 @@ public class ActingPersonMarkDAO extends DAO<ActingPersonMark> implements IActin
         return updated;
     }
 
-    // TODO mark must be 10<=
+    @Override
+    public List<ActingPersonMark> getActingPersonMarksByClient(Client client) {
+        String query = "select acting_person_marks.id, mark, acting_person_marks.date, description, " +
+                "acting_people.id, acting_people.name, acting_people.gender, height, country, age, death_date, " +
+                "total_movies_number, average_client_mark, acting_people.photo_url, clients.id, clients.name, " +
+                "clients.gender, email, password, clients.photo_url " +
+                "from acting_person_marks " +
+                "join acting_people on acting_people.id = person_id " +
+                "join clients on clients.id = client_id " +
+                "where client_id = " + client.getId();
+        List<ActingPersonMark> marks = new ArrayList<>();
+
+        try {
+            return fillUpList(marks, query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    @Override
+    public List<ActingPersonMark> getActingPersonMarksByActingPerson(ActingPerson person) {
+        String query = "select acting_person_marks.id, mark, acting_person_marks.date, description, " +
+                "acting_people.id, acting_people.name, acting_people.gender, height, country, age, death_date, " +
+                "total_movies_number, average_client_mark, acting_people.photo_url, clients.id, clients.name, " +
+                "clients.gender, email, password, clients.photo_url " +
+                "from acting_person_marks " +
+                "join acting_people on acting_people.id = person_id " +
+                "join clients on clients.id = client_id " +
+                "where person_id = " + person.getId();
+        List<ActingPersonMark> list = new ArrayList<>();
+
+        try {
+            return fillUpList(list, query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
     private int putPersonMark(ActingPersonMark mark, String query) throws SQLException {
         int updated;
+        if (mark.getMark() > 10 && mark.getMark() < 0) {
+            throw new IncorrectMarkException();
+        }
 
         PreparedStatement statement = connection.prepareStatement(query);
         statement.setInt(1, mark.getMark());
-        statement.setDate(2, Util.parseSQLDate(mark.getDate()));
+        statement.setDate(2, parseSQLDate(mark.getDate()));
         statement.setString(3, mark.getDescription());
         statement.setLong(4, mark.getActingPerson().getId());
         statement.setLong(5, mark.getClient().getId());
@@ -149,21 +213,33 @@ public class ActingPersonMarkDAO extends DAO<ActingPersonMark> implements IActin
         return new ActingPersonMark(
                 resultSet.getLong(1),
                 resultSet.getInt(2),
-                Util.parseUtilDateFromSQLDate(resultSet, 3),
+                parseUtilDateFromSQLDate(resultSet, 3),
                 resultSet.getString(4),
                 constructPerson(resultSet),
                 constructClient(resultSet));
     }
 
-    private Client constructClient(ResultSet resultSet) {
+    private Client constructClient(ResultSet resultSet) throws SQLException {
         return new Client(
-                // TODO implement there
-        );
+                resultSet.getLong(15),
+                resultSet.getString(16),
+                parseGender(resultSet.getString(17)),
+                resultSet.getString(18),
+                resultSet.getString(19),
+                resultSet.getString(20));
     }
 
-    private ActingPerson constructPerson(ResultSet resultSet) {
+    private ActingPerson constructPerson(ResultSet resultSet) throws SQLException {
         return new ActingPerson(
-                // TODO implement there
-        );
+                resultSet.getLong(5),
+                resultSet.getString(6),
+                parseGender(resultSet.getString(7)),
+                resultSet.getInt(8),
+                resultSet.getString(9),
+                resultSet.getInt(10),
+                parseUtilDateFromSQLDate(resultSet, 11),
+                resultSet.getInt(12),
+                resultSet.getDouble(13),
+                resultSet.getString(14));
     }
 }

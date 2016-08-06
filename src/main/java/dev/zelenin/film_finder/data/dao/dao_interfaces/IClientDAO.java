@@ -20,6 +20,7 @@ public interface IClientDAO extends IDAO<Client> {
 
     List<Client> getClientsByGender(Gender gender);
 
-    boolean exists(Client client);
+    int addNewMovie(Client client, Movie movie);
 
+    Client getClientByEmail(String email);
 }

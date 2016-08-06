@@ -25,6 +25,13 @@ public class ActingPersonMark extends Mark implements Serializable {
         this.client = client;
     }
 
+    public ActingPersonMark(int mark, Date date, String description, ActingPerson actingPerson,
+                            Client client) {
+        super(mark, date, description);
+        this.actingPerson = actingPerson;
+        this.client = client;
+    }
+
     public ActingPerson getActingPerson() {
         return actingPerson;
     }

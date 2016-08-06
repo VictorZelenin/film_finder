@@ -21,4 +21,6 @@ public interface IDAO<T extends DataSet> {
     int remove(T object);
 
     int removeAll();
+
+    boolean exists(T obj);
 }

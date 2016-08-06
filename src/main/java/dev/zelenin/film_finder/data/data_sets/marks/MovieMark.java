@@ -25,6 +25,13 @@ public class MovieMark extends Mark implements Serializable {
         this.client = client;
     }
 
+
+    public MovieMark(int mark, Date date, String description, Movie markedMovie,
+                     Client client) {
+        super(mark, date, description);
+        this.markedMovie = markedMovie;
+        this.client = client;
+    }
     public Movie getMarkedMovie() {
         return markedMovie;
     }

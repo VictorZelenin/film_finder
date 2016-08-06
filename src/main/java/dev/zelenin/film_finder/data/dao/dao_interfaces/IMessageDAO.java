@@ -15,7 +15,7 @@ public interface IMessageDAO extends IDAO<Message> {
 
     boolean exists(Client client);
 
-    boolean exists(Message message);
-
     List<Message> getMessagesForAdmin(Admin admin);
+
+    int addMessageToAdmin(Message message, Admin admin);
 }

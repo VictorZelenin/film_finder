@@ -1,5 +1,6 @@
 package dev.zelenin.film_finder.controllers;
 
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,6 +14,8 @@ import java.util.ArrayList;
  */
 @WebServlet("/myServlet")
 public class TestServlet extends HttpServlet {
+
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ArrayList<String> list = new ArrayList<>();

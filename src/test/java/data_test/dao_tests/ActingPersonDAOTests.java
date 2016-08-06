@@ -61,7 +61,7 @@ public class ActingPersonDAOTests {
 
     @Test
     public void removeTest() {
-        assertTrue(actingPersonDAO.remove(actingPersonDAO.get(12)) == 1);
+        assertTrue(actingPersonDAO.remove(actingPersonDAO.get(11)) == 1);
     }
 
     @Test
@@ -119,5 +119,19 @@ public class ActingPersonDAOTests {
         List<ActingPerson> actingPersons = actingPersonDAO.getActors();
         System.out.println(actingPersons);
         assertTrue(actingPersons.size() > 1);
+    }
+
+    @Test
+    public void getActorsInMovieTest() {
+        List<ActingPerson> list = actingPersonDAO.getActorsByMovie(new MovieDAO(connection).get(4));
+        System.out.println(list);
+        assertTrue(list.size() > 0);
+    }
+
+    @Test
+    public void getDirectorInMovieTest() {
+        List<ActingPerson> list = actingPersonDAO.getDirectorsByMovie(new MovieDAO(connection).get(1));
+        System.out.println(list);
+        assertTrue(list.size() > 0);
     }
 }

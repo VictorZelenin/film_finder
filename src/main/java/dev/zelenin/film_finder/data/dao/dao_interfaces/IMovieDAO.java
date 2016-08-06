@@ -36,5 +36,5 @@ public interface IMovieDAO extends IDAO<Movie> {
 
     List<Movie> getMoviesWithHighestMarks(double lowBoundary);
 
-    boolean exists(Movie movie);
+    int addGenreToMovie(Movie movie, Genre genre);
 }

@@ -74,6 +74,23 @@ public class ClientDAO extends DAO<Client> implements IClientDAO {
     }
 
     @Override
+    public Client getClientByEmail(String email) {
+        String query = "select * from clients where email = " + email;
+
+        try {
+            return Executor.executeQuery(connection, query, resultSet -> {
+                resultSet.next();
+
+                return createClientFromResultSet(resultSet);
+            });
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+            return null;
+        }
+    }
+
+    @Override
     public List<Client> getAll() {
         String getAllClientsQuery = "select * from clients";
 
@@ -147,12 +164,6 @@ public class ClientDAO extends DAO<Client> implements IClientDAO {
         }
 
         return -1;
-    }
-
-    @Override
-    public boolean exists(Client client) {
-        return client != null && this.get(client.getId()) != null;
-
     }
 
     @Override
@@ -264,6 +275,19 @@ public class ClientDAO extends DAO<Client> implements IClientDAO {
         }
 
         return clients;
+    }
+
+    @Override
+    public int addNewMovie(Client client, Movie movie) {
+        String query = String.format("insert into clients_movies values(%d, %d)", movie.getId(), client.getId());
+
+        try {
+            return Executor.executeUpdate(connection, query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return -1;
     }
 
     private Client createClientFromResultSet(ResultSet result) throws SQLException {

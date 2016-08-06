@@ -4,59 +4,59 @@ package dev.zelenin.film_finder.data.data_sets.movies;
  * Created by victor on 01.08.16.
  */
 public enum Genre {
-    ACTION,
+    ACTION, // 1
 
-    ADVENTURE,
+    ADVENTURE, // 2
 
-    ANIMATION,
+    ANIMATION, // 3
 
-    BIOGRAPHY,
+    BIOGRAPHY, // 4
 
-    COMEDY,
+    COMEDY, // 5
 
-    CRIME,
+    CRIME,  // 6
 
-    DETECTIVE,
+    DETECTIVE, // 7
 
-    DOCUMENTARY,
+    DOCUMENTARY,  // 8
 
-    DRAMA,
+    DRAMA, // 9
 
-    FAMILY,
+    FAMILY, // 10
 
-    FANTASY,
+    FANTASY, // 11
 
-    FILM_NOIR,
+    FILM_NOIR, // 12
 
-    GAME_SHOW,
+    GAME_SHOW, // 13
 
-    HISTORY,
+    HISTORY, // 14
 
-    HORROR,
+    HORROR, // 15
 
-    MELODRAMA,
+    MELODRAMA, // 16
 
-    MUSIC,
+    MUSIC, // 17
 
-    MUSICAL,
+    MUSICAL, // 18
 
-    MYSTERY,
+    MYSTERY, // 19
 
-    NEWS,
+    NEWS, // 20
 
-    REALITY,
+    REALITY, // 21
 
-    ROMANCE,
+    ROMANCE, // 22
 
-    SCI_FI,
+    SCI_FI, // 23
 
-    SPORT,
+    SPORT, // 24
 
-    TALK_SHOW,
+    TALK_SHOW, // 25
 
-    THRILLER,
+    THRILLER, // 26
 
-    WAR,
+    WAR, // 27
 
-    WESTERN
+    WESTERN // 28
 }

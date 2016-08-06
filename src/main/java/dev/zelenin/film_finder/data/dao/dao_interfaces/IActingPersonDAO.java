@@ -47,5 +47,11 @@ public interface IActingPersonDAO extends IDAO<ActingPerson> {
 
     List<ActingPerson> getScreenWritersByMovie(Movie movie);
 
-    boolean exists(ActingPerson person);
+    int addNewGenre(ActingPerson actingPerson, Genre genre);
+
+    int addNewMovie(ActingPerson actingPerson, Movie movie, boolean isActor, boolean isDirector,
+                    boolean isProducer, boolean isScreenWriter);
+
+    int addNewRole(ActingPerson person, ActingRole role);
+
 }

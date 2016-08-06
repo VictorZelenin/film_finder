@@ -214,8 +214,17 @@ public class MessageDAO extends DAO<Message> implements IMessageDAO {
     }
 
     @Override
-    public boolean exists(Message message) {
-        return message != null && this.get(message.getId()) != null;
+    public int addMessageToAdmin(Message message, Admin admin) {
+        String query = String.format("insert into messages_to_admins values(%d, %d)",
+                admin.getId(), message.getId());
+
+        try {
+            return Executor.executeUpdate(connection, query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return -1;
     }
 
     private void checkClient(Client client) {

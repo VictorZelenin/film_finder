@@ -15,6 +15,10 @@ public abstract class DAO<T extends DataSet> implements IDAO<T> {
         this.connection = connection;
     }
 
+    public boolean exists(T obj) {
+        return obj != null && this.get(obj.getId()) != null;
+    }
+
     /*
     * общий функционал для всех дао + возможная реализация методов интерфейса
     *
