@@ -5,16 +5,15 @@
               auth="Container"
               type="javax.sql.DataSource"
               driverClassName="com.mysql.jdbc.Driver"
-              url="jdbc:mysql://localhost:3306/film_finder_db?useUnicode=true&amp;characterEncoding=UTF8
-              ?zeroDateTimeBehavior=convertToNull"
+              url="jdbc:mysql://localhost:3306/film_finder_db"
               username="root"
               password="root"
-
               maxActive="20"
               maxIdle="10"
               minIdle="5"
-              maxWait="10000"
+              maxWait="1000"
 
               poolPreparedStatements="true"
               maxOpenPreparedStatments="100"/>
-</Context>
+</Context><!--?useUnicode=true&amp;characterEncoding=UTF8
+              &amp;zeroDateTimeBehavior=convertToNull"-->

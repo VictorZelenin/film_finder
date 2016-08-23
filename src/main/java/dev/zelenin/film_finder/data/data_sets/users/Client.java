@@ -10,7 +10,7 @@ import java.io.Serializable;
 public class Client extends User implements Serializable {
     private String clientPhoto;
     private Gender gender;
-
+    
     public Client() {
     }
 

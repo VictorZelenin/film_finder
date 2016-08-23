@@ -142,6 +142,11 @@ public class MovieMarkDAO extends DAO<MovieMark> implements IMovieMarkDAO {
     }
 
     @Override
+    public int rowsCount() {
+        return rowsCount("movie_marks");
+    }
+
+    @Override
     public List<MovieMark> getMovieMarksByClient(Client client) {
         String query = "select movie_marks.id, mark, movie_marks.date, description, " +
                 "movies.id, title, movie_type,release_date, runtime, plot, country, imdb_rating, imdb_votes, " +

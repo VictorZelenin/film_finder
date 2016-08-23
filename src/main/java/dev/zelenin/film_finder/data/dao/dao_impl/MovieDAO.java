@@ -127,6 +127,11 @@ public class MovieDAO extends DAO<Movie> implements IMovieDAO {
     }
 
     @Override
+    public int rowsCount() {
+        return rowsCount("movies");
+    }
+
+    @Override
     public List<Genre> getMovieGenres(Movie movie) {
         String getGenresQuery = "select distinct genre from movies_genres " +
                 "inner join genres on genres.id = genre_id" +
@@ -141,6 +146,23 @@ public class MovieDAO extends DAO<Movie> implements IMovieDAO {
         }
 
         return null;
+    }
+
+    @Override
+    public List<Movie> getMoviesByGenre(Genre genre) {
+        String query = "select distinct movies.id, title, movie_type, release_date,runtime, plot, country, " +
+                "imdb_votes, average_client_mark, poster_url from movies_genres " +
+                "join movies on movies.id = movie_id " +
+                "join genres on genres.id = genre_id " +
+                "where genre = " + genre.toString().toLowerCase();
+        List<Movie> movies = new ArrayList<>();
+
+        try {
+            return fillUpMovieList(movies, query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override
@@ -255,8 +277,12 @@ public class MovieDAO extends DAO<Movie> implements IMovieDAO {
         return null;
     }
 
-    // TODO check rating
     @Override
+    public List<Movie> getMoviesByImdbRating() {
+        return getMoviesByImdbRating(0);
+    }
+
+    // TODO check rating
     public List<Movie> getMoviesByImdbRating(double rating) {
         String query = "select * from movies where imdb_rating > " + rating;
         List<Movie> movies = new ArrayList<>();
@@ -335,6 +361,19 @@ public class MovieDAO extends DAO<Movie> implements IMovieDAO {
         }
 
         return null;
+    }
+
+    @Override
+    public List<Movie> getMoviesByRatingInRange(int limit, int offset) {
+        String query = "select * from movies limit " + limit + " offset " + offset;
+        List<Movie> movies = new ArrayList<>();
+
+        try {
+            return fillUpMovieList(movies, query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override

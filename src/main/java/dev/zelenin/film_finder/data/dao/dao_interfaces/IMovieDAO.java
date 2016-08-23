@@ -12,7 +12,11 @@ import java.util.List;
  */
 public interface IMovieDAO extends IDAO<Movie> {
 
+    int addGenreToMovie(Movie movie, Genre genre);
+
     List<Genre> getMovieGenres(Movie movie);
+
+    List<Movie> getMoviesByGenre(Genre genre);
 
     List<Movie> getMoviesByGenres(List<Genre> genres);
 
@@ -26,7 +30,7 @@ public interface IMovieDAO extends IDAO<Movie> {
 
     List<Movie> getMoviesByCountry(String country);
 
-    List<Movie> getMoviesByImdbRating(double rating);
+    List<Movie> getMoviesByImdbRating();
 
     List<Movie> getTheMostChosenMovies(int value);
 
@@ -36,5 +40,5 @@ public interface IMovieDAO extends IDAO<Movie> {
 
     List<Movie> getMoviesWithHighestMarks(double lowBoundary);
 
-    int addGenreToMovie(Movie movie, Genre genre);
+    List<Movie> getMoviesByRatingInRange(int limit, int offset);
 }

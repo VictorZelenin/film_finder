@@ -6,4 +6,6 @@ import dev.zelenin.film_finder.data.data_sets.users.Admin;
  * Created by victor on 06.08.16.
  */
 public interface IAdminDAO extends IDAO<Admin> {
+
+    Admin getByEmail(String email);
 }

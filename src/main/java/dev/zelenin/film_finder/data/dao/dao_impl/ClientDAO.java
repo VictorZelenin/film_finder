@@ -75,7 +75,7 @@ public class ClientDAO extends DAO<Client> implements IClientDAO {
 
     @Override
     public Client getClientByEmail(String email) {
-        String query = "select * from clients where email = " + email;
+        String query = "select * from clients where email = '" + email + "'";
 
         try {
             return Executor.executeQuery(connection, query, resultSet -> {
@@ -84,7 +84,7 @@ public class ClientDAO extends DAO<Client> implements IClientDAO {
                 return createClientFromResultSet(resultSet);
             });
         } catch (SQLException e) {
-            e.printStackTrace();
+//            e.printStackTrace();
 
             return null;
         }
@@ -164,6 +164,11 @@ public class ClientDAO extends DAO<Client> implements IClientDAO {
         }
 
         return -1;
+    }
+
+    @Override
+    public int rowsCount() {
+        return rowsCount("clients");
     }
 
     @Override

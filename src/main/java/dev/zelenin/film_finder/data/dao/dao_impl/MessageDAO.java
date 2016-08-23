@@ -151,6 +151,11 @@ public class MessageDAO extends DAO<Message> implements IMessageDAO {
     }
 
     @Override
+    public int rowsCount() {
+        return rowsCount("messages");
+    }
+
+    @Override
     public Message getMessageFromClient(final Client client) {
 
         if (!exists(client)) {

@@ -2,7 +2,6 @@ package dev.zelenin.film_finder.data.dao.dao_interfaces;
 
 import dev.zelenin.film_finder.data.data_sets.DataSet;
 
-import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -10,7 +9,7 @@ import java.util.List;
  */
 public interface IDAO<T extends DataSet> {
 
-    int save(T object) throws SQLException;
+    int save(T object);
 
     T get(long id);
 
@@ -23,4 +22,6 @@ public interface IDAO<T extends DataSet> {
     int removeAll();
 
     boolean exists(T obj);
+
+    int rowsCount();
 }

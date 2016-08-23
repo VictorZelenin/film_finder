@@ -6,6 +6,7 @@ import dev.zelenin.film_finder.data.database.executor.Executor;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -58,8 +59,7 @@ public class AdminDAO extends DAO<Admin> implements IAdminDAO {
         try {
             Executor.executeQuery(connection, getAllQuery, resultSet -> {
                 while (resultSet.next()) {
-                    admins.add(new Admin(resultSet.getLong(1), resultSet.getString(2), resultSet.getString(3),
-                            resultSet.getString(4)));
+                    admins.add(createAdminFromResultSet(resultSet));
                 }
 
                 return admins;
@@ -134,5 +134,36 @@ public class AdminDAO extends DAO<Admin> implements IAdminDAO {
         }
 
         return updated;
+    }
+
+    @Override
+    public int rowsCount() {
+        return rowsCount("admins");
+    }
+
+    @Override
+    public Admin getByEmail(String email) {
+        String query = "select * from admins where email = '" + email + "'";
+
+        try {
+            return Executor.executeQuery(connection, query, resultSet -> {
+                resultSet.next();
+
+                return createAdminFromResultSet(resultSet);
+            });
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    private Admin createAdminFromResultSet(ResultSet resultSet) throws SQLException {
+        return new Admin(
+                resultSet.getLong(1),
+                resultSet.getString(2),
+                resultSet.getString(3),
+                resultSet.getString(4)
+        );
+
     }
 }

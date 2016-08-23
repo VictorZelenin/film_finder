@@ -137,6 +137,11 @@ public class ActingPersonMarkDAO extends DAO<ActingPersonMark> implements IActin
     }
 
     @Override
+    public int rowsCount() {
+        return rowsCount("acting_person_marks");
+    }
+
+    @Override
     public List<ActingPersonMark> getActingPersonMarksByClient(Client client) {
         String query = "select acting_person_marks.id, mark, acting_person_marks.date, description, " +
                 "acting_people.id, acting_people.name, acting_people.gender, height, country, age, death_date, " +

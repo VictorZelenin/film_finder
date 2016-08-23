@@ -1,0 +1,33 @@
+<footer id="footerWrapper">
+    <section id="mainFooter">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="footerWidget">
+                        <%--<img src="<c:url value="/resources/logo.png"/>" alt="" id="footerLogo">--%>
+                        <p><a href="#" title="Little Neko, website template creation">Film Finder</a> info </p>
+                    </div>
+                </div>
+                <div class="col-sm-offset-3 col-sm-3">
+                    <div class="footerWidget">
+                        <h3>Follow us</h3>
+                        <ul class="socialNetwork">
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="footerRights">
+        <div class="container-fluid footer">
+            <div class="row">
+                <div class="col-md-12">
+                    <p>Copyright &copy; 2016 <a href="#" target="blank">FIlm FInder</a> / All rights
+                        reserved.</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+</footer>

@@ -47,6 +47,11 @@ public class ActingPersonDAO extends DAO<ActingPerson> implements IActingPersonD
     }
 
     @Override
+    public int rowsCount() {
+        return rowsCount("acting_people");
+    }
+
+    @Override
     public ActingPerson get(long id) {
         String query = "select * from acting_people where id = " + id;
         LOG.trace("QUERY: " + query);
