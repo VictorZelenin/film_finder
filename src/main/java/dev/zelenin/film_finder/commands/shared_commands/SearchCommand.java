@@ -6,15 +6,11 @@ import dev.zelenin.film_finder.utils.Paths;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * Created by victor on 22.08.16.
+ * Created by victor on 26.08.16.
  */
-public class SignupCommand implements Command {
+public class SearchCommand implements Command {
     @Override
     public String execute(HttpServletRequest request) {
-        if (request.getSession().getAttribute("client") != null) {
-            return Paths.PERSONAL_CABINET_PAGE;
-        }
-
-        return Paths.SIGN_UP;
+        return Paths.SEARCH_PAGE;
     }
 }

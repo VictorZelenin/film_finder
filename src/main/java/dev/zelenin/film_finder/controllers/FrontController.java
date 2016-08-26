@@ -17,29 +17,31 @@ import java.util.Objects;
  */
 @WebServlet(urlPatterns = {"/controller", "/admin", ""})
 public class FrontController extends HttpServlet {
-
     private void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         final Command command = CommandProvider.getCommand(request);
         final String page = command.execute(request);
+
         System.out.println(request.getRequestURI());
         System.out.println(command);
         System.out.println(page);
 
         dispatch(request, response, page);
-
     }
 
     private void dispatch(HttpServletRequest request, HttpServletResponse response,
                           String page) throws ServletException, IOException {
+        System.out.println(page + ", " + request.getRequestURI());
+
         if ((request.getRequestURI().equals("/") ||
                 request.getRequestURI().equals("/controller") ||
                 request.getRequestURI().equals("/admin")) && Objects.equals(page, Paths.CONTROLLER)) {
-
             request.getRequestDispatcher(Paths.MAIN).forward(request, response);
 
-        } else if (page.equals(request.getRequestURI())) {
+        } else if (page.equals(request.getRequestURI()) ||
+                page.equals(Paths.MOVIE_PAGE) ||
+                page.equals(Paths.MOVIE_LIST)) {
             request.getRequestDispatcher(page).forward(request, response);
         } else {
             response.sendRedirect(page);

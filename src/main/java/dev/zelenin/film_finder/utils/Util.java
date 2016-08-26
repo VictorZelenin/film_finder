@@ -1,15 +1,10 @@
 package dev.zelenin.film_finder.utils;
 
-import dev.zelenin.film_finder.data.data_sets.marks.MovieMark;
 import dev.zelenin.film_finder.data.data_sets.movies.Genre;
-import dev.zelenin.film_finder.data.data_sets.movies.Movie;
 import dev.zelenin.film_finder.data.data_sets.movies.MovieType;
-import dev.zelenin.film_finder.data.data_sets.users.Client;
 import dev.zelenin.film_finder.data.data_sets.users.util.Gender;
 import dev.zelenin.film_finder.data.database.executor.Executor;
-import dev.zelenin.film_finder.services.MovieService;
 
-import javax.servlet.http.HttpServletRequest;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -122,18 +117,5 @@ public class Util {
         });
 
         return genres;
-    }
-
-    public static void setupClientProfile(HttpServletRequest request) {
-        Client client = (Client) request.getSession().getAttribute("client");
-
-        if (client != null) {
-            List<Movie> movieList = MovieService.getMoviesByClient(client);
-            List<MovieMark> markList = MovieService.getMovieMarks(client);
-
-            request.getSession().setAttribute("movieList", movieList);
-            request.getSession().setAttribute("markList", markList);
-
-        }
     }
 }

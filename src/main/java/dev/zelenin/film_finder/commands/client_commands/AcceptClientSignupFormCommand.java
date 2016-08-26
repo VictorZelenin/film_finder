@@ -45,10 +45,10 @@ public class AcceptClientSignupFormCommand implements Command {
             // set up request attribute
 
             return Paths.SIGN_UP;
-
         }
 
         System.out.println(attributes);
+
         if (!isCorrectPassword((String) attributes.get("password"),
                 (String) attributes.get("password_confirmation"))) {
             // setup attributes
@@ -86,11 +86,9 @@ public class AcceptClientSignupFormCommand implements Command {
                 return Paths.SIGN_UP;
             }
 
-            // TODO debug here !!!
             request.getSession().setAttribute("client", client);
 
         }
-
 
         return new PersonalCabinetCommand().execute(request);
     }

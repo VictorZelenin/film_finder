@@ -17,5 +17,6 @@
         <url-pattern>*.png</url-pattern>
         <url-pattern>*.css</url-pattern>
         <url-pattern>*.js</url-pattern>
+        <!--<url-pattern>/doc/*</url-pattern>-->
     </servlet-mapping>
 </web-app>

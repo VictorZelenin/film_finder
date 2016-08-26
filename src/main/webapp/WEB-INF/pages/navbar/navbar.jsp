@@ -18,52 +18,39 @@
                 <div class="collapse navbar-collapse" id="responsive-menu">
                     <ul class="nav navbar-nav">
                         <li><a href="<c:url value="/controller"/>">Главная</a></li>
-                        <li><a href="<c:url value="/"/>">Поиск фильмов</a></li>
-                        <li><a href="<c:url value="/"/>">Список фильмов</a></li>
+                        <li><a href="<c:url value="/controller?command=search"/>">Поиск фильмов</a></li>
+                        <li><a href="<c:url value="/controller?command=show_movie_list"/>">Список фильмов</a></li>
                         <li><a href="<c:url value="/controller?command=personal_cabinet"/>">Личный кабинет</a></li>
                     </ul>
+                    <form role="search" action="/controller?command=search">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Search" name="search">
+                            <div class="input-group-btn">
+                                <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
                     <c:choose>
                         <c:when test="${sessionScope.client == null}">
                             <%--TODO hide link style--%>
-                            <button class="btn btn-primary"><a class="login" href="/controller?command=login">Log in</a></button>
-                            <button class="btn btn-primary"><a class="signup" href="/controller?command=signup">Sign up</a></button>
-                            <%--<button type="submit" name="signup" class="btn btn-primary">Sign up</button>--%>
-                            <%--<ul class="collapse navbar-collapse navbar-right">--%>
-                            <%--<li><a href="<c:url value="/controller?command=login"/>">LOG IN</a></li>--%>
-                            <%--<li><a href="<c:url value="/controller?command=signup"/>">SIGN UP</a></li>--%>
-                            <%--</ul>--%>
+                            <div class="control-button navbar-right">
+                                <button class="btn btn-primary"><a class="login" href="/controller?command=login">Log
+                                    in</a></button>
+                                <button class="btn btn-primary"><a class="signup" href="/controller?command=signup">Sign
+                                    up</a></button>
+                            </div>
 
                         </c:when>
                         <c:otherwise>
                             <form method="post" action="/controller?command=log_out">
-                                <button name="exit" type="submit" class="btn-primary">EXIT</button>
+                                <div class="control-button navbar-right">
+                                    <button name="exit" type="submit" class="btn-primary">EXIT</button>
+                                </div>
+
                             </form>
                         </c:otherwise>
                     </c:choose>
-                    <%--<c:choose>--%>
-                    <%--<c:when test="${sessionScope.client == null}">--%>
-                    <%--<form class="navbar-form navbar-right hidden-sm log-in" method="post">--%>
-                    <%--<div class="form-group">--%>
-                    <%--<input type="text" class="form-control" placeholder="E-mail" name="email">--%>
-                    <%--<div class="form-group">--%>
-                    <%--<input type="password" class="form-control" placeholder="Пароль"--%>
-                    <%--name="password">--%>
-                    <%--</div>--%>
-                    <%--<button type="submit" name="btn" value="login" class="btn btn-primary">--%>
-                    <%--<i class="fa fa-sign-in"></i> Войти--%>
-                    <%--</button>--%>
-
-                    <%--</div>--%>
-                    <%--</form>--%>
-                    <%--<a class="navbar-right" href="<c:url value="/registration"/>">Регистрация</a>--%>
-                    <%--<c:if test="${requestScope.flag == false}">--%>
-                    <%--<span class="login_error_msg">Error</span>--%>
-                    <%--</c:if>--%>
-
-                    <%--</c:when>--%>
-                    <%--&lt;%&ndash; else option, set up different icons&ndash;%&gt;--%>
-                    <%--</c:choose>--%>
-
                 </div>
             </div>
         </div>

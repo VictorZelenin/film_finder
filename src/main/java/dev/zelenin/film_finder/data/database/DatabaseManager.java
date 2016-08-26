@@ -12,8 +12,7 @@ import java.sql.SQLException;
  * Created by victor on 02.08.16.
  */
 public class DatabaseManager {
-
-    public static Connection getConnection() {
+    public static synchronized Connection getConnection() {
         Context initialContext;
         DataSource dataSource = null;
         try {

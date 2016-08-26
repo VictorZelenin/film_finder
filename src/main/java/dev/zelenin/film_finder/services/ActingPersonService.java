@@ -8,6 +8,8 @@ import dev.zelenin.film_finder.data.data_sets.acting_person.ActingRole;
 import dev.zelenin.film_finder.data.data_sets.movies.Movie;
 import dev.zelenin.film_finder.data.database.DatabaseManager;
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,7 +21,8 @@ public class ActingPersonService {
 
     public static Map<ActingRole, List<ActingPerson>> getMapByActingRoles(Movie movie) {
         Map<ActingRole, List<ActingPerson>> map = new HashMap<>();
-        IDAOFactory factory = new DAOFactory(DatabaseManager.getConnection());
+        Connection connection = DatabaseManager.getConnection();
+        IDAOFactory factory = new DAOFactory(connection);
         IActingPersonDAO actingPersonDAO = factory.getActingPersonDAO();
 
         map.put(ActingRole.ACTOR, actingPersonDAO.getActorsByMovie(movie));
@@ -27,6 +30,13 @@ public class ActingPersonService {
         map.put(ActingRole.PRODUCER, actingPersonDAO.getProducersByMovie(movie));
         map.put(ActingRole.SCREEN_WRITER, actingPersonDAO.getScreenWritersByMovie(movie));
 
+        try {
+            if (connection != null) {
+                connection.close();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return map;
     }
 
@@ -35,5 +45,12 @@ public class ActingPersonService {
         IActingPersonDAO actingPersonDAO = factory.getActingPersonDAO();
 
         return actingPersonDAO.getByClientsMark(value);
+    }
+
+    public static boolean exists(ActingPerson actingPerson) {
+        Connection connection = DatabaseManager.getConnection();
+        IActingPersonDAO dao = new DAOFactory(connection).getActingPersonDAO();
+
+        return dao.exists(actingPerson);
     }
 }

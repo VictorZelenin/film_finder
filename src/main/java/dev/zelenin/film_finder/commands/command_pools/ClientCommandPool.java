@@ -17,5 +17,8 @@ public class ClientCommandPool extends CommandPool {
         addCommand(Commands.LOG_OUT, new LogoutCommand());
         addCommand(Commands.SIGN_UP, new SignupCommand());
         addCommand(Commands.ACCEPT_SIGN_UP_FORM, new AcceptClientSignupFormCommand());
+        addCommand(Commands.SHOW_MOVIE, new MovieDescriptionCommand());
+        addCommand(Commands.SHOW_MOVIE_LIST, new ShowMovieListCommand());
+        addCommand(Commands.SEARCH, new SearchCommand());
     }
 }

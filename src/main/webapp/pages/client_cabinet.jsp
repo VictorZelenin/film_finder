@@ -28,19 +28,35 @@
     <div class="row">
         <div class="col-md-offset-2 col-md-6">
             <h1>Избранные фильмы</h1>
-            <ul class="media-list">
-                <c:forEach var="movie" items="${sessionScope.movieList}">
-                    <li><a>${movie.title}</a></li>
-                </c:forEach>
-            </ul>
+            <c:choose>
+                <c:when test="${movieList.size() != 0}">
+                    <ul class="media-list">
+                        <c:forEach var="movie" items="${movieList}">
+                            <li><a>${movie.title}</a></li>
+                        </c:forEach>
+                    </ul>
+                </c:when>
+                <c:otherwise>
+                    <h4>Фильмов не выбрано</h4>
+                </c:otherwise>
+            </c:choose>
+
         </div>
         <div class="col-md-4">
-            <h1>Marks</h1>
-            <ul class="media-list">
-                <c:forEach var="mark" items="${sessionScope.markList}">
-                    <li><a>${mark}</a></li>
-                </c:forEach>
-            </ul>
+            <h1>Оценки</h1>
+            <c:choose>
+                <c:when test="${markList.size() != 0}">
+                    <ul class="media-list">
+                        <c:forEach var="mark" items="${markList}">
+                            <li><a>${mark}</a></li>
+                        </c:forEach>
+                    </ul>
+                </c:when>
+                <c:otherwise>
+                    <h4>Нету оценок</h4>
+                </c:otherwise>
+            </c:choose>
+
         </div>
     </div>
 </div>

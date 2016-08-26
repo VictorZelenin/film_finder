@@ -26,6 +26,9 @@ public class LoginService {
             throw new Exception("User not found or incorrect password");
         }
 
+        assert connection != null;
+        connection.close();
+
         return user;
     }
 

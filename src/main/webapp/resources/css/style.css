@@ -1,3 +1,5 @@
+@import url("//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css");
+
 .nav li {
     margin-top: 35px;
 }
@@ -107,7 +109,6 @@ a .login {
 
 a .signup {
     color: white;
-
 }
 
 .signup:visited {
@@ -115,5 +116,9 @@ a .signup {
     text-decoration: none;
 }
 
+.control-button {
+    margin-top: 40px;
+    /*margin-left: 100px;*/
+}
 
 

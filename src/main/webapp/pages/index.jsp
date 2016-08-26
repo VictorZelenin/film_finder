@@ -11,11 +11,10 @@
 <div class="container-fluid content_container">
     <div class="row">
         <div class="col-md-3 hidden-sm hidden-xs">
-            <button>Расшренный поиск</button>
             <ul class="media-list">
                 За жанрами:
                 <c:forEach var="genre" items="${requestScope.genres}">
-                    <li><a href="/">${genre}</a></li>
+                    <li><a href="/controller?command=search&genre=${genre}">${genre}</a></li>
                 </c:forEach>
             </ul>
         </div>
@@ -23,20 +22,6 @@
             <%-- TODO TAG for movie block--%>
             <jsp:include page="/WEB-INF/pages/movie_list.jsp"/>
 
-            <ul class="movie-pager">
-                <c:if test="${requestScope.previous_page != null}">
-                    <li><a href="<c:url value="/controller?command=main&page=${previous_page}"/>">
-                        <span aria-hidden="true">&larr;</span>
-                            <%--<fmt:message key="previous"/>--%>
-                    </a></li>
-                </c:if>
-                <c:if test="${requestScope.next_page != null}">
-                    <li><a href="<c:url value="/controller?command=main&page=${next_page}"/>">
-                            <%--<fmt:message key="next"/>--%>
-                        <span aria-hidden="true">&rarr;</span>
-                    </a></li>
-                </c:if>
-            </ul>
         </div>
         <div class="col-md-3"></div>
     </div>

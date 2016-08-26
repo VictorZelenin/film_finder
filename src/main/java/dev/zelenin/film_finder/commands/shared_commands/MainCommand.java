@@ -21,7 +21,7 @@ public class MainCommand implements Command {
         List<Genre> genres = MovieService.getAllGenres();
         request.setAttribute("genres", genres);
 
-        MoviePagerService.setupMovieList(request, MOVIES_PER_PAGE);
+        MoviePagerService.setupMovieList(request, MOVIES_PER_PAGE, MovieService.getMoviesByImdbRating());
 
         return Paths.CONTROLLER;
     }

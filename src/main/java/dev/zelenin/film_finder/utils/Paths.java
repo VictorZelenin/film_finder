@@ -12,4 +12,8 @@ public class Paths {
     public static final String MAIN = "/pages/index.jsp";
     public static final String LOG_IN = "/pages/login.jsp";
     public static final String SIGN_UP = "/pages/register.jsp";
+    public static final String MOVIE_PAGE = "/pages/movie.jsp";
+    public static final String MOVIE_LIST = "/pages/movie_list.jsp";
+    public static final String SEARCH_PAGE = "/pages/search.jsp";
+
 }

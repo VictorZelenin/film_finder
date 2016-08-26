@@ -11,7 +11,7 @@ import java.sql.Statement;
 public class Executor {
 
     public static int executeUpdate(Connection connection, String query) throws SQLException {
-        int updated = 0;
+        int updated;
         Statement statement = connection.createStatement();
         statement.execute(query);
 
@@ -29,6 +29,7 @@ public class Executor {
         T value = handler.handle(resultSet);
 
         statement.close();
+
         return value;
     }
 }
