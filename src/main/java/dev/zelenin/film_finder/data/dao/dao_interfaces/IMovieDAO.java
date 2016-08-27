@@ -14,31 +14,33 @@ public interface IMovieDAO extends IDAO<Movie> {
 
     int addGenreToMovie(Movie movie, Genre genre);
 
-    List<Genre> getMovieGenres(Movie movie);
+    List<Genre> findMovieGenres(Movie movie);
 
-    List<Movie> getMoviesByGenre(Genre genre);
+    List<Movie> findMoviesByGenre(Genre genre);
 
-    List<Movie> getMoviesByGenres(List<Genre> genres);
+    List<Movie> findMoviesByGenres(List<Genre> genres);
 
-    List<Movie> getMoviesByActingPerson(ActingPerson person);
+    List<Movie> findMoviesByActingPerson(ActingPerson person);
 
-    List<Movie> getMoviesByRegExpInTitle(String regexp);
+    List<Movie> findMoviesByRegExpInTitle(String regexp);
 
-    List<Movie> getMoviesEarlierByDate(Date date);
+    List<Movie> findMoviesEarlierByDate(Date date);
 
-    List<Movie> getMoviesLaterByDate(Date date);
+    List<Movie> findMoviesLaterByDate(Date date);
 
-    List<Movie> getMoviesByCountry(String country);
+    List<Movie> findMoviesByCountry(String country);
 
-    List<Movie> getMoviesByImdbRating();
+    List<Movie> findMoviesByImdbRating();
 
-    List<Movie> getTheMostChosenMovies(int value);
+    List<Movie> findTheMostChosenMovies(int value);
 
-    List<Movie> getTheMostChosenMoviesByMale(int value);
+    List<Movie> findTheMostChosenMoviesByMale(int value);
 
-    List<Movie> getTheMostChosenMoviesByFemale(int value);
+    List<Movie> findTheMostChosenMoviesByFemale(int value);
 
-    List<Movie> getMoviesWithHighestMarks(double lowBoundary);
+    List<Movie> findMoviesWithHighestMarks(double lowBoundary);
 
-    List<Movie> getMoviesByRatingInRange(int limit, int offset);
+    List<Movie> findMoviesByRatingInRange(int limit, int offset);
+
+    List<Movie> findMoviesBySearchQuery(String query);
 }

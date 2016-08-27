@@ -132,7 +132,7 @@ public class MovieDAO extends DAO<Movie> implements IMovieDAO {
     }
 
     @Override
-    public List<Genre> getMovieGenres(Movie movie) {
+    public List<Genre> findMovieGenres(Movie movie) {
         String getGenresQuery = "select distinct genre from movies_genres " +
                 "inner join genres on genres.id = genre_id" +
                 " where movie_id = " + movie.getId();
@@ -149,7 +149,7 @@ public class MovieDAO extends DAO<Movie> implements IMovieDAO {
     }
 
     @Override
-    public List<Movie> getMoviesByGenre(Genre genre) {
+    public List<Movie> findMoviesByGenre(Genre genre) {
         String query = "select distinct movies.id, title, movie_type, release_date,runtime, plot, country, " +
                 "imdb_votes, average_client_mark, poster_url from movies_genres " +
                 "join movies on movies.id = movie_id " +
@@ -166,7 +166,7 @@ public class MovieDAO extends DAO<Movie> implements IMovieDAO {
     }
 
     @Override
-    public List<Movie> getMoviesByGenres(List<Genre> genres) {
+    public List<Movie> findMoviesByGenres(List<Genre> genres) {
         StringBuilder queryBuilder = new StringBuilder();
         List<Movie> movies = new ArrayList<>();
 
@@ -204,7 +204,7 @@ public class MovieDAO extends DAO<Movie> implements IMovieDAO {
     }
 
     @Override
-    public List<Movie> getMoviesByActingPerson(ActingPerson person) {
+    public List<Movie> findMoviesByActingPerson(ActingPerson person) {
         String getMoviesByActingPersonQuery = "select distinct movies.id, title, movie_type, release_date," +
                 "runtime, plot, country, imdb_rating, imdb_votes, average_client_mark, poster_url " +
                 "from acting_person_movies join movies on movies.id = movie_id" +
@@ -222,7 +222,7 @@ public class MovieDAO extends DAO<Movie> implements IMovieDAO {
 
     // TODO not tested
     @Override
-    public List<Movie> getMoviesByRegExpInTitle(String regexp) {
+    public List<Movie> findMoviesByRegExpInTitle(String regexp) {
         String query = "select * from movies where title regexp '" + regexp + "'";
         List<Movie> movies = new ArrayList<>();
 
@@ -236,7 +236,7 @@ public class MovieDAO extends DAO<Movie> implements IMovieDAO {
     }
 
     @Override
-    public List<Movie> getMoviesEarlierByDate(Date date) {
+    public List<Movie> findMoviesEarlierByDate(Date date) {
         String query = "select * from movies where release_date < " + "'" + Util.parseSQLDate(date) + "'";
         List<Movie> movies = new ArrayList<>();
 
@@ -250,7 +250,7 @@ public class MovieDAO extends DAO<Movie> implements IMovieDAO {
     }
 
     @Override
-    public List<Movie> getMoviesLaterByDate(Date date) {
+    public List<Movie> findMoviesLaterByDate(Date date) {
         String query = "select * from movies where release_date > " + "'" + Util.parseSQLDate(date) + "'";
         List<Movie> movies = new ArrayList<>();
 
@@ -264,7 +264,7 @@ public class MovieDAO extends DAO<Movie> implements IMovieDAO {
     }
 
     @Override
-    public List<Movie> getMoviesByCountry(String country) {
+    public List<Movie> findMoviesByCountry(String country) {
         String query = "select * from movies where country = " + "'" + country + "'";
         List<Movie> movies = new ArrayList<>();
 
@@ -278,7 +278,7 @@ public class MovieDAO extends DAO<Movie> implements IMovieDAO {
     }
 
     @Override
-    public List<Movie> getMoviesByImdbRating() {
+    public List<Movie> findMoviesByImdbRating() {
         return getMoviesByImdbRating(0);
     }
 
@@ -297,7 +297,7 @@ public class MovieDAO extends DAO<Movie> implements IMovieDAO {
     }
 
     @Override
-    public List<Movie> getTheMostChosenMovies(int value) {
+    public List<Movie> findTheMostChosenMovies(int value) {
         String query = "select distinct movie_id, title, movie_type, release_date, runtime, plot, country, " +
                 "imdb_rating, imdb_votes, average_client_mark, poster_url, " +
                 " count(client_id) from clients_movies join movies on movies.id = movie_id " +
@@ -314,7 +314,7 @@ public class MovieDAO extends DAO<Movie> implements IMovieDAO {
     }
 
     @Override
-    public List<Movie> getTheMostChosenMoviesByMale(int value) {
+    public List<Movie> findTheMostChosenMoviesByMale(int value) {
         String query = "select distinct movie_id, title, movie_type, release_date, runtime, plot, country, " +
                 "imdb_rating, imdb_votes, average_client_mark, poster_url, " +
                 " gender, count(gender) from clients_movies join movies on movies.id = movie_id " +
@@ -332,7 +332,7 @@ public class MovieDAO extends DAO<Movie> implements IMovieDAO {
     }
 
     @Override
-    public List<Movie> getTheMostChosenMoviesByFemale(int value) {
+    public List<Movie> findTheMostChosenMoviesByFemale(int value) {
         String query = "select distinct movie_id, title, movie_type, release_date, runtime, plot, country, " +
                 "imdb_rating, imdb_votes, average_client_mark, poster_url, " +
                 " gender, count(gender) from clients_movies join movies on movies.id = movie_id " +
@@ -350,7 +350,7 @@ public class MovieDAO extends DAO<Movie> implements IMovieDAO {
     }
 
     @Override
-    public List<Movie> getMoviesWithHighestMarks(double value) {
+    public List<Movie> findMoviesWithHighestMarks(double value) {
         String query = "select * from movies where average_client_mark > " + value;
         List<Movie> movies = new ArrayList<>();
 
@@ -364,8 +364,20 @@ public class MovieDAO extends DAO<Movie> implements IMovieDAO {
     }
 
     @Override
-    public List<Movie> getMoviesByRatingInRange(int limit, int offset) {
+    public List<Movie> findMoviesByRatingInRange(int limit, int offset) {
         String query = "select * from movies limit " + limit + " offset " + offset;
+        List<Movie> movies = new ArrayList<>();
+
+        try {
+            return fillUpMovieList(movies, query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public List<Movie> findMoviesBySearchQuery(String query) {
         List<Movie> movies = new ArrayList<>();
 
         try {

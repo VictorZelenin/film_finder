@@ -1,6 +1,8 @@
 package dev.zelenin.film_finder.commands.command_pools;
 
 import dev.zelenin.film_finder.commands.client_commands.AcceptClientSignupFormCommand;
+import dev.zelenin.film_finder.commands.client_commands.AcceptSearchCommand;
+import dev.zelenin.film_finder.commands.client_commands.GetSearchCommand;
 import dev.zelenin.film_finder.commands.client_commands.PersonalCabinetCommand;
 import dev.zelenin.film_finder.commands.shared_commands.*;
 import dev.zelenin.film_finder.utils.Commands;
@@ -19,6 +21,7 @@ public class ClientCommandPool extends CommandPool {
         addCommand(Commands.ACCEPT_SIGN_UP_FORM, new AcceptClientSignupFormCommand());
         addCommand(Commands.SHOW_MOVIE, new MovieDescriptionCommand());
         addCommand(Commands.SHOW_MOVIE_LIST, new ShowMovieListCommand());
-        addCommand(Commands.SEARCH, new SearchCommand());
+        addCommand(Commands.SEARCH, new GetSearchCommand());
+        addCommand(Commands.ACCEPT_SEARCH_FORM, new AcceptSearchCommand());
     }
 }

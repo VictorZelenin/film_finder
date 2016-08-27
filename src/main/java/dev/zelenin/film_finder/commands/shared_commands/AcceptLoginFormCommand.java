@@ -28,7 +28,6 @@ public class AcceptLoginFormCommand implements Command {
 
             return new PersonalCabinetCommand().execute(request);
 
-
         } catch (Exception e) {
             request.setAttribute("error_message", "Error message");
 

@@ -37,6 +37,7 @@ public class ActingPersonService {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
         return map;
     }
 

@@ -27,7 +27,7 @@ public class MovieService {
     public static List<Movie> getMoviesByImdbRating() {
         Connection connection = DatabaseManager.getConnection();
         IMovieDAO dao = new DAOFactory(connection).getMovieDAO();
-        List<Movie> list = dao.getMoviesByImdbRating();
+        List<Movie> list = dao.findMoviesByImdbRating();
 
         try {
             if (connection != null) {
@@ -44,7 +44,7 @@ public class MovieService {
         IMovieDAO dao = new DAOFactory(DatabaseManager.getConnection())
                 .getMovieDAO();
 
-        return dao.getMoviesWithHighestMarks(minRatingValue);
+        return dao.findMoviesWithHighestMarks(minRatingValue);
     }
 
     public static List<Genre> getAllGenres() {
@@ -58,7 +58,7 @@ public class MovieService {
     public static List<Movie> getMoviesByGenre(Genre genre) {
         IMovieDAO dao = new DAOFactory(DatabaseManager.getConnection()).getMovieDAO();
 
-        return dao.getMoviesByGenre(genre);
+        return dao.findMoviesByGenre(genre);
     }
 
     public static List<Movie> getMoviesByClient(Client client) {
@@ -121,7 +121,7 @@ public class MovieService {
         List<ActingPerson> actors = dao.getActorsByMovie(movie);
         List<ActingPerson> producers = dao.getProducersByMovie(movie);
         List<ActingPerson> screenWriters = dao.getScreenWritersByMovie(movie);
-        List<Genre> movieGenres = iMovieDAO.getMovieGenres(movie);
+        List<Genre> movieGenres = iMovieDAO.findMovieGenres(movie);
 
         try {
             if (connection != null) {

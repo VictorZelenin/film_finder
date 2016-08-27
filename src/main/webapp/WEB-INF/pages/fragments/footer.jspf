@@ -5,7 +5,7 @@
                 <div class="col-sm-6">
                     <div class="footerWidget">
                         <%--<img src="<c:url value="/resources/logo.png"/>" alt="" id="footerLogo">--%>
-                        <p><a href="#" title="Little Neko, website template creation">Film Finder</a> info </p>
+                        <p><a href="#">Film Finder</a> info </p>
                     </div>
                 </div>
                 <div class="col-sm-offset-3 col-sm-3">

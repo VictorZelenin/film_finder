@@ -36,5 +36,4 @@ public class ClientSignupService {
                 .getClientDAO()
                 .getClientByEmail(email) != null;
     }
-
 }

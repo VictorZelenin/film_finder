@@ -37,7 +37,6 @@ public class PersonalCabinetCommand implements Command {
 
             request.getSession().setAttribute("movieList", movieList);
             request.getSession().setAttribute("markList", markList);
-
         }
     }
 }

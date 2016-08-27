@@ -30,7 +30,6 @@ public class AcceptClientSignupFormCommand implements Command {
         this.uploader = new ServletFileUpload(fileFactory);
     }
 
-
     @Override
     public String execute(HttpServletRequest request) {
         String directory = "/resources/images/clients/";
@@ -87,7 +86,6 @@ public class AcceptClientSignupFormCommand implements Command {
             }
 
             request.getSession().setAttribute("client", client);
-
         }
 
         return new PersonalCabinetCommand().execute(request);

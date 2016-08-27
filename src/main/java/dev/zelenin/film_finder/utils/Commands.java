@@ -14,4 +14,5 @@ public class Commands {
     public static final String SHOW_MOVIE = "show_movie";
     public static final String SHOW_MOVIE_LIST = "show_movie_list";
     public static final String SEARCH = "search";
+    public static final String ACCEPT_SEARCH_FORM = "accept_search_form";
 }

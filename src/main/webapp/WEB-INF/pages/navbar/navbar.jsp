@@ -19,12 +19,12 @@
                     <ul class="nav navbar-nav">
                         <li><a href="<c:url value="/controller"/>">Главная</a></li>
                         <li><a href="<c:url value="/controller?command=search"/>">Поиск фильмов</a></li>
-                        <li><a href="<c:url value="/controller?command=show_movie_list"/>">Список фильмов</a></li>
+                        <li><a href="<c:url value="/controller?command=show_movie_list&default=true"/>">Список фильмов</a></li>
                         <li><a href="<c:url value="/controller?command=personal_cabinet"/>">Личный кабинет</a></li>
                     </ul>
-                    <form role="search" action="/controller?command=search">
+                    <form role="search" action="/controller?command=accept_search_form" method="post">
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Search" name="search">
+                            <input type="text" class="form-control" placeholder="Search" name="title">
                             <div class="input-group-btn">
                                 <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i>
                                 </button>

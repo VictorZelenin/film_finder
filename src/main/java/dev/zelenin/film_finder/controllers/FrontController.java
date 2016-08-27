@@ -2,6 +2,8 @@ package dev.zelenin.film_finder.controllers;
 
 import dev.zelenin.film_finder.commands.Command;
 import dev.zelenin.film_finder.commands.CommandProvider;
+import dev.zelenin.film_finder.data.data_sets.movies.Genre;
+import dev.zelenin.film_finder.services.MovieService;
 import dev.zelenin.film_finder.utils.Paths;
 
 import javax.servlet.ServletException;
@@ -10,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -17,6 +20,13 @@ import java.util.Objects;
  */
 @WebServlet(urlPatterns = {"/controller", "/admin", ""})
 public class FrontController extends HttpServlet {
+    @Override
+    public void init() throws ServletException {
+        List<Genre> genres = MovieService.getAllGenres();
+        getServletContext().setAttribute("genres", genres);
+
+    }
+
     private void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 

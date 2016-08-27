@@ -2,7 +2,7 @@
 <html>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ page errorPage="../WEB-INF/pages/errors/not_found_error.jsp" %>
+<%--<%@ page errorPage="../WEB-INF/pages/errors/not_found_error.jsp" %>--%>
 <%@ include file="/WEB-INF/pages/fragments/header.jspf" %>
 
 <body>
@@ -13,8 +13,8 @@
         <div class="col-md-3 hidden-sm hidden-xs">
             <ul class="media-list">
                 За жанрами:
-                <c:forEach var="genre" items="${requestScope.genres}">
-                    <li><a href="/controller?command=search&genre=${genre}">${genre}</a></li>
+                <c:forEach var="genre" items="${genres}">
+                    <li><a href="/controller?command=accept_search_form&genre=${genre}">${genre}</a></li>
                 </c:forEach>
             </ul>
         </div>
