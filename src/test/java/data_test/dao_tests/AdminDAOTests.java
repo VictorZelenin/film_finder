@@ -41,7 +41,7 @@ public class AdminDAOTests {
 
     @Test
     public void getTest() {
-        Admin admin = adminDAO.get(5);
+        Admin admin = adminDAO.find(5);
         System.out.println(admin);
 
         assertNotNull(admin);
@@ -49,7 +49,7 @@ public class AdminDAOTests {
 
     @Test
     public void getAllTest() {
-        List<Admin> admins = adminDAO.getAll();
+        List<Admin> admins = adminDAO.findAll();
         System.out.println(admins);
 
         assertTrue(admins.size() > 1);
@@ -63,7 +63,7 @@ public class AdminDAOTests {
 
     @Test
     public void removeTest(){
-        assertTrue(adminDAO.remove(adminDAO.get(8)) == 1);
+        assertTrue(adminDAO.remove(adminDAO.find(8)) == 1);
     }
 
 }

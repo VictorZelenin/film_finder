@@ -42,7 +42,7 @@
                     <li>
                         Directors:
                         <c:forEach var="director" items="${requestScope.directors}">
-                            <a href="#">${director.name}</a> &nbsp;
+                            <a href="/controller?command=show_acting_person&person_id=${director.id}">${director.name}</a> &nbsp;
                         </c:forEach>
                     </li>
                 </c:if>
@@ -50,7 +50,7 @@
                     <li>
                         Actors:
                         <c:forEach var="actor" items="${requestScope.actors}">
-                            <a href="#">${actor.name}</a> &nbsp
+                            <a href="/controller?command=show_acting_person&person_id=${actor.id}">${actor.name}</a> &nbsp
                         </c:forEach>
                     </li>
                 </c:if>
@@ -58,7 +58,7 @@
                     <li>
                         Producers:
                         <c:forEach var="producer" items="${requestScope.producers}">
-                            <a href="#">${producer.name}</a> &nbsp
+                            <a href="/controller?command=show_acting_person&person_id=${producer.id}">${producer.name}</a> &nbsp
                         </c:forEach>
                     </li>
                 </c:if>
@@ -66,7 +66,7 @@
                     <li>
                         Screen Writers:
                         <c:forEach var="screenWriter" items="${requestScope.screenWriters}">
-                            <a href="#">${screenWriter.name}</a> &nbsp
+                            <a href="/controller?command=show_acting_person&person_id=${screenWriter.id}">${screenWriter.name}</a> &nbsp
                         </c:forEach>
                     </li>
                 </c:if>

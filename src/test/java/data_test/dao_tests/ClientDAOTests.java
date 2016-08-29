@@ -54,23 +54,23 @@ public class ClientDAOTests {
 
     @Test
     public void testGet() {
-        Client client = clientDAO.get(13);
+        Client client = clientDAO.find(13);
         assertNotNull(client);
     }
 
     @Test
     public void getNotExistedClientTest() {
-        assertNull(clientDAO.get(100));
+        assertNull(clientDAO.find(100));
     }
 
     @Test
     public void existsTest() {
-        assertTrue(clientDAO.exists(clientDAO.get(13)));
+        assertTrue(clientDAO.exists(clientDAO.find(13)));
     }
 
     @Test
     public void testGetAll() {
-        List<Client> clients = clientDAO.getAll();
+        List<Client> clients = clientDAO.findAll();
 
         System.out.println(clients);
 
@@ -90,32 +90,32 @@ public class ClientDAOTests {
 
     @Test
     public void testDelete() {
-        assertTrue(clientDAO.remove(clientDAO.get(0)) == 1);
+        assertTrue(clientDAO.remove(clientDAO.find(0)) == 1);
     }
 
     @Test
     public void testGetChosenMovies() {
-        List<Movie> movies = clientDAO.getClientChosenMovies(clientDAO.get(2));
+        List<Movie> movies = clientDAO.findClientChosenMovies(clientDAO.find(2));
         System.out.println(movies);
         assertTrue(movies.size() > 1);
     }
 
     @Test
     public void testGetMovieMarks() {
-        List<MovieMark> movieMarks = clientDAO.getClientMovieMarks(clientDAO.get(1));
+        List<MovieMark> movieMarks = clientDAO.findClientMovieMarks(clientDAO.find(1));
         System.out.println(movieMarks);
         assertTrue(movieMarks.size() > 1);
     }
 
     @Test
     public void testGetPersonMarks() {
-        List<ActingPersonMark> movieMarks = clientDAO.getClientActingPersonMarks(clientDAO.get(1));
+        List<ActingPersonMark> movieMarks = clientDAO.findClientActingPersonMarks(clientDAO.find(1));
         System.out.println(movieMarks);
         assertTrue(movieMarks.size() > 1);
     }
 
     @Test
     public void testGetClientsByGender() {
-        assertTrue(clientDAO.getClientsByGender(Gender.MALE).size() > 1);
+        assertTrue(clientDAO.findClientsByGender(Gender.MALE).size() > 1);
     }
 }

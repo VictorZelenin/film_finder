@@ -53,50 +53,29 @@ public class MessageDAO extends DAO<Message> implements IMessageDAO {
     }
 
     @Override
-    public Message get(long id) {
+    public Message find(long id) {
         String selectQuery = "select * from messages join clients on client_id = clients.id " +
                 " where messages.id = " + id;
 
 
-        try {
-            return Executor.executeQuery(connection, selectQuery, resultSet -> {
-                resultSet.next();
-                return constructMessage(resultSet);
-            });
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return null;
-    }
-
-    private Message constructMessage(ResultSet resultSet) throws SQLException {
-        return new Message(resultSet.getLong(1), resultSet.getString(2), parseUtilDateFromSQLDate(resultSet, 3),
-                createClientFromResultSet(resultSet));
-    }
-
-    private Client createClientFromResultSet(ResultSet result) throws SQLException {
-        return new Client(result.getLong(5), result.getString(6),
-                parseGender(result.getString(7)), result.getString(8), result.getString(9),
-                result.getString(10));
+        return Executor.executeQuery(connection, selectQuery, resultSet -> {
+            resultSet.next();
+            return constructMessage(resultSet);
+        });
     }
 
     @Override
-    public List<Message> getAll() {
+    public List<Message> findAll() {
         String getAllMessagesQuery = "select * from messages join clients on client_id = clients.id";
         List<Message> messages = new ArrayList<>();
 
-        try {
-            Executor.executeQuery(connection, getAllMessagesQuery, resultSet -> {
-                while (resultSet.next()) {
-                    messages.add(constructMessage(resultSet));
-                }
+        Executor.executeQuery(connection, getAllMessagesQuery, resultSet -> {
+            while (resultSet.next()) {
+                messages.add(constructMessage(resultSet));
+            }
 
-                return messages;
-            });
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+            return messages;
+        });
 
         return messages;
     }
@@ -128,26 +107,14 @@ public class MessageDAO extends DAO<Message> implements IMessageDAO {
     public int remove(Message object) {
         String removeQuery = "delete from messages where id = " + object.getId();
 
-        try {
-            return Executor.executeUpdate(connection, removeQuery);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return -1;
+        return Executor.executeUpdate(connection, removeQuery);
     }
 
     @Override
     public int removeAll() {
         String removeAllQuery = "delete from messages";
 
-        try {
-            return Executor.executeUpdate(connection, removeAllQuery);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return -1;
+        return Executor.executeUpdate(connection, removeAllQuery);
     }
 
     @Override
@@ -156,8 +123,7 @@ public class MessageDAO extends DAO<Message> implements IMessageDAO {
     }
 
     @Override
-    public Message getMessageFromClient(final Client client) {
-
+    public Message findMessageFromClient(final Client client) {
         if (!exists(client)) {
             throw new ClientNotFoundException();
         }
@@ -165,22 +131,16 @@ public class MessageDAO extends DAO<Message> implements IMessageDAO {
         String getMessageFromClientQuery = "select * from messages where client_id = " + client.getId();
 
 
-        try {
-            return Executor.executeQuery(connection, getMessageFromClientQuery, resultSet -> {
-                resultSet.next();
+        return Executor.executeQuery(connection, getMessageFromClientQuery, resultSet -> {
+            resultSet.next();
 
-                return new Message(resultSet.getLong(1), resultSet.getString(2),
-                        parseUtilDateFromSQLDate(resultSet, 3), client);
-            });
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return null;
+            return new Message(resultSet.getLong(1), resultSet.getString(2),
+                    parseUtilDateFromSQLDate(resultSet, 3), client);
+        });
     }
 
     @Override
-    public List<Message> getMessagesForAdmin(Admin admin) {
+    public List<Message> findMessagesForAdmin(Admin admin) {
         if (admin == null) {
             throw new RuntimeException();
         }
@@ -190,32 +150,27 @@ public class MessageDAO extends DAO<Message> implements IMessageDAO {
                 " join clients on clients.id = client_id where admin_id = " + admin.getId();
         List<Message> messageList = new ArrayList<>();
 
-        try {
-            Executor.executeQuery(connection, getMessagesQuery, resultSet -> {
-                while (resultSet.next()) {
-                    messageList.add(new Message(resultSet.getLong(1), resultSet.getString(2),
-                            parseUtilDateFromSQLDate(resultSet, 3), createClientFromResultSet(resultSet)));
-                }
-                return messageList;
-            });
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
+        Executor.executeQuery(connection, getMessagesQuery, resultSet -> {
+            while (resultSet.next()) {
+                messageList.add(new Message(resultSet.getLong(1), resultSet.getString(2),
+                        parseUtilDateFromSQLDate(resultSet, 3), createClientFromResultSet(resultSet)));
+            }
+            return messageList;
+        });
 
         return messageList;
     }
 
     @Override
     public boolean exists(Client client) {
-        List<Message> messages = getAll();
-        List<Long> longs = messages
+        List<Message> messages = findAll();
+        List<Long> numbers = messages
                 .stream()
                 .map(message -> message.getClient().getId())
                 .collect(Collectors.toList());
-        System.out.println(longs);
-        return client != null && longs.contains(client.getId());
+        System.out.println(numbers);
 
+        return client != null && numbers.contains(client.getId());
     }
 
     @Override
@@ -223,13 +178,18 @@ public class MessageDAO extends DAO<Message> implements IMessageDAO {
         String query = String.format("insert into messages_to_admins values(%d, %d)",
                 admin.getId(), message.getId());
 
-        try {
-            return Executor.executeUpdate(connection, query);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        return Executor.executeUpdate(connection, query);
+    }
 
-        return -1;
+    private Message constructMessage(ResultSet resultSet) throws SQLException {
+        return new Message(resultSet.getLong(1), resultSet.getString(2), parseUtilDateFromSQLDate(resultSet, 3),
+                createClientFromResultSet(resultSet));
+    }
+
+    private Client createClientFromResultSet(ResultSet result) throws SQLException {
+        return new Client(result.getLong(5), result.getString(6),
+                parseGender(result.getString(7)), result.getString(8), result.getString(9),
+                result.getString(10));
     }
 
     private void checkClient(Client client) {

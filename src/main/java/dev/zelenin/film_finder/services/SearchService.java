@@ -5,21 +5,23 @@ import dev.zelenin.film_finder.data.dao.dao_factory.IDAOFactory;
 import dev.zelenin.film_finder.data.dao.dao_interfaces.IMovieDAO;
 import dev.zelenin.film_finder.data.data_sets.movies.Movie;
 import dev.zelenin.film_finder.data.database.DatabaseManager;
-import dev.zelenin.film_finder.data.search_builder.AbstractSearchQueryBuilder;
-import dev.zelenin.film_finder.data.search_builder.MySQLSearchQueryBuilder;
+import dev.zelenin.film_finder.services.search_builder.AbstractSearchQueryBuilder;
+import dev.zelenin.film_finder.services.search_builder.MySQLSearchQueryBuilder;
 
 import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import static java.util.Map.*;
+import static java.util.Map.Entry;
 
 /**
  * Created by victor on 27.08.16.
  */
-public class SearchService {
+// TODO validation
+public class SearchService extends DatabaseService {
+
     public static List<Movie> getMoviesBySearchParam(Map<String, String[]> paramMap) {
         Connection connection = DatabaseManager.getConnection();
         IDAOFactory factory = new DAOFactory(connection);
@@ -27,19 +29,27 @@ public class SearchService {
 
         List<Movie> movies = movieDAO.findMoviesBySearchQuery(constructQuery(validateMap(paramMap)));
 
-        try {
-            if (connection != null) {
-                connection.close();
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        closeConnection(connection);
 
         return movies;
     }
 
-    private static Map<String, String[]> validateMap(Map<String, String[]> paramMap) {
-        return null;
+
+    public static Map<String, String[]> validateMap(Map<String, String[]> paramMap) {
+        Iterator<Map.Entry<String, String[]>> iterator = paramMap.entrySet().iterator();
+
+        while (iterator.hasNext()) {
+            Map.Entry<String, String[]> entry = iterator.next();
+            if (entry.getValue().length == 0 ||
+                    entry.getValue() == null ||
+                    entry.getValue()[0].isEmpty()) {
+
+                System.out.println("Removed -- Key: " + entry.getKey() + ", Value" + Arrays.toString(entry.getValue()));
+                iterator.remove();
+            }
+        }
+
+        return paramMap;
     }
 
     private static String constructQuery(Map<String, String[]> paramMap) {
@@ -49,25 +59,17 @@ public class SearchService {
         int mapSize = paramMap.size();
         int i = 0;
 
+        System.out.println(paramMap);
         for (Entry<String, String[]> entry : paramMap.entrySet()) {
-//            if (entry.getKey().equals("title")) {
-//
-//            }
-            System.out.println(entry.getKey());
-            System.out.println(Arrays.toString(entry.getValue()));
+            if (i == mapSize - 1) {
+                builder.addQueryPart(entry.getKey(), entry.getValue(), true);
+            } else {
+                builder.addQueryPart(entry.getKey(), entry.getValue(), false);
+            }
+
             i++;
         }
-
-//        if (title != null && !title.equals("")) {
-//            builder.addTitlePart(title, true);
-//        }
-
-
-        // if title_param != null {addTitleParam(title_param, true)}
-//        builder.addActorsPart();
-//        builder.addReleaseYearPart();
-//        builder.addTitlePart();
-
+        System.out.println(builder.getSearchQuery());
 
         return builder.getSearchQuery();
     }

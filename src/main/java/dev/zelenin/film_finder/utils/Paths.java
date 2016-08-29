@@ -15,5 +15,7 @@ public class Paths {
     public static final String MOVIE_PAGE = "/pages/movie.jsp";
     public static final String MOVIE_LIST = "/pages/movie_list.jsp";
     public static final String SEARCH_PAGE = "/pages/search.jsp";
-
+    public static final String ACTING_PERSON_PAGE = "/pages/acting_person.jsp";
+    public static final String FEEDBACK_PAGE = "/pages/feedback.jsp";
+    public static final String EDIT = "/pages/edit.jsp";
 }

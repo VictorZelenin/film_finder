@@ -11,41 +11,45 @@ import java.util.List;
  * Created by victor on 04.08.16.
  */
 public interface IActingPersonDAO extends IDAO<ActingPerson> {
-    List<ActingPerson> getByMovie(Movie movie);
+    List<ActingPerson> findByMovie(Movie movie);
 
-    List<ActingRole> getActingPersonRoleList(ActingPerson actingPerson);
+    List<ActingRole> findActingPersonRoleList(ActingPerson actingPerson);
 
-    List<Genre> getActingPersonGenreList(ActingPerson actingPerson);
+    ActingPerson findActingPersonByName(String name);
 
-    List<ActingPerson> getByRegExp(String regexp);
+    ActingPerson findActingPersonByLastName(String lastName);
 
-    List<ActingPerson> getByCountry(String country);
+    List<Genre> findActingPersonGenreList(ActingPerson actingPerson);
 
-    List<ActingPerson> getAliveActingPeople();
+    List<ActingPerson> findByRegExp(String regexp);
 
-    List<ActingPerson> getDeadActingPeople();
+    List<ActingPerson> findByCountry(String country);
 
-    List<ActingPerson> getByTotalMovieQuantity(int value); // more then value
+    List<ActingPerson> findAliveActingPeople();
 
-    List<ActingPerson> getByClientsMark(double value);
+    List<ActingPerson> findDeadActingPeople();
 
-    List<ActingPerson> getByTemplate(String template); // like as
+    List<ActingPerson> findByTotalMovieQuantity(int value); // more then value
 
-    List<ActingPerson> getActors();
+    List<ActingPerson> findByClientsMark(double value);
 
-    List<ActingPerson> getDirectors();
+    List<ActingPerson> findByTemplate(String template); // like as
 
-    List<ActingPerson> getProducers();
+    List<ActingPerson> findActors();
 
-    List<ActingPerson> getScreenWriters();
+    List<ActingPerson> findDirectors();
 
-    List<ActingPerson> getActorsByMovie(Movie movie);
+    List<ActingPerson> findProducers();
 
-    List<ActingPerson> getDirectorsByMovie(Movie movie);
+    List<ActingPerson> findScreenWriters();
 
-    List<ActingPerson> getProducersByMovie(Movie movie);
+    List<ActingPerson> findActorsByMovie(Movie movie);
 
-    List<ActingPerson> getScreenWritersByMovie(Movie movie);
+    List<ActingPerson> findDirectorsByMovie(Movie movie);
+
+    List<ActingPerson> findProducersByMovie(Movie movie);
+
+    List<ActingPerson> findScreenWritersByMovie(Movie movie);
 
     int addNewGenre(ActingPerson actingPerson, Genre genre);
 
@@ -53,5 +57,4 @@ public interface IActingPersonDAO extends IDAO<ActingPerson> {
                     boolean isProducer, boolean isScreenWriter);
 
     int addNewRole(ActingPerson person, ActingRole role);
-
 }

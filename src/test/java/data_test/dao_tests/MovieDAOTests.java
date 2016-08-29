@@ -36,7 +36,7 @@ public class MovieDAOTests {
 
     @Test
     public void testGet() {
-        Movie movie = movieDAO.get(1);
+        Movie movie = movieDAO.find(1);
         System.out.println(movie);
         assertNotNull(movie);
     }
@@ -48,26 +48,26 @@ public class MovieDAOTests {
 
     @Test
     public void getAllTest() {
-        List<Movie> movies = movieDAO.getAll();
+        List<Movie> movies = movieDAO.findAll();
         System.out.println(movies);
         assertTrue(movies.size() > 1);
     }
 
     @Test
     public void updateTest() {
-        Movie movie = movieDAO.get(3);
+        Movie movie = movieDAO.find(3);
 
         assertTrue(movieDAO.update(7, movie) == 1);
     }
 
     @Test
     public void removeTest() {
-        assertTrue(movieDAO.remove(movieDAO.get(7)) == 1);
+        assertTrue(movieDAO.remove(movieDAO.find(7)) == 1);
     }
 
     @Test
     public void getGenres() {
-        List<Genre> genres = movieDAO.findMovieGenres(movieDAO.get(6));
+        List<Genre> genres = movieDAO.findMovieGenres(movieDAO.find(6));
         System.out.println(genres);
         assertTrue(genres.size() > 1);
     }

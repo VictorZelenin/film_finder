@@ -15,7 +15,6 @@ import dev.zelenin.film_finder.data.database.DatabaseManager;
 
 import javax.servlet.http.HttpServletRequest;
 import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -23,28 +22,26 @@ import java.util.List;
 /**
  * Created by victor on 08.08.16.
  */
-public class MovieService {
+public class MovieService extends DatabaseService {
+
     public static List<Movie> getMoviesByImdbRating() {
         Connection connection = DatabaseManager.getConnection();
         IMovieDAO dao = new DAOFactory(connection).getMovieDAO();
         List<Movie> list = dao.findMoviesByImdbRating();
 
-        try {
-            if (connection != null) {
-                connection.close();
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        closeConnection(connection);
 
         return list;
     }
 
     public static List<Movie> getMoviesByClientsRating(double minRatingValue) {
-        IMovieDAO dao = new DAOFactory(DatabaseManager.getConnection())
-                .getMovieDAO();
+        Connection connection  = DatabaseManager.getConnection();
+        IMovieDAO dao = new DAOFactory(connection).getMovieDAO();
+        List<Movie> movies = dao.findMoviesWithHighestMarks(minRatingValue);
 
-        return dao.findMoviesWithHighestMarks(minRatingValue);
+        closeConnection(connection);
+
+        return movies;
     }
 
     public static List<Genre> getAllGenres() {
@@ -65,15 +62,9 @@ public class MovieService {
         Connection connection = DatabaseManager.getConnection();
         IClientDAO dao = new DAOFactory(connection).getClientDAO();
 
-        List<Movie> list = dao.getClientChosenMovies(client);
+        List<Movie> list = dao.findClientChosenMovies(client);
 
-        try {
-            if (connection != null) {
-                connection.close();
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        closeConnection(connection);
 
         return list;
     }
@@ -81,15 +72,9 @@ public class MovieService {
     public static List<MovieMark> getMovieMarks(Client client) {
         Connection connection = DatabaseManager.getConnection();
         IMovieMarkDAO dao = new DAOFactory(connection).getMovieMarkDAO();
-        List<MovieMark> list = dao.getMovieMarksByClient(client);
+        List<MovieMark> list = dao.findMovieMarksByClient(client);
 
-        try {
-            if (connection != null) {
-                connection.close();
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        closeConnection(connection);
 
         return list;
     }
@@ -97,15 +82,9 @@ public class MovieService {
     public static Movie getMovie(int id) {
         Connection connection = DatabaseManager.getConnection();
         IMovieDAO dao = new DAOFactory(connection).getMovieDAO();
-        Movie movie = dao.get(id);
+        Movie movie = dao.find(id);
 
-        try {
-            if (connection != null) {
-                connection.close();
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        closeConnection(connection);
 
         return movie;
     }
@@ -117,19 +96,13 @@ public class MovieService {
         IActingPersonDAO dao = factory.getActingPersonDAO();
         IMovieDAO iMovieDAO = factory.getMovieDAO();
 
-        List<ActingPerson> directors = dao.getDirectorsByMovie(movie);
-        List<ActingPerson> actors = dao.getActorsByMovie(movie);
-        List<ActingPerson> producers = dao.getProducersByMovie(movie);
-        List<ActingPerson> screenWriters = dao.getScreenWritersByMovie(movie);
+        List<ActingPerson> directors = dao.findDirectorsByMovie(movie);
+        List<ActingPerson> actors = dao.findActorsByMovie(movie);
+        List<ActingPerson> producers = dao.findProducersByMovie(movie);
+        List<ActingPerson> screenWriters = dao.findScreenWritersByMovie(movie);
         List<Genre> movieGenres = iMovieDAO.findMovieGenres(movie);
 
-        try {
-            if (connection != null) {
-                connection.close();
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        closeConnection(connection);
 
         request.setAttribute("movie", movie);
         request.setAttribute("date", movie.getReleaseDate().toGMTString());

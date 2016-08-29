@@ -1,6 +1,7 @@
-package dev.zelenin.film_finder.commands.client_commands;
+package dev.zelenin.film_finder.commands.client_commands.accept_commands;
 
 import dev.zelenin.film_finder.commands.Command;
+import dev.zelenin.film_finder.commands.client_commands.PersonalCabinetCommand;
 import dev.zelenin.film_finder.data.data_sets.users.Client;
 import dev.zelenin.film_finder.services.ClientSignupService;
 import dev.zelenin.film_finder.services.ImageUploaderService;

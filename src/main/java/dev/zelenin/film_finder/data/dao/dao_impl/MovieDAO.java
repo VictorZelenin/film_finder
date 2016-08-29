@@ -24,6 +24,8 @@ import static dev.zelenin.film_finder.utils.Util.*;
 // TODO refactoring this piece of code
 public class MovieDAO extends DAO<Movie> implements IMovieDAO {
 
+    private static final double MIN_MARK_VALUE = 0;
+
     public MovieDAO(Connection connection) {
         super(connection);
     }
@@ -44,35 +46,22 @@ public class MovieDAO extends DAO<Movie> implements IMovieDAO {
     }
 
     @Override
-    public Movie get(long id) {
+    public Movie find(long id) {
         String selectMovieByIdQuery = "select * from movies where id =" + id;
 
-        try {
-            return Executor.executeQuery(connection, selectMovieByIdQuery, resultSet -> {
-                resultSet.next();
+        return Executor.executeQuery(connection, selectMovieByIdQuery, resultSet -> {
+            resultSet.next();
 
-                return constructNewMovie(resultSet);
-            });
-            // logging
-        } catch (SQLException e) {
-            e.printStackTrace();
-            // logging
-        }
-        return null;
+            return constructNewMovie(resultSet);
+        });
     }
 
     @Override
-    public List<Movie> getAll() {
+    public List<Movie> findAll() {
         String getAllQuery = "select * from movies";
         List<Movie> movies = new ArrayList<>();
 
-        try {
-            return fillUpMovieList(movies, getAllQuery);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return null;
+        return fillUpMovieList(movies, getAllQuery);
     }
 
     @Override
@@ -102,28 +91,15 @@ public class MovieDAO extends DAO<Movie> implements IMovieDAO {
     @Override
     public int remove(Movie object) {
         String removeQuery = "delete from movies where id = " + object.getId();
-        int updated = 0;
 
-        try {
-            updated = Executor.executeUpdate(connection, removeQuery);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return updated;
+        return Executor.executeUpdate(connection, removeQuery);
     }
 
     @Override
     public int removeAll() {
         String removeAllQuery = "delete from movies";
-        int updated = 0;
-        try {
-            updated = Executor.executeUpdate(connection, removeAllQuery);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
 
-        return updated;
+        return Executor.executeUpdate(connection, removeAllQuery);
     }
 
     @Override
@@ -139,13 +115,7 @@ public class MovieDAO extends DAO<Movie> implements IMovieDAO {
 
         List<Genre> genres = new ArrayList<>();
 
-        try {
-            return Util.getGenres(genres, connection, getGenresQuery);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return null;
+        return Util.getGenres(genres, connection, getGenresQuery);
     }
 
     @Override
@@ -157,19 +127,18 @@ public class MovieDAO extends DAO<Movie> implements IMovieDAO {
                 "where genre = " + genre.toString().toLowerCase();
         List<Movie> movies = new ArrayList<>();
 
-        try {
-            return fillUpMovieList(movies, query);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return null;
-        }
+        return fillUpMovieList(movies, query);
     }
 
     @Override
     public List<Movie> findMoviesByGenres(List<Genre> genres) {
-        StringBuilder queryBuilder = new StringBuilder();
         List<Movie> movies = new ArrayList<>();
 
+        return fillUpMovieList(movies, createFindQueryByGenres(genres));
+    }
+
+    private String createFindQueryByGenres(List<Genre> genres) {
+        StringBuilder queryBuilder = new StringBuilder();
         queryBuilder.append("select distinct movies.id, title, movie_type, release_date,runtime, plot, country, " +
                 "imdb_rating, ")
                 .append("imdb_votes, average_client_mark, poster_url from movies_genres")
@@ -193,14 +162,7 @@ public class MovieDAO extends DAO<Movie> implements IMovieDAO {
             }
         }
 
-
-        try {
-            return fillUpMovieList(movies, queryBuilder.toString());
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return null;
+        return queryBuilder.toString();
     }
 
     @Override
@@ -211,13 +173,7 @@ public class MovieDAO extends DAO<Movie> implements IMovieDAO {
                 " where acting_person_id = " + person.getId();
         List<Movie> movies = new ArrayList<>();
 
-        try {
-            return fillUpMovieList(movies, getMoviesByActingPersonQuery);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return null;
+        return fillUpMovieList(movies, getMoviesByActingPersonQuery);
     }
 
     // TODO not tested
@@ -226,13 +182,7 @@ public class MovieDAO extends DAO<Movie> implements IMovieDAO {
         String query = "select * from movies where title regexp '" + regexp + "'";
         List<Movie> movies = new ArrayList<>();
 
-        try {
-            return fillUpMovieList(movies, query);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return null;
+        return fillUpMovieList(movies, query);
     }
 
     @Override
@@ -240,13 +190,7 @@ public class MovieDAO extends DAO<Movie> implements IMovieDAO {
         String query = "select * from movies where release_date < " + "'" + Util.parseSQLDate(date) + "'";
         List<Movie> movies = new ArrayList<>();
 
-        try {
-            return fillUpMovieList(movies, query);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return null;
+        return fillUpMovieList(movies, query);
     }
 
     @Override
@@ -254,13 +198,7 @@ public class MovieDAO extends DAO<Movie> implements IMovieDAO {
         String query = "select * from movies where release_date > " + "'" + Util.parseSQLDate(date) + "'";
         List<Movie> movies = new ArrayList<>();
 
-        try {
-            return fillUpMovieList(movies, query);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return null;
+        return fillUpMovieList(movies, query);
     }
 
     @Override
@@ -268,18 +206,12 @@ public class MovieDAO extends DAO<Movie> implements IMovieDAO {
         String query = "select * from movies where country = " + "'" + country + "'";
         List<Movie> movies = new ArrayList<>();
 
-        try {
-            return fillUpMovieList(movies, query);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return null;
+        return fillUpMovieList(movies, query);
     }
 
     @Override
     public List<Movie> findMoviesByImdbRating() {
-        return getMoviesByImdbRating(0);
+        return getMoviesByImdbRating(MIN_MARK_VALUE);
     }
 
     // TODO check rating
@@ -287,13 +219,7 @@ public class MovieDAO extends DAO<Movie> implements IMovieDAO {
         String query = "select * from movies where imdb_rating > " + rating;
         List<Movie> movies = new ArrayList<>();
 
-        try {
-            return fillUpMovieList(movies, query);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return null;
+        return fillUpMovieList(movies, query);
     }
 
     @Override
@@ -304,13 +230,7 @@ public class MovieDAO extends DAO<Movie> implements IMovieDAO {
                 " group by movie_id having count(client_id) > " + value;
         List<Movie> movies = new ArrayList<>();
 
-        try {
-            return fillUpMovieList(movies, query);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return null;
+        return fillUpMovieList(movies, query);
     }
 
     @Override
@@ -322,13 +242,7 @@ public class MovieDAO extends DAO<Movie> implements IMovieDAO {
                 " group by movie_id having gender = 'male' && count(gender) > " + value;
         List<Movie> movies = new ArrayList<>();
 
-        try {
-            return fillUpMovieList(movies, query);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return null;
+        return fillUpMovieList(movies, query);
     }
 
     @Override
@@ -340,13 +254,7 @@ public class MovieDAO extends DAO<Movie> implements IMovieDAO {
                 " group by movie_id having gender = 'female' && count(gender) > " + value;
         List<Movie> movies = new ArrayList<>();
 
-        try {
-            return fillUpMovieList(movies, query);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return null;
+        return fillUpMovieList(movies, query);
     }
 
     @Override
@@ -354,13 +262,7 @@ public class MovieDAO extends DAO<Movie> implements IMovieDAO {
         String query = "select * from movies where average_client_mark > " + value;
         List<Movie> movies = new ArrayList<>();
 
-        try {
-            return fillUpMovieList(movies, query);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return null;
+        return fillUpMovieList(movies, query);
     }
 
     @Override
@@ -368,38 +270,23 @@ public class MovieDAO extends DAO<Movie> implements IMovieDAO {
         String query = "select * from movies limit " + limit + " offset " + offset;
         List<Movie> movies = new ArrayList<>();
 
-        try {
-            return fillUpMovieList(movies, query);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return null;
-        }
+        return fillUpMovieList(movies, query);
     }
 
     @Override
     public List<Movie> findMoviesBySearchQuery(String query) {
         List<Movie> movies = new ArrayList<>();
 
-        try {
-            return fillUpMovieList(movies, query);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return null;
-        }
+        return fillUpMovieList(movies, query);
     }
 
     @Override
     public int addGenreToMovie(Movie movie, Genre genre) {
+        int offsetEnumToDatabase = 1;
         String query = String.format("insert into movies_genres values(%d, %d)", movie.getId(),
-                genre.ordinal() + 1);
+                genre.ordinal() + offsetEnumToDatabase);
 
-        try {
-            return Executor.executeUpdate(connection, query);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return -1;
+        return Executor.executeUpdate(connection, query);
     }
 
     private int putMovie(Movie movie, String query) throws SQLException {
@@ -439,7 +326,7 @@ public class MovieDAO extends DAO<Movie> implements IMovieDAO {
                 resultSet.getString(11));
     }
 
-    private List<Movie> fillUpMovieList(List<Movie> movies, String query) throws SQLException {
+    private List<Movie> fillUpMovieList(List<Movie> movies, String query) {
         Executor.executeQuery(connection, query, resultSet -> {
             while (resultSet.next()) {
                 movies.add(constructNewMovie(resultSet));
@@ -450,5 +337,4 @@ public class MovieDAO extends DAO<Movie> implements IMovieDAO {
 
         return movies;
     }
-
 }

@@ -52,43 +52,30 @@ public class ActingPersonDAO extends DAO<ActingPerson> implements IActingPersonD
     }
 
     @Override
-    public ActingPerson get(long id) {
+    public ActingPerson find(long id) {
         String query = "select * from acting_people where id = " + id;
         LOG.trace("QUERY: " + query);
 
-        try {
-            return Executor.executeQuery(connection, query, resultSet -> {
-                resultSet.next();
-                ActingPerson person = constructActingPeople(resultSet);
-                LOG.info("returned acting person: " + person);
+        return Executor.executeQuery(connection, query, resultSet -> {
+            resultSet.next();
+            ActingPerson person = constructActingPeople(resultSet);
+            LOG.info("returned acting person: " + person);
 
-                return person;
-            });
-        } catch (SQLException e) {
-            LOG.error("Acting person can not be returned");
-            e.printStackTrace();
-        }
-
-        return null;
+            return person;
+        });
     }
 
     @Override
-    public List<ActingPerson> getAll() {
+    public List<ActingPerson> findAll() {
         String query = "select * from acting_people";
         LOG.trace("QUERY: " + query);
         List<ActingPerson> people = new ArrayList<>();
 
-        try {
-            people = fillUpList(people, query);
-            LOG.info("returned: " + people);
+        people = fillUpList(people, query);
+        LOG.info("returned: " + people);
 
-            return people;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            LOG.error("can not get list of acting people, returned null");
-        }
+        return people;
 
-        return null;
     }
 
     @Override
@@ -124,15 +111,10 @@ public class ActingPersonDAO extends DAO<ActingPerson> implements IActingPersonD
     public int remove(ActingPerson object) {
         String removeQuery = "delete from acting_people where id = " + object.getId();
         LOG.trace("QUERY: " + removeQuery);
-        int updated = -1;
+        int updated;
 
-        try {
-            updated = Executor.executeUpdate(connection, removeQuery);
-            LOG.info("Updated rows: " + updated);
-        } catch (SQLException e) {
-            LOG.error("can not remove acting person");
-            e.printStackTrace();
-        }
+        updated = Executor.executeUpdate(connection, removeQuery);
+        LOG.info("Updated rows: " + updated);
         return updated;
     }
 
@@ -142,19 +124,14 @@ public class ActingPersonDAO extends DAO<ActingPerson> implements IActingPersonD
         LOG.trace("QUERY: " + removeAllQuery);
         int updated = 0;
 
-        try {
-            updated = Executor.executeUpdate(connection, removeAllQuery);
-        } catch (SQLException e) {
-            LOG.error("can not delete all");
-            e.printStackTrace();
-        }
+        updated = Executor.executeUpdate(connection, removeAllQuery);
 
         LOG.info("returned(updated rows): " + updated);
         return updated;
     }
 
     @Override
-    public List<ActingPerson> getByMovie(Movie movie) {
+    public List<ActingPerson> findByMovie(Movie movie) {
         String query = "select acting_people.id, name, gender, height, acting_people.country, age, death_date,  " +
                 "total_movies_number, acting_people.average_client_mark, photo_url from acting_person_movies" +
                 " join acting_people on acting_person_id = acting_people.id " +
@@ -162,177 +139,135 @@ public class ActingPersonDAO extends DAO<ActingPerson> implements IActingPersonD
         LOG.trace("QUERY: " + query);
         List<ActingPerson> list = new ArrayList<>();
 
-        try {
-            return fillUpList(list, query);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            LOG.error("can not returned list by movie(" + movie + ")");
-
-            return null;
-        }
+        return fillUpList(list, query);
     }
 
     @Override
-    public List<ActingRole> getActingPersonRoleList(ActingPerson actingPerson) {
+    public List<ActingRole> findActingPersonRoleList(ActingPerson actingPerson) {
         String query = "select role from acting_person_roles " +
                 "join roles_in_movie on roles_in_movie.id = role_id " +
                 "where acting_person_id = " + actingPerson.getId();
         LOG.trace("QUERY: " + query);
         List<ActingRole> roles = new ArrayList<>();
 
-        try {
-            Executor.executeQuery(connection, query, resultSet -> {
-                while (resultSet.next()) {
-                    roles.add(ActingRole.valueOf(resultSet.getString(1).toUpperCase()));
-                }
+        Executor.executeQuery(connection, query, resultSet -> {
+            while (resultSet.next()) {
+                roles.add(ActingRole.valueOf(resultSet.getString(1).toUpperCase()));
+            }
 
-                LOG.info("Roles of acting person -  " + actingPerson + ": " + roles);
-                return roles;
-            });
-        } catch (SQLException e) {
-            e.printStackTrace();
-            LOG.error("can not returned roles of acting person - " + actingPerson);
-        }
+            LOG.info("Roles of acting person -  " + actingPerson + ": " + roles);
+            return roles;
+        });
 
         return roles;
     }
 
     @Override
-    public List<Genre> getActingPersonGenreList(ActingPerson actingPerson) {
+    public ActingPerson findActingPersonByName(String name) {
+        String query = "select * from acting_people where name='" + name + "'";
+
+        return Executor.executeQuery(connection, query, resultSet -> {
+            resultSet.next();
+
+            return constructActingPeople(resultSet);
+        });
+    }
+
+    @Override
+    public ActingPerson findActingPersonByLastName(String lastName) {
+        String query = "select * from acting_people where name like '%" + lastName + "%'";
+
+        return Executor.executeQuery(connection, query, resultSet -> {
+            resultSet.next();
+
+            return constructActingPeople(resultSet);
+        });
+    }
+
+    @Override
+    public List<Genre> findActingPersonGenreList(ActingPerson actingPerson) {
         String query = "select genre from acting_person_genres " +
                 "join genres on genres.id = genre_id " +
                 "where acting_person_id = " + actingPerson.getId();
         LOG.trace("QUERY: " + query);
         List<Genre> genres = new ArrayList<>();
 
-        try {
-            return Util.getGenres(genres, connection, query);
-        } catch (SQLException e) {
-            LOG.error("can not returned acting people by genres");
-            e.printStackTrace();
-            return null;
-        }
+        return Util.getGenres(genres, connection, query);
     }
 
     // TODO not tested
     @Override
-    public List<ActingPerson> getByRegExp(String regexp) {
+    public List<ActingPerson> findByRegExp(String regexp) {
         String query = "select * from acting_people where name regexp '" + regexp + "'";
         List<ActingPerson> list = new ArrayList<>();
         LOG.trace("QUERY: " + query);
 
-        try {
-            return fillUpList(list, query);
-        } catch (SQLException e) {
-            LOG.error("can not returned by regexp(" + regexp + ")");
-            e.printStackTrace();
-            return null;
-        }
+        return fillUpList(list, query);
     }
 
     @Override
-    public List<ActingPerson> getByCountry(String country) {
+    public List<ActingPerson> findByCountry(String country) {
         String query = "select * from acting_people where country = '" + country + "'";
         LOG.trace("QUERY: " + query);
         List<ActingPerson> list = new ArrayList<>();
 
-        try {
-            return fillUpList(list, query);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            LOG.error("can not returned acting person list by country - " + country);
-
-            return null;
-        }
+        return fillUpList(list, query);
     }
 
     @Override
-    public List<ActingPerson> getAliveActingPeople() {
+    public List<ActingPerson> findAliveActingPeople() {
         String query = "select * from acting_people " +
                 "where death_date is null || death_date = '0000-00-00'";
         LOG.trace("QUERY: " + query);
 
         List<ActingPerson> list = new ArrayList<>();
 
-        try {
-            return fillUpList(list, query);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            LOG.error("can not returned alive acting people");
 
-            return null;
-        }
+        return fillUpList(list, query);
+
     }
 
     @Override
-    public List<ActingPerson> getDeadActingPeople() {
+    public List<ActingPerson> findDeadActingPeople() {
         String query = "select * from acting_people " +
                 "where death_date is not null && death_date != '0000-00-00'";
         LOG.trace("QUERY: " + query);
         List<ActingPerson> list = new ArrayList<>();
 
-        try {
-            return fillUpList(list, query);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            LOG.error("can not returned dead acting people");
-
-            return null;
-        }
+        return fillUpList(list, query);
     }
 
     @Override
-    public List<ActingPerson> getByTotalMovieQuantity(int value) {
+    public List<ActingPerson> findByTotalMovieQuantity(int value) {
         String query = "select * from acting_people where total_movies_number > " + value;
         LOG.trace("QUERY: " + query);
         List<ActingPerson> list = new ArrayList<>();
 
-        try {
-            return fillUpList(list, query);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            LOG.error("can not returned acting people by total movie quantity: " + value);
-
-            return null;
-        }
+        return fillUpList(list, query);
     }
 
     @Override
-    public List<ActingPerson> getByClientsMark(double value) {
+    public List<ActingPerson> findByClientsMark(double value) {
         String query = "select * from acting_people where average_client_mark = " + value;
         LOG.trace("QUERY: " + query);
         List<ActingPerson> list = new ArrayList<>();
 
-        try {
-            return fillUpList(list, query);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            LOG.error("can not returned acting people by clients mark");
-
-            return null;
-        }
+        return fillUpList(list, query);
     }
 
     // TODO not tested
     @Override
-    public List<ActingPerson> getByTemplate(String template) {
+    public List<ActingPerson> findByTemplate(String template) {
         String query = "select * from acting_people where name like '" + template + "'";
         LOG.trace("QUERY: " + query);
         List<ActingPerson> list = new ArrayList<>();
 
-        try {
-            return fillUpList(list, query);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            LOG.error("can not returned acting people by template");
-
-            return null;
-        }
+        return fillUpList(list, query);
     }
 
     // TODO rewrite into Map
     @Override
-    public List<ActingPerson> getActors() {
+    public List<ActingPerson> findActors() {
         String query = "select acting_people.id, name, gender, height, acting_people.country, age, death_date, " +
                 "total_movies_number, acting_people.average_client_mark, photo_url " +
                 "from acting_person_roles " +
@@ -342,18 +277,11 @@ public class ActingPersonDAO extends DAO<ActingPerson> implements IActingPersonD
         LOG.trace("QUERY: " + query);
         List<ActingPerson> list = new ArrayList<>();
 
-        try {
-            return fillUpList(list, query);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            LOG.error("can not returned actors");
-
-            return null;
-        }
+        return fillUpList(list, query);
     }
 
     @Override
-    public List<ActingPerson> getDirectors() {
+    public List<ActingPerson> findDirectors() {
         String query = "select acting_people.id, name, gender, height, acting_people.country, age, death_date, " +
                 "total_movies_number, acting_people.average_client_mark, photo_url " +
                 "from acting_person_roles " +
@@ -363,18 +291,11 @@ public class ActingPersonDAO extends DAO<ActingPerson> implements IActingPersonD
         LOG.trace("QUERY: " + query);
         List<ActingPerson> list = new ArrayList<>();
 
-        try {
-            return fillUpList(list, query);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            LOG.error("can not returned directors");
-
-            return null;
-        }
+        return fillUpList(list, query);
     }
 
     @Override
-    public List<ActingPerson> getProducers() {
+    public List<ActingPerson> findProducers() {
         String query = "select acting_people.id, name, gender, height, acting_people.country, age, death_date, " +
                 "total_movies_number, acting_people.average_client_mark, photo_url " +
                 "from acting_person_roles " +
@@ -384,18 +305,11 @@ public class ActingPersonDAO extends DAO<ActingPerson> implements IActingPersonD
         LOG.trace("QUERY: " + query);
         List<ActingPerson> list = new ArrayList<>();
 
-        try {
-            return fillUpList(list, query);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            LOG.error("can not returned producers");
-
-            return null;
-        }
+        return fillUpList(list, query);
     }
 
     @Override
-    public List<ActingPerson> getScreenWriters() {
+    public List<ActingPerson> findScreenWriters() {
         String query = "select acting_people.id, name, gender, height, acting_people.country, age, death_date, " +
                 "total_movies_number, acting_people.average_client_mark, photo_url " +
                 "from acting_person_roles " +
@@ -405,18 +319,11 @@ public class ActingPersonDAO extends DAO<ActingPerson> implements IActingPersonD
         LOG.trace("QUERY: " + query);
         List<ActingPerson> list = new ArrayList<>();
 
-        try {
-            return fillUpList(list, query);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            LOG.error("can not returned screen writers");
-
-            return null;
-        }
+        return fillUpList(list, query);
     }
 
     @Override
-    public List<ActingPerson> getActorsByMovie(Movie movie) {
+    public List<ActingPerson> findActorsByMovie(Movie movie) {
         // movie_id must be checked
         String query = "select acting_people.id, name, gender, height, acting_people.country, age, death_date, " +
                 "total_movies_number, acting_people.average_client_mark, photo_url " +
@@ -426,18 +333,11 @@ public class ActingPersonDAO extends DAO<ActingPerson> implements IActingPersonD
         LOG.trace("QUERY: " + query);
         List<ActingPerson> list = new ArrayList<>();
 
-        try {
-            return fillUpList(list, query);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            LOG.error("can not returned actors by movie: " + movie);
-
-            return null;
-        }
+        return fillUpList(list, query);
     }
 
     @Override
-    public List<ActingPerson> getDirectorsByMovie(Movie movie) {
+    public List<ActingPerson> findDirectorsByMovie(Movie movie) {
         String query = "select acting_people.id, name, gender, height, acting_people.country, age, death_date, " +
                 "total_movies_number, acting_people.average_client_mark, photo_url " +
                 "from acting_person_movies " +
@@ -446,18 +346,11 @@ public class ActingPersonDAO extends DAO<ActingPerson> implements IActingPersonD
         LOG.trace("QUERY: " + query);
         List<ActingPerson> list = new ArrayList<>();
 
-        try {
-            return fillUpList(list, query);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            LOG.error("can ont returned directors by movie: " + movie);
-
-            return null;
-        }
+        return fillUpList(list, query);
     }
 
     @Override
-    public List<ActingPerson> getProducersByMovie(Movie movie) {
+    public List<ActingPerson> findProducersByMovie(Movie movie) {
         String query = "select acting_people.id, name, gender, height, acting_people.country, age, death_date, " +
                 "total_movies_number, acting_people.average_client_mark, photo_url " +
                 "from acting_person_movies " +
@@ -466,19 +359,12 @@ public class ActingPersonDAO extends DAO<ActingPerson> implements IActingPersonD
         LOG.trace("QUERY: " + query);
         List<ActingPerson> list = new ArrayList<>();
 
-        try {
-            return fillUpList(list, query);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            LOG.error("can not returned producers by movie: " + movie);
-
-            return null;
-        }
+        return fillUpList(list, query);
 
     }
 
     @Override
-    public List<ActingPerson> getScreenWritersByMovie(Movie movie) {
+    public List<ActingPerson> findScreenWritersByMovie(Movie movie) {
         String query = "select acting_people.id, name, gender, height, acting_people.country, age, death_date, " +
                 "total_movies_number, acting_people.average_client_mark, photo_url " +
                 "from acting_person_movies " +
@@ -487,14 +373,7 @@ public class ActingPersonDAO extends DAO<ActingPerson> implements IActingPersonD
         LOG.trace("QUERY: " + query);
         List<ActingPerson> list = new ArrayList<>();
 
-        try {
-            return fillUpList(list, query);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            LOG.error("can not returned screen writers by movie: " + movie);
-
-            return null;
-        }
+        return fillUpList(list, query);
     }
 
     @Override
@@ -503,20 +382,13 @@ public class ActingPersonDAO extends DAO<ActingPerson> implements IActingPersonD
                 genre.ordinal() + 1);
         LOG.trace("QUERY: " + query);
 
-        try {
-            return Executor.executeUpdate(connection, query);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            LOG.error("can not add new genre" + genre + " to acting person: " + actingPerson);
-
-            return -1;
-        }
+        return Executor.executeUpdate(connection, query);
     }
 
     @Override
     public int addNewMovie(ActingPerson actingPerson, Movie movie, boolean isActor,
                            boolean isDirector, boolean isProducer, boolean isScreenWriter) {
-        // checking
+
         StringBuilder query = new StringBuilder("insert into acting_person_movies values(");
 
         query.append(actingPerson.getId()).append(", ")
@@ -527,14 +399,7 @@ public class ActingPersonDAO extends DAO<ActingPerson> implements IActingPersonD
                 .append(convertBooleanIntoInt(isScreenWriter)).append(");");
         LOG.trace("QUERY: " + query.toString());
 
-        try {
-            return Executor.executeUpdate(connection, query.toString());
-        } catch (SQLException e) {
-            e.printStackTrace();
-            LOG.error("can not add new movie: " + movie + " to acting person: " + actingPerson);
-
-            return -1;
-        }
+        return Executor.executeUpdate(connection, query.toString());
     }
 
     @Override
@@ -543,17 +408,10 @@ public class ActingPersonDAO extends DAO<ActingPerson> implements IActingPersonD
                 person.getId(), role.ordinal() + 1);
         LOG.trace("QUERY: " + query);
 
-        try {
-            return Executor.executeUpdate(connection, query);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            LOG.error("can not add new role: " + role + " to acting person: " + person);
-
-            return -1;
-        }
+        return Executor.executeUpdate(connection, query);
     }
 
-    private List<ActingPerson> fillUpList(List<ActingPerson> people, String query) throws SQLException {
+    private List<ActingPerson> fillUpList(List<ActingPerson> people, String query) {
 
         Executor.executeQuery(connection, query, resultSet -> {
             while (resultSet.next()) {
@@ -562,7 +420,6 @@ public class ActingPersonDAO extends DAO<ActingPerson> implements IActingPersonD
 
             return people;
         });
-
 
         return people;
     }
@@ -590,7 +447,6 @@ public class ActingPersonDAO extends DAO<ActingPerson> implements IActingPersonD
     }
 
     private ActingPerson constructActingPeople(ResultSet resultSet) throws SQLException {
-
         return new ActingPerson(
                 resultSet.getLong(1),
                 resultSet.getString(2),
@@ -602,7 +458,6 @@ public class ActingPersonDAO extends DAO<ActingPerson> implements IActingPersonD
                 resultSet.getInt(8),
                 resultSet.getDouble(9),
                 resultSet.getString(10));
-
     }
 
     private int convertBooleanIntoInt(boolean value) {

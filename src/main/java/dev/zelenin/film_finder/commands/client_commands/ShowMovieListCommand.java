@@ -1,4 +1,4 @@
-package dev.zelenin.film_finder.commands.shared_commands;
+package dev.zelenin.film_finder.commands.client_commands;
 
 import dev.zelenin.film_finder.commands.Command;
 import dev.zelenin.film_finder.data.data_sets.movies.Movie;

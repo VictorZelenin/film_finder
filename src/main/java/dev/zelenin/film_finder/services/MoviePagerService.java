@@ -7,13 +7,13 @@ import dev.zelenin.film_finder.data.database.DatabaseManager;
 
 import javax.servlet.http.HttpServletRequest;
 import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.List;
 
 /**
  * Created by victor on 23.08.16.
  */
-public class MoviePagerService {
+// TODO debug this 
+public class MoviePagerService extends DatabaseService {
 
     public static void setupMovieList(HttpServletRequest request, int moviesPerPage, List<Movie> movies) {
         Connection connection = DatabaseManager.getConnection();
@@ -22,6 +22,7 @@ public class MoviePagerService {
         int page;
         final int currentPage;
 
+        System.out.println("accepted movie list: " + movies);
         try {
             page = Integer.parseInt(request.getParameter("page"));
         } catch (RuntimeException e) {
@@ -32,13 +33,9 @@ public class MoviePagerService {
 
         setupMovieList(request, moviesCount, moviesPerPage, currentPage,
                 splitMovieList(movies, moviesPerPage, currentPage));
-        try {
-            if (connection != null) {
-                connection.close();
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        request.setAttribute("moviesList_size", movies.size());
+
+        closeConnection(connection);
     }
 
     private static void setupMovieList(HttpServletRequest request, int moviesCount, int moviesPerPage,
@@ -51,6 +48,7 @@ public class MoviePagerService {
             request.setAttribute("previous_page", currentPageIndex - 1);
         }
 
+        request.setAttribute("per_page", moviesPerPage);
         request.setAttribute("movies", list);
     }
 

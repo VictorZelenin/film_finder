@@ -10,7 +10,7 @@ import java.util.List;
  * Created by victor on 04.08.16.
  */
 public interface IActingPersonMarkDAO extends IDAO<ActingPersonMark> {
-    List<ActingPersonMark> getActingPersonMarksByClient(Client client);
+    List<ActingPersonMark> findActingPersonMarksByClient(Client client);
 
-    List<ActingPersonMark> getActingPersonMarksByActingPerson(ActingPerson person);
+    List<ActingPersonMark> findActingPersonMarksByActingPerson(ActingPerson person);
 }

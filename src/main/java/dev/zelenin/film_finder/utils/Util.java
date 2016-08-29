@@ -105,9 +105,7 @@ public class Util {
         }
     }
 
-    public static List<Genre> getGenres(List<Genre> genres, Connection connection, String query) throws SQLException {
-
-
+    public static List<Genre> getGenres(List<Genre> genres, Connection connection, String query) {
         Executor.executeQuery(connection, query, resultSet -> {
             while (resultSet.next()) {
                 genres.add(Genre.valueOf(resultSet.getString(1).toUpperCase()));
@@ -115,6 +113,12 @@ public class Util {
 
             return genres;
         });
+
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
         return genres;
     }

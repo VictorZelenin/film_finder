@@ -1,4 +1,4 @@
-package dev.zelenin.film_finder.data.search_builder;
+package dev.zelenin.film_finder.services.search_builder;
 
 import dev.zelenin.film_finder.data.data_sets.acting_person.ActingPerson;
 import dev.zelenin.film_finder.data.data_sets.movies.Genre;
@@ -45,20 +45,13 @@ public class MySQLSearchQueryBuilder extends AbstractSearchQueryBuilder {
         addLast(isLast);
     }
 
-    // должен передать уже список, где isActor = 1
     @Override
-    public void addActorsPart(List<ActingPerson> actingPersonList, boolean isLast) {
-        queryBuilder.append("acting_person_id ")
-                .append("in(");
-        for (int i = 0; i < actingPersonList.size(); i++) {
-            if (i == actingPersonList.size() - 1) {
-                queryBuilder.append(actingPersonList.get(i))
-                        .append(")");
-            } else {
-                queryBuilder.append(actingPersonList.get(i))
-                        .append(", ");
-            }
-        }
+    public void addActorsPart(ActingPerson actingPerson, boolean isLast) {
+
+        queryBuilder.append("acting_person_id = ")
+                .append(actingPerson.getId())
+                .append(" and ")
+                .append("isActor = 1");
 
         addLast(isLast);
     }
@@ -66,7 +59,9 @@ public class MySQLSearchQueryBuilder extends AbstractSearchQueryBuilder {
     @Override
     public void addDirectorPart(ActingPerson director, boolean isLast) {
         queryBuilder.append("acting_person_id = ")
-                .append(director.getId());
+                .append(director.getId())
+                .append(" and ")
+                .append("isDirector = 1");
         addLast(isLast);
     }
 

@@ -20,6 +20,7 @@ import java.util.Objects;
  */
 @WebServlet(urlPatterns = {"/controller", "/admin", ""})
 public class FrontController extends HttpServlet {
+
     @Override
     public void init() throws ServletException {
         List<Genre> genres = MovieService.getAllGenres();
@@ -51,7 +52,8 @@ public class FrontController extends HttpServlet {
 
         } else if (page.equals(request.getRequestURI()) ||
                 page.equals(Paths.MOVIE_PAGE) ||
-                page.equals(Paths.MOVIE_LIST)) {
+                page.equals(Paths.MOVIE_LIST) ||
+                page.equals(Paths.ACTING_PERSON_PAGE)) {
             request.getRequestDispatcher(page).forward(request, response);
         } else {
             response.sendRedirect(page);

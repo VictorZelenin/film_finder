@@ -29,6 +29,10 @@
                     <input class="form-control" type="text" id="runtime" name="runtime"/>
                 </div>
                 <div class="form-group">
+                    <label for="year">Год (>)</label>
+                    <input class="form-control" type="text" id="year" name="year"/>
+                </div>
+                <div class="form-group">
                     <label for="movie_type">Тип</label>
                     <select class="form-control" id="movie_type" name="movie_type">
                         <!--for each-->
@@ -44,7 +48,7 @@
                     <input class="form-control" type="text" id="country" name="country"/>
                 </div>
                 <div class="form-group">
-                    <label for="genre">Жанр (>= 1)</label>
+                    <label for="genre">Жанр (>= 1 'Или')</label>
                     <select class="form-control" id="genre" name="genre" multiple="multiple">
                         <!--for each-->
                         <c:forEach var="genre" items="${genres}">

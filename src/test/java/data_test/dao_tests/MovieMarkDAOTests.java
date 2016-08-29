@@ -38,13 +38,13 @@ public class MovieMarkDAOTests {
 
     @Test
     public void getTest() {
-        assertNotNull(dao.get(1));
+        assertNotNull(dao.find(1));
     }
 
     @Test
     public void saveTest() {
-        Client client = new ClientDAO(connection).get(13);
-        Movie movie = new MovieDAO(connection).get(6);
+        Client client = new ClientDAO(connection).find(13);
+        Movie movie = new MovieDAO(connection).find(6);
         MovieMark mark = new MovieMark(5, null, null, movie, client);
         assertTrue(dao.save(mark) == 1);
     }
@@ -58,7 +58,7 @@ public class MovieMarkDAOTests {
 
     @Test
     public void getAllTest() {
-        List<MovieMark> movieMarks = dao.getAll();
+        List<MovieMark> movieMarks = dao.findAll();
         System.out.println(movieMarks);
 
         assertTrue(movieMarks.size() > 1);

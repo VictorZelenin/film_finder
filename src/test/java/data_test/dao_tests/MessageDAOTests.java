@@ -39,7 +39,7 @@ public class MessageDAOTests {
     // TODO check id before using into DB
     @Test
     public void getMessageTest() {
-        Message message = messageDAO.get(6);
+        Message message = messageDAO.find(6);
         System.out.println(message);
         assertNotNull(message);
     }
@@ -47,14 +47,14 @@ public class MessageDAOTests {
 
     @Test
     public void getAllMessagesTest() {
-        List<Message> messages = messageDAO.getAll();
+        List<Message> messages = messageDAO.findAll();
         System.out.println(messages);
         assertTrue(messages.size() > 1);
     }
 
     @Test
     public void saveMessageTest() {
-        Client client = new ClientDAO(connection).get(16);
+        Client client = new ClientDAO(connection).find(16);
         System.out.println(client);
         Message message = new Message("", new Date(), client);
         System.out.println(message.getClient());
@@ -64,7 +64,7 @@ public class MessageDAOTests {
 
     @Test
     public void existsTest() {
-        Client client = new ClientDAO(connection).get(21);
+        Client client = new ClientDAO(connection).find(21);
         System.out.println(client);
 
         assertFalse(messageDAO.exists(client));
@@ -72,16 +72,16 @@ public class MessageDAOTests {
 
     @Test(expected = ClientNotFoundException.class)
     public void getMessageByClientTest() {
-        Client client = new ClientDAO(connection).get(18); // exists in clients , doesn't exist in messages
+        Client client = new ClientDAO(connection).find(18); // exists in clients , doesn't exist in messages
         System.out.println(client);
-        Message message = messageDAO.getMessageFromClient(client);
+        Message message = messageDAO.findMessageFromClient(client);
         System.out.println(message);
     }
 
     // TODO запретить изменение message_id and client_id
     @Test
     public void updateMessageTest() {
-        Message message = messageDAO.get(7);
+        Message message = messageDAO.find(7);
 
         message.setValue("baaar");
         assertTrue(messageDAO.update(7, message) == 1);
@@ -89,12 +89,12 @@ public class MessageDAOTests {
 
     @Test
     public void removeTest() {
-        assertNotEquals(messageDAO.remove(messageDAO.get(3)), -1);
+        assertNotEquals(messageDAO.remove(messageDAO.find(3)), -1);
     }
 
     @Test
     public void getMessagesForAdminsTest() {
-        List<Message> messages = messageDAO.getMessagesForAdmin(new Admin(4, "a", "b", "c"));
+        List<Message> messages = messageDAO.findMessagesForAdmin(new Admin(4, "a", "b", "c"));
         System.out.println(messages);
         assertTrue(messages.size() > 0);
     }

@@ -20,6 +20,9 @@ import static dev.zelenin.film_finder.utils.Util.*;
  * Created by victor on 04.08.16.
  */
 public class ActingPersonMarkDAO extends DAO<ActingPersonMark> implements IActingPersonMarkDAO {
+    private static final int MIN_MARK_VALUE = 0;
+    private static final int MAX_MARK_VALUE = 10;
+
     public ActingPersonMarkDAO(Connection connection) {
         super(connection);
     }
@@ -39,7 +42,7 @@ public class ActingPersonMarkDAO extends DAO<ActingPersonMark> implements IActin
     }
 
     @Override
-    public ActingPersonMark get(long id) {
+    public ActingPersonMark find(long id) {
         String query = "select acting_person_marks.id, mark, acting_person_marks.date, description, " +
                 "acting_people.id, acting_people.name, acting_people.gender, height, country, age, death_date, " +
                 "total_movies_number, average_client_mark, acting_people.photo_url, clients.id, clients.name, " +
@@ -49,21 +52,15 @@ public class ActingPersonMarkDAO extends DAO<ActingPersonMark> implements IActin
                 "join clients on clients.id = client_id " +
                 "where acting_person_marks.id = " + id;
 
-        try {
-            return Executor.executeQuery(connection, query, resultSet -> {
-                resultSet.next();
+        return Executor.executeQuery(connection, query, resultSet -> {
+            resultSet.next();
 
-                return constructPersonMark(resultSet);
-            });
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return null;
+            return constructPersonMark(resultSet);
+        });
     }
 
     @Override
-    public List<ActingPersonMark> getAll() {
+    public List<ActingPersonMark> findAll() {
         String query = "select acting_person_marks.id, mark, acting_person_marks.date, description, " +
                 "acting_people.id, acting_people.name, acting_people.gender, height, country, age, death_date, " +
                 "total_movies_number, average_client_mark, acting_people.photo_url, clients.id, clients.name, " +
@@ -73,13 +70,7 @@ public class ActingPersonMarkDAO extends DAO<ActingPersonMark> implements IActin
                 "join clients on clients.id = client_id ";
         List<ActingPersonMark> actingPersonMarks = new ArrayList<>();
 
-        try {
-            return fillUpList(actingPersonMarks, query);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return null;
+        return fillUpList(actingPersonMarks, query);
     }
 
     @Override
@@ -112,13 +103,9 @@ public class ActingPersonMarkDAO extends DAO<ActingPersonMark> implements IActin
     public int remove(ActingPersonMark object) {
         String query = "delete from acting_person_marks " +
                 "where id = " + object.getId();
-        int updated = 0;
+        int updated;
 
-        try {
-            updated = Executor.executeUpdate(connection, query);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        updated = Executor.executeUpdate(connection, query);
 
         return updated;
     }
@@ -126,13 +113,9 @@ public class ActingPersonMarkDAO extends DAO<ActingPersonMark> implements IActin
     @Override
     public int removeAll() {
         String query = "delete from acting_person_marks";
-        int updated = 0;
+        int updated;
 
-        try {
-            updated = Executor.executeUpdate(connection, query);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        updated = Executor.executeUpdate(connection, query);
         return updated;
     }
 
@@ -142,7 +125,7 @@ public class ActingPersonMarkDAO extends DAO<ActingPersonMark> implements IActin
     }
 
     @Override
-    public List<ActingPersonMark> getActingPersonMarksByClient(Client client) {
+    public List<ActingPersonMark> findActingPersonMarksByClient(Client client) {
         String query = "select acting_person_marks.id, mark, acting_person_marks.date, description, " +
                 "acting_people.id, acting_people.name, acting_people.gender, height, country, age, death_date, " +
                 "total_movies_number, average_client_mark, acting_people.photo_url, clients.id, clients.name, " +
@@ -153,17 +136,11 @@ public class ActingPersonMarkDAO extends DAO<ActingPersonMark> implements IActin
                 "where client_id = " + client.getId();
         List<ActingPersonMark> marks = new ArrayList<>();
 
-        try {
-            return fillUpList(marks, query);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return null;
+        return fillUpList(marks, query);
     }
 
     @Override
-    public List<ActingPersonMark> getActingPersonMarksByActingPerson(ActingPerson person) {
+    public List<ActingPersonMark> findActingPersonMarksByActingPerson(ActingPerson person) {
         String query = "select acting_person_marks.id, mark, acting_person_marks.date, description, " +
                 "acting_people.id, acting_people.name, acting_people.gender, height, country, age, death_date, " +
                 "total_movies_number, average_client_mark, acting_people.photo_url, clients.id, clients.name, " +
@@ -174,18 +151,13 @@ public class ActingPersonMarkDAO extends DAO<ActingPersonMark> implements IActin
                 "where person_id = " + person.getId();
         List<ActingPersonMark> list = new ArrayList<>();
 
-        try {
-            return fillUpList(list, query);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return null;
+        return fillUpList(list, query);
     }
 
     private int putPersonMark(ActingPersonMark mark, String query) throws SQLException {
         int updated;
-        if (mark.getMark() > 10 && mark.getMark() < 0) {
+
+        if (mark.getMark() > MAX_MARK_VALUE && mark.getMark() < MIN_MARK_VALUE) {
             throw new IncorrectMarkException();
         }
 
@@ -203,7 +175,7 @@ public class ActingPersonMarkDAO extends DAO<ActingPersonMark> implements IActin
         return updated;
     }
 
-    private List<ActingPersonMark> fillUpList(List<ActingPersonMark> list, String query) throws SQLException {
+    private List<ActingPersonMark> fillUpList(List<ActingPersonMark> list, String query) {
         Executor.executeQuery(connection, query, resultSet -> {
             while (resultSet.next()) {
                 list.add(constructPersonMark(resultSet));

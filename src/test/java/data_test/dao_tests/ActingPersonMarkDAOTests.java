@@ -37,22 +37,22 @@ public class ActingPersonMarkDAOTests {
 
     @Test
     public void getTest() {
-        ActingPersonMark mark = markDAO.get(6);
+        ActingPersonMark mark = markDAO.find(6);
         System.out.println(mark);
         assertNotNull(mark);
     }
 
     @Test
     public void saveTest() {
-        ActingPerson actingPerson = new ActingPersonDAO(connection).get(16);
-        Client client = new ClientDAO(connection).get(18);
+        ActingPerson actingPerson = new ActingPersonDAO(connection).find(16);
+        Client client = new ClientDAO(connection).find(18);
         ActingPersonMark mark = new ActingPersonMark(10, null, null, actingPerson, client);
         assertTrue(markDAO.save(mark) == 1);
     }
 
     @Test
     public void getAllTest() {
-        List<ActingPersonMark> marks = markDAO.getAll();
+        List<ActingPersonMark> marks = markDAO.findAll();
         System.out.println(marks);
         assertTrue(marks.size() > 0);
     }
@@ -68,17 +68,17 @@ public class ActingPersonMarkDAOTests {
 
     @Test
     public void removeTest() {
-        assertTrue(markDAO.remove(markDAO.get(6)) == 1);
+        assertTrue(markDAO.remove(markDAO.find(6)) == 1);
     }
 
     @Test
     public void existsTest() {
-        assertTrue(markDAO.exists(markDAO.get(1)));
+        assertTrue(markDAO.exists(markDAO.find(1)));
     }
 
     @Test
     public void getByClient(){
-        List<ActingPersonMark> marks = markDAO.getActingPersonMarksByClient(new ClientDAO(connection).get(2));
+        List<ActingPersonMark> marks = markDAO.findActingPersonMarksByClient(new ClientDAO(connection).find(2));
         System.out.println(marks);
         assertTrue(marks.size() > 0);
     }

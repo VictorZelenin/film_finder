@@ -10,25 +10,31 @@ import java.sql.Statement;
  */
 public class Executor {
 
-    public static int executeUpdate(Connection connection, String query) throws SQLException {
-        int updated;
-        Statement statement = connection.createStatement();
-        statement.execute(query);
+    public static int executeUpdate(Connection connection, String query) {
+        int updated = 0;
 
-        updated = statement.getUpdateCount();
-        statement.close();
+        try (Statement statement = connection.createStatement()) {
+            statement.execute(query);
+            updated = statement.getUpdateCount();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
         return updated;
     }
 
-    public static <T> T executeQuery(Connection connection, String query, ResultHandler<T> handler) throws SQLException {
-        Statement statement = connection.createStatement();
-        statement.execute(query);
-        ResultSet resultSet = statement.getResultSet();
+    public static <T> T executeQuery(Connection connection, String query, ResultHandler<T> handler) {
+        T value = null;
 
-        T value = handler.handle(resultSet);
+        try(Statement statement = connection.createStatement()) {
+            statement.execute(query);
+            ResultSet resultSet = statement.getResultSet();
 
-        statement.close();
+            value = handler.handle(resultSet);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
         return value;
     }

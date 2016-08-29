@@ -8,7 +8,10 @@
                         <p><a href="#">Film Finder</a> info </p>
                     </div>
                 </div>
-                <div class="col-sm-offset-3 col-sm-3">
+                <div class="col-sm-3 feedback">
+                    <a href="/controller?command=feedback">Send feedback</a>
+                </div>
+                <div class="col-sm-3">
                     <div class="footerWidget">
                         <h3>Follow us</h3>
                         <ul class="socialNetwork">

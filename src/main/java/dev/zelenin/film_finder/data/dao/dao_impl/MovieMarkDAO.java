@@ -39,7 +39,7 @@ public class MovieMarkDAO extends DAO<MovieMark> implements IMovieMarkDAO {
 
 
     @Override
-    public MovieMark get(long id) {
+    public MovieMark find(long id) {
         String query = "select movie_marks.id, mark, movie_marks.date, description, " +
                 "movies.id, title, movie_type,release_date, runtime, plot, country, imdb_rating, imdb_votes, " +
                 "average_client_mark, poster_url, clients.id, clients.name, clients.gender, email, password, " +
@@ -48,20 +48,14 @@ public class MovieMarkDAO extends DAO<MovieMark> implements IMovieMarkDAO {
                 "join clients on clients.id = client_id " +
                 "where movie_marks.id = " + id;
 
-        try {
-            return Executor.executeQuery(connection, query, resultSet -> {
-                resultSet.next();
-                return constructMovieMark(resultSet);
-            });
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return null;
+        return Executor.executeQuery(connection, query, resultSet -> {
+            resultSet.next();
+            return constructMovieMark(resultSet);
+        });
     }
 
     @Override
-    public List<MovieMark> getAll() {
+    public List<MovieMark> findAll() {
         String query = "select movie_marks.id, mark, movie_marks.date, description, " +
                 "movies.id, title, movie_type,release_date, runtime, plot, country, imdb_rating, imdb_votes, " +
                 "average_client_mark, poster_url, clients.id, clients.name, clients.gender, email, password, " +
@@ -70,13 +64,7 @@ public class MovieMarkDAO extends DAO<MovieMark> implements IMovieMarkDAO {
                 "join clients on clients.id = client_id ";
         List<MovieMark> list = new ArrayList<>();
 
-        try {
-            return fillUpList(list, query);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return null;
+        return fillUpList(list, query);
     }
 
     @Override
@@ -119,26 +107,14 @@ public class MovieMarkDAO extends DAO<MovieMark> implements IMovieMarkDAO {
     public int remove(MovieMark object) {
         String query = "delete from movie_marks where id = " + object.getId();
 
-        try {
-            return Executor.executeUpdate(connection, query);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return -1;
+        return Executor.executeUpdate(connection, query);
     }
 
     @Override
     public int removeAll() {
         String query = "delete from movie_marks";
 
-        try {
-            return Executor.executeUpdate(connection, query);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return -1;
+        return Executor.executeUpdate(connection, query);
     }
 
     @Override
@@ -147,7 +123,7 @@ public class MovieMarkDAO extends DAO<MovieMark> implements IMovieMarkDAO {
     }
 
     @Override
-    public List<MovieMark> getMovieMarksByClient(Client client) {
+    public List<MovieMark> findMovieMarksByClient(Client client) {
         String query = "select movie_marks.id, mark, movie_marks.date, description, " +
                 "movies.id, title, movie_type,release_date, runtime, plot, country, imdb_rating, imdb_votes, " +
                 "average_client_mark, poster_url, clients.id, clients.name, clients.gender, email, password, " +
@@ -157,17 +133,11 @@ public class MovieMarkDAO extends DAO<MovieMark> implements IMovieMarkDAO {
                 "where client_id = " + client.getId();
         List<MovieMark> list = new ArrayList<>();
 
-        try {
-            return fillUpList(list, query);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return null;
+        return fillUpList(list, query);
     }
 
     @Override
-    public List<MovieMark> getMovieMarksByMovie(Movie movie) {
+    public List<MovieMark> findMovieMarksByMovie(Movie movie) {
         String query = "select movie_marks.id, mark, movie_marks.date, description, " +
                 "movies.id, title, movie_type,release_date, runtime, plot, country, imdb_rating, imdb_votes, " +
                 "average_client_mark, poster_url, clients.id, clients.name, clients.gender, email, password, " +
@@ -178,13 +148,7 @@ public class MovieMarkDAO extends DAO<MovieMark> implements IMovieMarkDAO {
         List<MovieMark> list = new ArrayList<>();
 
 
-        try {
-            return fillUpList(list, query);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return null;
+        return fillUpList(list, query);
     }
 
     private int putMovieMark(MovieMark mark, String query) throws SQLException {
@@ -204,8 +168,7 @@ public class MovieMarkDAO extends DAO<MovieMark> implements IMovieMarkDAO {
         return updated;
     }
 
-    private List<MovieMark> fillUpList(List<MovieMark> list, String query) throws SQLException {
-
+    private List<MovieMark> fillUpList(List<MovieMark> list, String query) {
         Executor.executeQuery(connection, query, resultSet -> {
             while (resultSet.next()) {
                 list.add(constructMovieMark(resultSet));

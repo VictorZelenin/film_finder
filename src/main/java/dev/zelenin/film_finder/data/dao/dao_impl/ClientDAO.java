@@ -38,79 +38,50 @@ public class ClientDAO extends DAO<Client> implements IClientDAO {
                 parseStringGender(object.getGender()), object.getEmail(), object.getPassword(),
                 object.getClientPhoto());
 
-        int updated = 0;
-
-        try {
-            updated = Executor.executeUpdate(connection, insertQuery);
-            // logging
-        } catch (SQLException e) {
-            // logging
-            e.printStackTrace();
-        }
-
-        return updated;
+        return Executor.executeUpdate(connection, insertQuery);
     }
 
     @Override
-    public Client get(long id) {
+    public Client find(long id) {
         String selectClientByIdQuery = "select * from clients where id =" + id;
 
-        try {
-            return Executor.executeQuery(connection, selectClientByIdQuery, resultSet -> {
-                resultSet.next();
+        return Executor.executeQuery(connection, selectClientByIdQuery, resultSet -> {
+            resultSet.next();
 
-                return new Client(resultSet.getLong(1), resultSet.getString(2),
-                        parseGender(resultSet.getString(3)), resultSet.getString(4), resultSet.getString(5),
-                        resultSet.getString(6));
-            });
-            // logging
-        } catch (SQLException e) {
-//            e.printStackTrace();
-            System.err.println("This client doesn't exist");
-            // logging
-        }
+            return new Client(resultSet.getLong(1), resultSet.getString(2),
+                    parseGender(resultSet.getString(3)), resultSet.getString(4), resultSet.getString(5),
+                    resultSet.getString(6));
+        });
 
-        return null;
+
     }
 
     @Override
     public Client getClientByEmail(String email) {
         String query = "select * from clients where email = '" + email + "'";
 
-        try {
-            return Executor.executeQuery(connection, query, resultSet -> {
-                resultSet.next();
+        return Executor.executeQuery(connection, query, resultSet -> {
+            resultSet.next();
 
-                return createClientFromResultSet(resultSet);
-            });
-        } catch (SQLException e) {
-//            e.printStackTrace();
-
-            return null;
-        }
+            return createClientFromResultSet(resultSet);
+        });
     }
 
     @Override
-    public List<Client> getAll() {
+    public List<Client> findAll() {
         String getAllClientsQuery = "select * from clients";
 
         List<Client> clients = new ArrayList<>();
 
-        try {
-            Executor.executeQuery(connection, getAllClientsQuery, resultSet -> {
-                while (resultSet.next()) {
-                    clients.add(new Client(resultSet.getLong(1), resultSet.getString(2),
-                            parseGender(resultSet.getString(3)), resultSet.getString(4), resultSet.getString(5),
-                            resultSet.getString(6)));
-                }
+        Executor.executeQuery(connection, getAllClientsQuery, resultSet -> {
+            while (resultSet.next()) {
+                clients.add(new Client(resultSet.getLong(1), resultSet.getString(2),
+                        parseGender(resultSet.getString(3)), resultSet.getString(4), resultSet.getString(5),
+                        resultSet.getString(6)));
+            }
 
-                return clients;
-            });
-            // logging here
-        } catch (SQLException e) {
-            e.printStackTrace();
-            // logging
-        }
+            return clients;
+        });
 
         return clients;
     }
@@ -145,25 +116,13 @@ public class ClientDAO extends DAO<Client> implements IClientDAO {
     public int remove(Client object) {
         String deleteClientQuery = "delete from clients where id = " + object.getId();
 
-        try {
-            return Executor.executeUpdate(connection, deleteClientQuery);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return -1;
+        return Executor.executeUpdate(connection, deleteClientQuery);
     }
 
     @Override
     public int removeAll() {
         String deleteAllClientsQuery = "delete from clients";
-        try {
-            return Executor.executeUpdate(connection, deleteAllClientsQuery);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return -1;
+        return Executor.executeUpdate(connection, deleteAllClientsQuery);
     }
 
     @Override
@@ -172,7 +131,7 @@ public class ClientDAO extends DAO<Client> implements IClientDAO {
     }
 
     @Override
-    public List<Movie> getClientChosenMovies(Client client) {
+    public List<Movie> findClientChosenMovies(Client client) {
         String getChosenMoviesQuery = "select distinct movies.id, title, movie_type, release_date, runtime, " +
                 "plot, country, imdb_rating, imdb_votes, average_client_mark, poster_url " +
                 "from clients_movies " +
@@ -180,28 +139,25 @@ public class ClientDAO extends DAO<Client> implements IClientDAO {
         System.out.println(getChosenMoviesQuery);
         List<Movie> chosenMovies = new ArrayList<>();
 
-        try {
-            Executor.executeQuery(connection, getChosenMoviesQuery, resultSet -> {
-                while (resultSet.next()) {
-                    chosenMovies.add(new Movie(resultSet.getLong(1), resultSet.getString(2),
-                            parseMovieType(resultSet.getString(3)), new Date(resultSet.getDate(4).getTime()),
-                            resultSet.getInt(5), resultSet.getString(6), resultSet.getString(7),
-                            resultSet.getDouble(8), resultSet.getDouble(9), resultSet.getDouble(10),
-                            resultSet.getString(11)));
-                }
 
-                return chosenMovies;
-            });
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        Executor.executeQuery(connection, getChosenMoviesQuery, resultSet -> {
+            while (resultSet.next()) {
+                chosenMovies.add(new Movie(resultSet.getLong(1), resultSet.getString(2),
+                        parseMovieType(resultSet.getString(3)), new Date(resultSet.getDate(4).getTime()),
+                        resultSet.getInt(5), resultSet.getString(6), resultSet.getString(7),
+                        resultSet.getDouble(8), resultSet.getDouble(9), resultSet.getDouble(10),
+                        resultSet.getString(11)));
+            }
+
+            return chosenMovies;
+        });
+
 
         return chosenMovies;
     }
 
-    // TODO implement this methods
     @Override
-    public List<MovieMark> getClientMovieMarks(Client client) {
+    public List<MovieMark> findClientMovieMarks(Client client) {
         String getMoviesMarksQuery = "select distinct `movie_marks`.id, mark, date, description, movies.id, " +
                 "title, movie_type, release_date, runtime, plot, country, imdb_rating, imdb_votes," +
                 " average_client_mark, poster_url from movie_marks join movies on movies.id = movie_id" +
@@ -209,19 +165,15 @@ public class ClientDAO extends DAO<Client> implements IClientDAO {
 
         List<MovieMark> movieMarks = new ArrayList<>();
 
-        try {
-            Executor.executeQuery(connection, getMoviesMarksQuery, result -> {
-                while (result.next()) {
-                    movieMarks.add(new MovieMark(result.getLong(1), result.getInt(2),
-                            new Date(result.getDate(3).getTime()), result.getString(4),
-                            parseMovie(result), client));
-                }
+        Executor.executeQuery(connection, getMoviesMarksQuery, result -> {
+            while (result.next()) {
+                movieMarks.add(new MovieMark(result.getLong(1), result.getInt(2),
+                        new Date(result.getDate(3).getTime()), result.getString(4),
+                        parseMovie(result), client));
+            }
 
-                return movieMarks;
-            });
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+            return movieMarks;
+        });
 
         return movieMarks;
     }
@@ -235,7 +187,7 @@ public class ClientDAO extends DAO<Client> implements IClientDAO {
     }
 
     @Override
-    public List<ActingPersonMark> getClientActingPersonMarks(Client client) {
+    public List<ActingPersonMark> findClientActingPersonMarks(Client client) {
         String getActingPersonMarksQuery = "select distinct acting_person_marks.id, mark, date, description, " +
                 "acting_people.id, name, gender,  height, country, age, death_date, total_movies_number," +
                 " average_client_mark, photo_url from acting_person_marks " +
@@ -243,41 +195,33 @@ public class ClientDAO extends DAO<Client> implements IClientDAO {
 
         List<ActingPersonMark> personMarks = new ArrayList<>();
 
-        try {
-            Executor.executeQuery(connection, getActingPersonMarksQuery, result -> {
-                while (result.next()) {
-                    personMarks.add(new ActingPersonMark(result.getLong(1), result.getInt(2),
-                            new Date(result.getDate(3).getTime()), result.getString(4),
-                            parseActingPerson(result), client));
-                }
-                System.out.println(personMarks);
-                return personMarks;
-            });
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        Executor.executeQuery(connection, getActingPersonMarksQuery, result -> {
+            while (result.next()) {
+                personMarks.add(new ActingPersonMark(result.getLong(1), result.getInt(2),
+                        new Date(result.getDate(3).getTime()), result.getString(4),
+                        parseActingPerson(result), client));
+            }
+            System.out.println(personMarks);
+            return personMarks;
+        });
 
         return personMarks;
     }
 
     @Override
-    public List<Client> getClientsByGender(Gender gender) {
+    public List<Client> findClientsByGender(Gender gender) {
         String getClientsByGenderQuery = "select * from clients where gender = '"
                 + parseStringGender(gender) + "'";
 
         List<Client> clients = new ArrayList<>();
 
-        try {
-            Executor.executeQuery(connection, getClientsByGenderQuery, result -> {
-                while (result.next()) {
-                    clients.add(createClientFromResultSet(result));
-                }
+        Executor.executeQuery(connection, getClientsByGenderQuery, result -> {
+            while (result.next()) {
+                clients.add(createClientFromResultSet(result));
+            }
 
-                return clients;
-            });
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+            return clients;
+        });
 
         return clients;
     }
@@ -286,13 +230,7 @@ public class ClientDAO extends DAO<Client> implements IClientDAO {
     public int addNewMovie(Client client, Movie movie) {
         String query = String.format("insert into clients_movies values(%d, %d)", movie.getId(), client.getId());
 
-        try {
-            return Executor.executeUpdate(connection, query);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return -1;
+        return Executor.executeUpdate(connection, query);
     }
 
     private Client createClientFromResultSet(ResultSet result) throws SQLException {

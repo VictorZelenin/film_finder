@@ -7,5 +7,5 @@ import dev.zelenin.film_finder.data.data_sets.users.Admin;
  */
 public interface IAdminDAO extends IDAO<Admin> {
 
-    Admin getByEmail(String email);
+    Admin findByEmail(String email);
 }

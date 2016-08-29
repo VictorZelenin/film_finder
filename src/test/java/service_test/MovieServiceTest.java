@@ -27,7 +27,7 @@ public class MovieServiceTest {
 
         Connection connection = DriverManager.getConnection(DATABASE_URL, USERNAME, PASSWORD);
         ClientDAO dao = new ClientDAO(connection);
-        Client client = dao.get(1);
+        Client client = dao.find(1);
 
         List<MovieMark> list = MovieService.getMovieMarks(client);
         System.out.println(list);

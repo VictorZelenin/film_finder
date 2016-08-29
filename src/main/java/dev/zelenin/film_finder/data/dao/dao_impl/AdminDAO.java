@@ -34,39 +34,29 @@ public class AdminDAO extends DAO<Admin> implements IAdminDAO {
     }
 
     @Override
-    public Admin get(long id) {
+    public Admin find(long id) {
         String getQuery = "select * from admins where id = " + id;
 
-        try {
-            return Executor.executeQuery(connection, getQuery, resultSet -> {
-                resultSet.next();
+        return Executor.executeQuery(connection, getQuery, resultSet -> {
+            resultSet.next();
 
-                return new Admin(resultSet.getLong(1), resultSet.getString(2), resultSet.getString(3),
-                        resultSet.getString(4));
-            });
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return null;
+            return new Admin(resultSet.getLong(1), resultSet.getString(2), resultSet.getString(3),
+                    resultSet.getString(4));
+        });
     }
 
     @Override
-    public List<Admin> getAll() {
+    public List<Admin> findAll() {
         String getAllQuery = "select * from admins";
         List<Admin> admins = new ArrayList<>();
 
-        try {
-            Executor.executeQuery(connection, getAllQuery, resultSet -> {
-                while (resultSet.next()) {
-                    admins.add(createAdminFromResultSet(resultSet));
-                }
+        Executor.executeQuery(connection, getAllQuery, resultSet -> {
+            while (resultSet.next()) {
+                admins.add(createAdminFromResultSet(resultSet));
+            }
 
-                return admins;
-            });
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+            return admins;
+        });
 
         return admins;
     }
@@ -111,13 +101,9 @@ public class AdminDAO extends DAO<Admin> implements IAdminDAO {
             throw new RuntimeException();
         }
         String removeQuery = "delete from admins where id = " + object.getId();
-        int updated = 0;
+        int updated;
 
-        try {
-            updated = Executor.executeUpdate(connection, removeQuery);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        updated = Executor.executeUpdate(connection, removeQuery);
 
         return updated;
     }
@@ -125,13 +111,9 @@ public class AdminDAO extends DAO<Admin> implements IAdminDAO {
     @Override
     public int removeAll() {
         String deleteAllQuery = "delete from admins";
-        int updated = 0;
+        int updated;
 
-        try {
-            updated = Executor.executeUpdate(connection, deleteAllQuery);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        updated = Executor.executeUpdate(connection, deleteAllQuery);
 
         return updated;
     }
@@ -142,19 +124,14 @@ public class AdminDAO extends DAO<Admin> implements IAdminDAO {
     }
 
     @Override
-    public Admin getByEmail(String email) {
+    public Admin findByEmail(String email) {
         String query = "select * from admins where email = '" + email + "'";
 
-        try {
-            return Executor.executeQuery(connection, query, resultSet -> {
-                resultSet.next();
+        return Executor.executeQuery(connection, query, resultSet -> {
+            resultSet.next();
 
-                return createAdminFromResultSet(resultSet);
-            });
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return null;
-        }
+            return createAdminFromResultSet(resultSet);
+        });
     }
 
     private Admin createAdminFromResultSet(ResultSet resultSet) throws SQLException {
@@ -164,6 +141,5 @@ public class AdminDAO extends DAO<Admin> implements IAdminDAO {
                 resultSet.getString(3),
                 resultSet.getString(4)
         );
-
     }
 }

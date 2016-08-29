@@ -9,9 +9,16 @@
 <div class="container-fluid personal_info_container">
     <div class="row">
         <div class="col-md-offset-2 col-md-6">
-            <img src="<c:url value="${sessionScope.client.clientPhoto}"/>"
-                 class="img-responsive client_photo"/>
-
+            <c:choose>
+                <c:when test="${sessionScope.client.clientPhoto != null}">
+                    <img src="<c:url value="${sessionScope.client.clientPhoto}"/>"
+                         class="img-responsive client_photo"/>
+                </c:when>
+                <c:otherwise>
+                    <img src="<c:url value="/resources/images/clients/user.jpg"/>"
+                         class="img-responsive client_photo"/>
+                </c:otherwise>
+            </c:choose>
         </div>
         <div class="col-md-4">
             <h1>${sessionScope.client.name}</h1>
@@ -20,7 +27,9 @@
             <p><b>Email:</b> ${sessionScope.client.email}</p>
             <p><b>Gender:</b> ${sessionScope.client.gender}</p>
             <br/>
-            <button type="button" name="editButton" class="btn-primary">Изменить</button>
+            <form method="post" action="/controller?command=profile_edit">
+                <button type="submit" name="editButton" class="btn-primary">Изменить</button>
+            </form>
         </div>
     </div>
 </div>

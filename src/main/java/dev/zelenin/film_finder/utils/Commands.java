@@ -15,4 +15,8 @@ public class Commands {
     public static final String SHOW_MOVIE_LIST = "show_movie_list";
     public static final String SEARCH = "search";
     public static final String ACCEPT_SEARCH_FORM = "accept_search_form";
+    public static final String SHOW_ACTING_PERSON = "show_acting_person";
+    public static final String FEEDBACK = "feedback";
+    public static final String EDIT = "profile_edit";
+    public static final String ACCEPT_EDIT = "accept_edit_form";
 }

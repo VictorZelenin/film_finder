@@ -42,14 +42,14 @@ public class ActingPersonDAOTests {
 
     @Test
     public void getTest() {
-        ActingPerson person = actingPersonDAO.get(3);
+        ActingPerson person = actingPersonDAO.find(3);
         System.out.println(person);
         assertNotNull(person);
     }
 
     @Test
     public void getAllTest() {
-        List<ActingPerson> personList = actingPersonDAO.getAll();
+        List<ActingPerson> personList = actingPersonDAO.findAll();
         System.out.println(personList);
         assertTrue(personList.size() > 1);
     }
@@ -61,77 +61,93 @@ public class ActingPersonDAOTests {
 
     @Test
     public void removeTest() {
-        assertTrue(actingPersonDAO.remove(actingPersonDAO.get(11)) == 1);
+        assertTrue(actingPersonDAO.remove(actingPersonDAO.find(11)) == 1);
     }
 
     @Test
     public void getByMovieTest() {
-        List<ActingPerson> personList = actingPersonDAO.getByMovie(
-                new MovieDAO(connection).get(1));
+        List<ActingPerson> personList = actingPersonDAO.findByMovie(
+                new MovieDAO(connection).find(1));
         System.out.println(personList);
         assertTrue(personList.size() > 0);
     }
 
     @Test
     public void getRolesTest() {
-        List<ActingRole> roles = actingPersonDAO.getActingPersonRoleList(actingPersonDAO.get(4));
+        List<ActingRole> roles = actingPersonDAO.findActingPersonRoleList(actingPersonDAO.find(4));
         System.out.println(roles);
         assertTrue(roles.size() > 0);
     }
 
     @Test
     public void getGenresTest() {
-        List<Genre> genres = actingPersonDAO.getActingPersonGenreList(actingPersonDAO.get(4));
+        List<Genre> genres = actingPersonDAO.findActingPersonGenreList(actingPersonDAO.find(4));
         System.out.println(genres);
         assertTrue(genres.size() > 0);
     }
 
     @Test
     public void getByCountryTest() {
-        List<ActingPerson> list = actingPersonDAO.getByCountry("USA");
+        List<ActingPerson> list = actingPersonDAO.findByCountry("USA");
         System.out.println(list);
         assertTrue(list.size() > 0);
     }
 
     @Test
     public void getAliveTest() {
-        List<ActingPerson> list = actingPersonDAO.getAliveActingPeople();
+        List<ActingPerson> list = actingPersonDAO.findAliveActingPeople();
         System.out.println(list);
         assertTrue(list.size() > 0);
     }
 
     @Test
     public void getDeadTest() {
-        List<ActingPerson> list = actingPersonDAO.getDeadActingPeople();
+        List<ActingPerson> list = actingPersonDAO.findDeadActingPeople();
         System.out.println(list);
         assertTrue(list.size() > 0);
     }
 
     @Test
     public void getByTotalMoviesTest() {
-        List<ActingPerson> list = actingPersonDAO.getByTotalMovieQuantity(40);
+        List<ActingPerson> list = actingPersonDAO.findByTotalMovieQuantity(40);
         System.out.println(list);
         assertTrue(list.size() > 1);
     }
 
     @Test
     public void getActorsTest() {
-        List<ActingPerson> actingPersons = actingPersonDAO.getActors();
+        List<ActingPerson> actingPersons = actingPersonDAO.findActors();
         System.out.println(actingPersons);
         assertTrue(actingPersons.size() > 1);
     }
 
     @Test
     public void getActorsInMovieTest() {
-        List<ActingPerson> list = actingPersonDAO.getActorsByMovie(new MovieDAO(connection).get(4));
+        List<ActingPerson> list = actingPersonDAO.findActorsByMovie(new MovieDAO(connection).find(4));
         System.out.println(list);
         assertTrue(list.size() > 0);
     }
 
     @Test
     public void getDirectorInMovieTest() {
-        List<ActingPerson> list = actingPersonDAO.getDirectorsByMovie(new MovieDAO(connection).get(1));
+        List<ActingPerson> list = actingPersonDAO.findDirectorsByMovie(new MovieDAO(connection).find(1));
         System.out.println(list);
         assertTrue(list.size() > 0);
+    }
+
+    @Test
+    public void findPersonByNameTest() {
+        ActingPerson person = actingPersonDAO.findActingPersonByName("Quentin Tarantino");
+        System.out.println(person);
+
+        assertNotNull(person);
+    }
+
+    @Test
+    public void findPersonByLastNameTest() {
+        ActingPerson person = actingPersonDAO.findActingPersonByLastName("Tarantino");
+        System.out.println(person);
+
+        assertNotNull(person);
     }
 }

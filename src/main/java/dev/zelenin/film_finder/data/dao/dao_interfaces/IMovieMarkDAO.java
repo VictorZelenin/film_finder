@@ -10,8 +10,8 @@ import java.util.List;
  * Created by victor on 04.08.16.
  */
 public interface IMovieMarkDAO extends IDAO<MovieMark> {
-    List<MovieMark> getMovieMarksByClient(Client client);
+    List<MovieMark> findMovieMarksByClient(Client client);
 
-    List<MovieMark> getMovieMarksByMovie(Movie movie);
+    List<MovieMark> findMovieMarksByMovie(Movie movie);
 
 }

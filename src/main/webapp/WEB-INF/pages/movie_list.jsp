@@ -17,20 +17,22 @@
                 </div>
             </div>
         </c:forEach>
-        <ul class="movie-pager">
-            <c:if test="${requestScope.previous_page != null}">
-                <li><a href="<c:url value="/controller?command=main&page=${previous_page}"/>">
-                    <span aria-hidden="true">&larr;</span>
-                        <%--<fmt:message key="previous"/>--%>
-                </a></li>
-            </c:if>
-            <c:if test="${requestScope.next_page != null}">
-                <li><a href="<c:url value="/controller?command=main&page=${next_page}"/>">
-                        <%--<fmt:message key="next"/>--%>
-                    <span aria-hidden="true">&rarr;</span>
-                </a></li>
-            </c:if>
-        </ul>
+        <c:if test="${moviesList_size > per_page}">
+            <ul class="media-list movie-pager">
+                <c:if test="${requestScope.previous_page != null}">
+                    <li><a href="<c:url value="/controller?command=main&page=${previous_page}"/>">
+                        <span aria-hidden="true">&larr;</span>
+                            <%--<fmt:message key="previous"/>--%>
+                    </a></li>
+                </c:if>
+                <c:if test="${requestScope.next_page != null}">
+                    <li><a href="<c:url value="/controller?command=main&page=${next_page}"/>">
+                            <%--<fmt:message key="next"/>--%>
+                        <span aria-hidden="true">&rarr;</span>
+                    </a></li>
+                </c:if>
+            </ul>
+        </c:if>
     </c:when>
     <c:otherwise>
         <h1>Фильмов за такими параметрами не найдено!!</h1>

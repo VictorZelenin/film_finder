@@ -11,11 +11,11 @@ import java.util.List;
  */
 
 public interface IMessageDAO extends IDAO<Message> {
-    Message getMessageFromClient(Client client);
+    Message findMessageFromClient(Client client);
 
     boolean exists(Client client);
 
-    List<Message> getMessagesForAdmin(Admin admin);
+    List<Message> findMessagesForAdmin(Admin admin);
 
     int addMessageToAdmin(Message message, Admin admin);
 }

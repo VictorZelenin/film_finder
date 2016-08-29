@@ -11,9 +11,9 @@ public interface IDAO<T extends DataSet> {
 
     int save(T object);
 
-    T get(long id);
+    T find(long id);
 
-    List<T> getAll();
+    List<T> findAll();
 
     int update(long id, T newObject);
 

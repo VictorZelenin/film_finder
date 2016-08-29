@@ -21,9 +21,6 @@ public class ActingPerson extends DataSet implements Serializable {
     private Date deathDate;
     private String photoURL;
 
-//    private Set<ActingRole> rolesList;
-//    private List<Genre> genres;
-
     private double averageClientMark;
 
     public ActingPerson() {

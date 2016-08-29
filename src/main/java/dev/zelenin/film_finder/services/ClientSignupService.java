@@ -7,12 +7,11 @@ import dev.zelenin.film_finder.data.database.DatabaseManager;
 import dev.zelenin.film_finder.utils.Util;
 
 import java.sql.Connection;
-import java.sql.SQLException;
 
 /**
  * Created by victor on 08.08.16.
  */
-public class ClientSignupService {
+public class ClientSignupService extends DatabaseService {
 
     public static Client register(String name, String gender, String email, String password, String photoUrl) {
         Client client = new Client(name, Util.parseGender(gender), email, password, photoUrl);
@@ -20,20 +19,19 @@ public class ClientSignupService {
         IClientDAO dao = new DAOFactory(connection).getClientDAO();
         dao.save(client);
 
-        try {
-            if (connection != null) {
-                connection.close();
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        closeConnection(connection);
+
         return client;
     }
 
 
     public static boolean exists(String email) {
-        return new DAOFactory(DatabaseManager.getConnection())
-                .getClientDAO()
-                .getClientByEmail(email) != null;
+        Connection connection = DatabaseManager.getConnection();
+        IClientDAO dao = new DAOFactory(connection).getClientDAO();
+        boolean exists = dao.getClientByEmail(email) != null;
+
+        closeConnection(connection);
+
+        return exists;
     }
 }

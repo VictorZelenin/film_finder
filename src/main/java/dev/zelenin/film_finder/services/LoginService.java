@@ -11,7 +11,7 @@ import java.sql.Connection;
 /**
  * Created by victor on 08.08.16.
  */
-public class LoginService {
+public class LoginService extends DatabaseService{
 
     public static Client createClient(String email, String password) throws Exception {
         Connection connection = DatabaseManager.getConnection();
@@ -26,8 +26,7 @@ public class LoginService {
             throw new Exception("User not found or incorrect password");
         }
 
-        assert connection != null;
-        connection.close();
+        closeConnection(connection);
 
         return user;
     }

@@ -12,13 +12,13 @@ import java.util.List;
  * Created by victor on 03.08.16.
  */
 public interface IClientDAO extends IDAO<Client> {
-    List<Movie> getClientChosenMovies(Client client);
+    List<Movie> findClientChosenMovies(Client client);
 
-    List<MovieMark> getClientMovieMarks(Client client);
+    List<MovieMark> findClientMovieMarks(Client client);
 
-    List<ActingPersonMark> getClientActingPersonMarks(Client client);
+    List<ActingPersonMark> findClientActingPersonMarks(Client client);
 
-    List<Client> getClientsByGender(Gender gender);
+    List<Client> findClientsByGender(Gender gender);
 
     int addNewMovie(Client client, Movie movie);
 
