@@ -21,12 +21,14 @@ import java.util.Objects;
 /**
  * Created by victor on 22.08.16.
  */
+// TODO need refactoring here
+// TODO validation
 public class AcceptClientSignupFormCommand implements Command {
     private ServletFileUpload uploader = null;
     private static final String DIRECTORY = "/home/victor/IdeaProjects/film_finder_github/" +
             "src/main/webapp/resources/images/clients";
 
-    public void init() {
+    private void init() {
         DiskFileItemFactory fileFactory = new DiskFileItemFactory();
         this.uploader = new ServletFileUpload(fileFactory);
     }
@@ -92,7 +94,7 @@ public class AcceptClientSignupFormCommand implements Command {
         return new PersonalCabinetCommand().execute(request);
     }
 
-    private Map<String, Object> parseClientAttributes(List<FileItem> fileItemList) {
+    static Map<String, Object> parseClientAttributes(List<FileItem> fileItemList) {
         String directory = "/resources/images/clients/";
         Map<String, Object> map = new HashMap<>();
 
@@ -108,7 +110,7 @@ public class AcceptClientSignupFormCommand implements Command {
                     case "email":
                         map.put("email", fileItem.getString());
                         break;
-                    case "optradio":
+                    case "gender":
                         map.put("gender", fileItem.getString());
                         break;
                     case "password":
@@ -127,7 +129,7 @@ public class AcceptClientSignupFormCommand implements Command {
         return map;
     }
 
-    private boolean isCorrectPassword(String password, String passwordConfirmation) {
+    static boolean isCorrectPassword(String password, String passwordConfirmation) {
         return password.equals(passwordConfirmation) && !Objects.equals(password, "");
     }
 }

@@ -17,6 +17,8 @@ public class Commands {
     public static final String ACCEPT_SEARCH_FORM = "accept_search_form";
     public static final String SHOW_ACTING_PERSON = "show_acting_person";
     public static final String FEEDBACK = "feedback";
+    public static final String ACCEPT_FEEDBACK_MESSAGE = "accept_feedback";
     public static final String EDIT = "profile_edit";
     public static final String ACCEPT_EDIT = "accept_edit_form";
+    public static final String ADD_MARK = "add_mark";
 }

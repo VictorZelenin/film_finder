@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
@@ -40,12 +41,12 @@
                                    placeholder="Email Address">
                         </div>
                         <div class="form-group">
-                            <label>Gender</label>
-                            <div class="radio">
-                                <label><input type="radio" name="optradio" value="male">Male</label>
-                            </div>
-                            <div class="radio">
-                                <label><input type="radio" name="optradio" value="female">Female</label>
+                            <label class="control-label col-md-offset-3 col-md-1">Пол:</label>
+                            <div class="col-md-4">
+                                <select class="form-control" name="gender">
+                                    <option value="male" selected>Мужской</option>
+                                    <option value="female">Женский</option>
+                                </select>
                             </div>
                         </div>
 

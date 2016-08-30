@@ -14,4 +14,6 @@ public interface IMovieMarkDAO extends IDAO<MovieMark> {
 
     List<MovieMark> findMovieMarksByMovie(Movie movie);
 
+    MovieMark findMovieMarkByClientAndMovie(Client client, Movie movie);
+
 }

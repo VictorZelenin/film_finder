@@ -154,6 +154,26 @@ public class ActingPersonMarkDAO extends DAO<ActingPersonMark> implements IActin
         return fillUpList(list, query);
     }
 
+    @Override
+    public ActingPersonMark findActingPersonMarkByClientAndPerson(Client client, ActingPerson person) {
+        String query = "select acting_person_marks.id, mark, acting_person_marks.date, description, " +
+                "acting_people.id, acting_people.name, acting_people.gender, height, country, age, death_date, " +
+                "total_movies_number, average_client_mark, acting_people.photo_url, clients.id, clients.name, " +
+                "clients.gender, email, password, clients.photo_url " +
+                "from acting_person_marks " +
+                "join acting_people on acting_people.id = person_id " +
+                "join clients on clients.id = client_id " +
+                "where person_id = " + person.getId() +
+                " and " +
+                " client_id = " + client.getId();
+
+        return Executor.executeQuery(connection, query, resultSet -> {
+            resultSet.next();
+
+            return constructPersonMark(resultSet);
+        });
+    }
+
     private int putPersonMark(ActingPersonMark mark, String query) throws SQLException {
         int updated;
 

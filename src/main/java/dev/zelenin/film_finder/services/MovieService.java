@@ -79,7 +79,7 @@ public class MovieService extends DatabaseService {
         return list;
     }
 
-    public static Movie getMovie(int id) {
+    public static Movie getMovie(long id) {
         Connection connection = DatabaseManager.getConnection();
         IMovieDAO dao = new DAOFactory(connection).getMovieDAO();
         Movie movie = dao.find(id);

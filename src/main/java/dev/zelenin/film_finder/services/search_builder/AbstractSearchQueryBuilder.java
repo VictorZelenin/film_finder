@@ -40,7 +40,7 @@ public abstract class AbstractSearchQueryBuilder {
                 addReleaseYearPart(values[0], isLast);
                 break;
             case "movie_type":
-                addMovieTypePart(values[0].toLowerCase(), isLast);
+                addMovieTypePart(parseMovieType(values[0]), isLast);
                 break;
             case "country":
                 addCountryPart(values[0], isLast);
@@ -67,6 +67,21 @@ public abstract class AbstractSearchQueryBuilder {
         }
 
         return genres;
+    }
+
+    private String parseMovieType(String value) {
+        int integerValue = Integer.parseInt(value);
+
+        switch (integerValue) {
+            case 0:
+                return "film";
+            case 1:
+                return "series";
+            case 2:
+                return "episode";
+            default:
+                return "film";
+        }
     }
 
     // movies table

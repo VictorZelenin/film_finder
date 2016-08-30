@@ -54,9 +54,9 @@ public class MessageDAOTests {
 
     @Test
     public void saveMessageTest() {
-        Client client = new ClientDAO(connection).find(16);
+        Client client = new ClientDAO(connection).find(0);
         System.out.println(client);
-        Message message = new Message("", new Date(), client);
+        Message message = new Message("zzzzzzzzzzzzzz", new Date(), client);
         System.out.println(message.getClient());
 
         assertTrue(messageDAO.save(message) == 1);

@@ -6,6 +6,10 @@
 <body>
 <jsp:include page="../WEB-INF/pages/navbar/navbar.jsp"/>
 
+<c:if test="${sessionScope.client == null}">
+    <c:redirect url="/controller"/>
+</c:if>
+
 <div class="container-fluid personal_info_container">
     <div class="row">
         <div class="col-md-offset-2 col-md-6">

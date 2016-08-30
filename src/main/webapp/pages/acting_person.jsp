@@ -16,14 +16,14 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-2"></div>
-        <div class="col-md-6">
+        <div class="col-md-4">
             <h1>${acting_person.name}</h1>
             <div class="movie_image">
                 <img src="${acting_person.photoURL}" class="img-responsive" width="300" height="400">
             </div>
             <%--<p>${requestScope.movie.plot}</p>--%>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-offset-1 col-md-3">
             <br/>
             <br/>
             <br/>
@@ -53,6 +53,38 @@
             </ul>
         </div>
     </div>
+    <br/>
+    <c:if test="${client != null}">
+        <form method="post" action="/controller?command=add_mark?...">
+            <div class="row">
+                <div class="form-group">
+                    <label class="control-label col-md-offset-2 col-md-2" for="mark">Ваша оценка:</label>
+                    <div class="col-md-2">
+                        <input type="number" min="0" max="10" class="form-control" id="mark" name="mark"
+                               value="">
+                    </div>
+                </div>
+            </div>
+            <br/>
+                <%--foreach mark show comments--%>
+            <div class="row">
+                <div class="form-group">
+                    <label class="control-label col-md-offset-2 col-md-4 col-md-offset-4" for="comment">Оставьте
+                        комментарий:</label>
+                    <div class="col-md-offset-2 col-md-6">
+                    <textarea cols="15" rows="5" class=" form-control" id="comment"
+                              placeholder="comment here..."></textarea>
+                    </div>
+                </div>
+            </div>
+            <br/>
+            <div class="row">
+                <div class="col-md-offset-7">
+                    <button type="submit" class="btn-primary">Оставить</button>
+                </div>
+            </div>
+        </form>
+    </c:if>
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>

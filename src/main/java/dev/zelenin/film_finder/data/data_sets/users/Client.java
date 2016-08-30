@@ -8,9 +8,12 @@ import java.io.Serializable;
  * Created by victor on 01.08.16.
  */
 public class Client extends User implements Serializable {
+    private static int FIRST_NAME_INDEX = 0;
+    private static int LAST_NAME_INDEX = 1;
+
     private String clientPhoto;
     private Gender gender;
-    
+
     public Client() {
     }
 
@@ -47,6 +50,18 @@ public class Client extends User implements Serializable {
 
     public void setGender(Gender gender) {
         this.gender = gender;
+    }
+
+    public String getFirstName() {
+        return splitName()[FIRST_NAME_INDEX];
+    }
+
+    public String getLastName() {
+        return splitName()[LAST_NAME_INDEX];
+    }
+
+    private String[] splitName() {
+        return name.split(" ");
     }
 
     @Override

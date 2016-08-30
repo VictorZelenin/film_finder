@@ -57,7 +57,7 @@ public class ActingPersonService extends DatabaseService {
         return exists;
     }
 
-    public static ActingPerson getActingPersonByFullName(long id) {
+    public static ActingPerson getActingPersonById(long id) {
         Connection connection = DatabaseManager.getConnection();
         IActingPersonDAO dao = new DAOFactory(connection).getActingPersonDAO();
         ActingPerson actingPerson = dao.find(id);
@@ -67,7 +67,7 @@ public class ActingPersonService extends DatabaseService {
         return actingPerson;
     }
 
-    public static ActingPerson getActingPersonByFullName(String name) {
+    public static ActingPerson getActingPersonById(String name) {
         Connection connection = DatabaseManager.getConnection();
         IActingPersonDAO dao = new DAOFactory(connection).getActingPersonDAO();
         ActingPerson actingPerson = dao.findActingPersonByName(name);

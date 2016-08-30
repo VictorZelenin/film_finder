@@ -23,16 +23,12 @@ public class Util {
         switch (type.toLowerCase()) {
             case "movie":
                 return MovieType.FILM;
-
             case "series":
                 return MovieType.SERIES;
-
             case "episode":
                 return MovieType.EPISODE;
-
             default:
                 return MovieType.FILM;
-
         }
     }
 

@@ -13,4 +13,6 @@ public interface IActingPersonMarkDAO extends IDAO<ActingPersonMark> {
     List<ActingPersonMark> findActingPersonMarksByClient(Client client);
 
     List<ActingPersonMark> findActingPersonMarksByActingPerson(ActingPerson person);
+
+    ActingPersonMark findActingPersonMarkByClientAndPerson(Client client, ActingPerson person);
 }

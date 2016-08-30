@@ -9,7 +9,6 @@ import dev.zelenin.film_finder.services.search_builder.AbstractSearchQueryBuilde
 import dev.zelenin.film_finder.services.search_builder.MySQLSearchQueryBuilder;
 
 import java.sql.Connection;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -44,7 +43,6 @@ public class SearchService extends DatabaseService {
                     entry.getValue() == null ||
                     entry.getValue()[0].isEmpty()) {
 
-                System.out.println("Removed -- Key: " + entry.getKey() + ", Value" + Arrays.toString(entry.getValue()));
                 iterator.remove();
             }
         }
@@ -69,7 +67,6 @@ public class SearchService extends DatabaseService {
 
             i++;
         }
-        System.out.println(builder.getSearchQuery());
 
         return builder.getSearchQuery();
     }

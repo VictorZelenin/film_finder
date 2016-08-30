@@ -151,6 +151,25 @@ public class MovieMarkDAO extends DAO<MovieMark> implements IMovieMarkDAO {
         return fillUpList(list, query);
     }
 
+    @Override
+    public MovieMark findMovieMarkByClientAndMovie(Client client, Movie movie) {
+        String query = "select movie_marks.id, mark, movie_marks.date, description, " +
+                "movies.id, title, movie_type,release_date, runtime, plot, country, imdb_rating, imdb_votes, " +
+                "average_client_mark, poster_url, clients.id, clients.name, clients.gender, email, password, " +
+                "clients.photo_url from movie_marks " +
+                "join movies on movies.id = movie_id " +
+                "join clients on clients.id = client_id " +
+                "where movie_id = " + movie.getId() +
+                " and " +
+                "client_id = " + client.getId();
+
+        return Executor.executeQuery(connection, query, resultSet -> {
+            resultSet.next();
+
+            return constructMovieMark(resultSet);
+        });
+    }
+
     private int putMovieMark(MovieMark mark, String query) throws SQLException {
         int updated;
 

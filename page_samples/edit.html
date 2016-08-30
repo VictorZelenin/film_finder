@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Title</title>
+    <link rel="stylesheet" href="../src/main/webapp/resources/bootstrap-3.3.7-dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="../src/main/webapp/resources/bootstrap-3.3.7-dist/css/bootstrap.css"/>
+    <link rel="stylesheet" href="css/style.css">
+    <style type="text/css">
+        body {
+            padding-top: 50px;
+        }
+
+        .dropdown.dropdown-lg .dropdown-menu {
+            margin-top: -1px;
+            padding: 6px 20px;
+        }
+
+        .input-group-btn .btn-group {
+            display: flex !important;
+        }
+
+        .btn-group .btn {
+            border-radius: 0;
+            margin-left: -1px;
+        }
+
+        .btn-group .btn:last-child {
+            border-top-right-radius: 4px;
+            border-bottom-right-radius: 4px;
+        }
+
+        .btn-group .form-horizontal .btn[type="submit"] {
+            border-top-left-radius: 4px;
+            border-bottom-left-radius: 4px;
+        }
+
+        .form-horizontal .form-group {
+            margin-left: 0;
+            margin-right: 0;
+        }
+
+        .form-group .form-control:last-child {
+            border-top-left-radius: 4px;
+            border-bottom-left-radius: 4px;
+        }
+
+
+    </style>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <div class="navbar navbar-default">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#responsive-menu">
+                        <span class="sr-only">Открыть навигацию</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <!--<a id="logo" href="<c:url value="/"/>" class="navbar-left"><img-->
+                    <!--src="${pageContext.request.contextPath}/resources/logo.png"/></a>-->
+                </div>
+                <div class="collapse navbar-collapse" id="responsive-menu">
+                    <ul class="nav navbar-nav">
+                        <li><a href="#">Главная</a></li>
+                        <li><a href="#">Поиск фильмов</a></li>
+                        <li><a href="#">Список фильмов</a></li>
+                        <li><a href="#">Личный кабинет</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-offset-4 col-md-6">
+            <h2>Редактирование профиля</h2>
+        </div>
+    </div>
+    <br/>
+    <form>
+        <div class="row">
+            <div class="form-group">
+                <label class="control-label col-md-offset-3 col-md-1" for="name">Имя:</label>
+                <div class="col-md-4">
+                    <input type="text" class="form-control" id="name" name="name" value="">
+                </div>
+            </div>
+        </div>
+        <br/>
+        <div class="row">
+            <div class="form-group">
+                <label class="control-label col-md-offset-3 col-md-1" for="email">Email:</label>
+                <div class="col-md-4 ">
+                    <input type="email" class="form-control" id="email" name="email" value="">
+                </div>
+            </div>
+        </div>
+        <br/>
+        <br/>
+        <div class="row">
+            <div class="form-group">
+                <label class="control-label col-md-offset-1 col-md-1" for="password1">Пароль</label>
+                <div class="col-md-3 ">
+                    <input type="password" class="form-control" id="password1" name="password1" value="">
+                </div>
+                <label class="control-label col-md-offset-1 col-md-2" for="password2">Подтвердите пароль</label>
+                <div class="col-md-3">
+                    <input type="password" class="form-control" id="password2" name="password1" value="">
+                </div>
+            </div>
+        </div>
+        <br/>
+        <br/>
+        <div class="row">
+            <div class="form-group">
+                <label class="control-label col-md-offset-3 col-md-1" for="gender">Пол:</label>
+                <div class="col-md-4">
+                    <select class="form-control" id="gender">
+                        <option value="male">Мужской</option>
+                        <option value="female">Женский</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <br/>
+        <br/>
+        <div class="row">
+            <div class="form-group">
+                <label class="col-md-offset-3 col-md-2">Загрузите фото:</label>
+                <label class="col-md-1 btn btn-primary btn-file">
+                    Upload photo
+                    <input name="client_image" type="file" style="display: none;">
+                </label>
+            </div>
+        </div>
+        <br/>
+        <br/>
+        <div class="row">
+            <button type="submit" class="btn btn-primary col-md-offset-10">Изменить</button>
+        </div>
+    </form>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="../src/main/webapp/resources/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+</body>
+</html>

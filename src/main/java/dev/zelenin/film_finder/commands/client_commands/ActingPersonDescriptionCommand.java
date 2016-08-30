@@ -19,7 +19,7 @@ public class ActingPersonDescriptionCommand implements Command {
         try {
             int personId = Integer.parseInt(request.getParameter("person_id"));
 
-            actingPerson = ActingPersonService.getActingPersonByFullName(personId);
+            actingPerson = ActingPersonService.getActingPersonById(personId);
         } catch (Exception e) {
             return new MainCommand().execute(request);
         }

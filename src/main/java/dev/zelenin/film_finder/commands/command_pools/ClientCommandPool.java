@@ -1,9 +1,7 @@
 package dev.zelenin.film_finder.commands.command_pools;
 
 import dev.zelenin.film_finder.commands.client_commands.*;
-import dev.zelenin.film_finder.commands.client_commands.accept_commands.AcceptClientSignupFormCommand;
-import dev.zelenin.film_finder.commands.client_commands.accept_commands.AcceptEditCommand;
-import dev.zelenin.film_finder.commands.client_commands.accept_commands.AcceptSearchCommand;
+import dev.zelenin.film_finder.commands.client_commands.accept_commands.*;
 import dev.zelenin.film_finder.commands.shared_commands.AcceptLoginFormCommand;
 import dev.zelenin.film_finder.commands.shared_commands.LoginCommand;
 import dev.zelenin.film_finder.commands.shared_commands.LogoutCommand;
@@ -28,7 +26,9 @@ public class ClientCommandPool extends CommandPool {
         addCommand(Commands.ACCEPT_SEARCH_FORM, new AcceptSearchCommand());
         addCommand(Commands.SHOW_ACTING_PERSON, new ActingPersonDescriptionCommand());
         addCommand(Commands.FEEDBACK, new FeedbackCommand());
+        addCommand(Commands.ACCEPT_FEEDBACK_MESSAGE, new AcceptFeedbackCommand());
         addCommand(Commands.EDIT, new ClientEditCommand());
         addCommand(Commands.ACCEPT_EDIT, new AcceptEditCommand());
+        addCommand(Commands.ADD_MARK, new AddMarkCommand());
     }
 }

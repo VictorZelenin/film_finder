@@ -36,7 +36,7 @@
                     <label for="movie_type">Тип</label>
                     <select class="form-control" id="movie_type" name="movie_type">
                         <!--for each-->
-                        <option value="0" selected>Фильм</option>
+                        <option value="0">Фильм</option>
                         <option value="1">Сериал</option>
                         <option value="2">Эпизод</option>
                     </select>
@@ -67,7 +67,8 @@
                 </div>
             </div>
         </div>
-        <button type="submit" class="btn btn-primary search_submit">Поиск</button>
+        <button type="submit" class="btn btn-primary search_submit">Поиск  <span
+                class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
     </form>
 </div>
 <%@ include file="/WEB-INF/pages/fragments/footer.jspf" %>

@@ -16,14 +16,13 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-2"></div>
-        <div class="col-md-6">
+        <div class="col-md-4">
             <h1>${movie.title}</h1>
             <div class="movie_image">
                 <img src="${movie.posterURL}" class="img-responsive" width="300" height="400">
             </div>
-            <p>${requestScope.movie.plot}</p>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-offset-1 col-md-3">
             <br/>
             <br/>
             <br/>
@@ -71,8 +70,68 @@
                     </li>
                 </c:if>
             </ul>
+            <br/>
+            <p>${requestScope.movie.plot}</p>
         </div>
     </div>
+    <br/>
+    <br/>
+    <c:if test="${client != null}">
+        <form id="mark_form" method="post" action="/controller?command=add_mark&movie_id=${movie.id}">
+            <div class="row">
+                <div class="form-group">
+                    <label class="control-label col-md-offset-2 col-md-2" for="mark">Ваша оценка:</label>
+                    <div class="col-md-2">
+                        <c:choose>
+                            <c:when test="${mark != null}">
+                                <input type="number" min="0" max="10" class="form-control" id="mark"
+                                       name="mark" value="${mark.mark}">
+                            </c:when>
+                            <c:otherwise>
+                                <input type="number" min="0" max="10" class="form-control" id="mark"
+                                       name="mark" value="">
+                            </c:otherwise>
+                        </c:choose>
+                    </div>
+                </div>
+            </div>
+            <br/>
+        </form>
+    </c:if>
+    <c:forEach var="movie_mark" items="${requestScope.marks}">
+        ${movie_mark}
+        <%--<textarea cols="15" rows="5" class=" form-control"--%>
+        <%--readonly="readonly">${movie_mark.description}</textarea>--%>
+
+    </c:forEach>
+    <%--foreach mark show comments--%>
+    <c:if test="${client != null}">
+        <div class="row">
+            <div class="form-group">
+                <label class="control-label col-md-offset-2 col-md-4 col-md-offset-4" for="comment">Оставьте
+                    комментарий:</label>
+                <div class="col-md-offset-2 col-md-6">
+                    <c:choose>
+                        <c:when test="${mark != null}">
+                                <textarea cols="15" rows="5" class=" form-control" id="comment"
+                                          name="comment" form="mark_form"
+                                          placeholder="comment here...">${mark.description}</textarea>
+                        </c:when>
+                        <c:otherwise>
+                                <textarea form="mark_form" cols="15" rows="5" class=" form-control"
+                                          id="comment" name="comment" placeholder="comment here..."></textarea>
+                        </c:otherwise>
+                    </c:choose>
+                </div>
+            </div>
+        </div>
+        <br/>
+        <div class="row">
+            <div class="col-md-offset-7">
+                <button form="mark_form" type="submit" class="btn-primary">Оставить</button>
+            </div>
+        </div>
+    </c:if>
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
