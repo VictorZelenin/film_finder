@@ -8,6 +8,7 @@ import dev.zelenin.film_finder.utils.Commands;
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * Created by victor on 17.08.16.
@@ -29,6 +30,10 @@ public class CommandProvider {
         System.out.println(commandPools.get(chooseCommandPool(request)));
         commandPool = commandPools.get(chooseCommandPool(request));
         command = commandPool.getCommand(commandName);
+
+        if (Objects.equals(request.getRequestURI(), "/admin") && command == null) {
+            return commandPool.getCommand(Commands.ADMIN_MAIN);
+        }
 
         if (command != null) {
             return command;

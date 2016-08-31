@@ -46,10 +46,10 @@ public class FrontController extends HttpServlet {
         System.out.println(page + ", " + request.getRequestURI());
 
         if ((request.getRequestURI().equals("/") ||
-                request.getRequestURI().equals("/controller") ||
-                request.getRequestURI().equals("/admin")) && Objects.equals(page, Paths.CONTROLLER)) {
+                request.getRequestURI().equals("/controller")) && Objects.equals(page, Paths.CONTROLLER)) {
             request.getRequestDispatcher(Paths.MAIN).forward(request, response);
-
+        } else if (page.startsWith("/admin") && Objects.equals(page, Paths.ADMIN)) {
+            request.getRequestDispatcher(Paths.ADMIN_PAGE).forward(request, response);
         } else if (page.equals(request.getRequestURI()) ||
                 page.equals(Paths.MOVIE_PAGE) ||
                 page.equals(Paths.MOVIE_LIST) ||
@@ -61,12 +61,14 @@ public class FrontController extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
         processRequest(req, resp);
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
         processRequest(req, resp);
     }
 

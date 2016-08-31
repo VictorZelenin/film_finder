@@ -1,14 +1,13 @@
-package dev.zelenin.film_finder.commands.client_commands;
+package dev.zelenin.film_finder.commands.admin_commands;
 
 import dev.zelenin.film_finder.commands.Command;
 
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * Created by victor on 28.08.16.
+ * Created by victor on 31.08.16.
  */
-// TODO impl here
-public class SendFeedbackCommand implements Command {
+public class AddMovieCommand implements Command {
     @Override
     public String execute(HttpServletRequest request) {
         return null;

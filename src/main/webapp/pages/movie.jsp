@@ -138,6 +138,9 @@
         </div>
         <br/>
         <div class="row">
+            <%--<div class="col-md-offset-3">--%>
+                <%--<input type="button" value="delete profile">--%>
+            <%--</div>--%>
             <div class="col-md-offset-7">
                 <button form="mark_form" type="submit" class="btn-primary">Оставить</button>
             </div>

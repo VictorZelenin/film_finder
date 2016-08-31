@@ -1,6 +1,7 @@
 package dev.zelenin.film_finder.commands.command_pools;
 
-import dev.zelenin.film_finder.commands.shared_commands.MainCommand;
+import dev.zelenin.film_finder.commands.admin_commands.*;
+import dev.zelenin.film_finder.commands.shared_commands.AcceptLoginFormCommand;
 import dev.zelenin.film_finder.utils.Commands;
 
 /**
@@ -8,9 +9,14 @@ import dev.zelenin.film_finder.utils.Commands;
  */
 public class AdminCommandPool extends CommandPool {
     public AdminCommandPool() {
-        addCommand(Commands.MAIN, new MainCommand());
-//        addCommand();
-//        addCommand();
+        addCommand(Commands.ADMIN_MAIN, new GetAdminPageCommand());
+        addCommand(Commands.ACCEPT_LOG_IN_FORM, new AcceptLoginFormCommand());
+        addCommand(Commands.ADMIN_ADD_MOVIE, new AddMovieCommand());
+        addCommand(Commands.ADMIN_ADD_PERSON, new AddActingPersonCommand());
+        addCommand(Commands.ADMIN_EDIT_MOVIE, new EditMovieCommand());
+        addCommand(Commands.ADMIN_EDIT_PERSON, new EditActingPersonCommand());
+        addCommand(Commands.ADMIN_SHOW_CLIENTS, new ShowClientsCommand());
+        addCommand(Commands.ADMIN_SHOW_FEEDBACK, new ShowFeedbackCommand());
 //        addCommand();
 //        addCommand();
     }

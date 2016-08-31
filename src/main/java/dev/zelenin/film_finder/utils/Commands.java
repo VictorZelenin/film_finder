@@ -22,4 +22,13 @@ public class Commands {
     public static final String ACCEPT_EDIT = "accept_edit_form";
     public static final String ADD_MARK = "add_mark";
     public static final String ADD_MOVIE = "add_movie";
+
+    public static final String ADMIN_MAIN = "admin";
+    public static final String ADMIN_ADD_MOVIE = "add_movie";
+    public static final String ADMIN_ADD_PERSON = "add_person";
+    public static final String ADMIN_EDIT_MOVIE = "edit_movie";
+    public static final String ADMIN_EDIT_PERSON = "edit_person";
+    public static final String ADMIN_SHOW_CLIENTS = "show_clients";
+    public static final String ADMIN_SHOW_FEEDBACK = "show_feedback";
+
 }
