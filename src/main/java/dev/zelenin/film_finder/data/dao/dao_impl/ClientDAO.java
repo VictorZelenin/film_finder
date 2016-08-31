@@ -233,6 +233,26 @@ public class ClientDAO extends DAO<Client> implements IClientDAO {
         return Executor.executeUpdate(connection, query);
     }
 
+    @Override
+    public boolean isAddedMovie(Movie movie, Client client) {
+        String query = "select * from clients_movies where " +
+                "client_id = " + client.getId() +
+                " and " +
+                "movie_id = " + movie.getId();
+        Long id = Executor.executeQuery(connection, query, resultSet -> {
+            resultSet.next();
+
+            return resultSet.getLong(1);
+        });
+
+        return id != null;
+    }
+
+    @Override
+    public void removeMovie(Client client, Movie movie) {
+
+    }
+
     private Client createClientFromResultSet(ResultSet result) throws SQLException {
         return new Client(result.getLong(1), result.getString(2),
                 parseGender(result.getString(3)), result.getString(4), result.getString(5),

@@ -21,4 +21,5 @@ public class Commands {
     public static final String EDIT = "profile_edit";
     public static final String ACCEPT_EDIT = "accept_edit_form";
     public static final String ADD_MARK = "add_mark";
+    public static final String ADD_MOVIE = "add_movie";
 }

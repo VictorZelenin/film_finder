@@ -3,8 +3,7 @@ package dev.zelenin.film_finder.commands.client_commands.accept_commands;
 import dev.zelenin.film_finder.commands.Command;
 import dev.zelenin.film_finder.commands.client_commands.PersonalCabinetCommand;
 import dev.zelenin.film_finder.data.data_sets.users.Client;
-import dev.zelenin.film_finder.services.ClientEditService;
-import dev.zelenin.film_finder.services.ImageUploaderService;
+import dev.zelenin.film_finder.services.ClientService;
 import dev.zelenin.film_finder.utils.Paths;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
@@ -75,7 +74,7 @@ public class AcceptEditCommand implements Command {
             System.out.println(attributes);
 
 
-            updatedClient = ClientEditService.updateClient(
+            updatedClient = ClientService.updateClient(
                     clientId,
                     name,
                     (String) attributes.get("gender"),
@@ -85,7 +84,7 @@ public class AcceptEditCommand implements Command {
             );
 
             try {
-                ImageUploaderService.uploadImage(DIRECTORY + File.separator,
+                ClientService.uploadImage(DIRECTORY + File.separator,
                         (FileItem) attributes.get("photo_item"));
             } catch (Exception e) {
                 System.out.println("Not uploaded !!");

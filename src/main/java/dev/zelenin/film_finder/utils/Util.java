@@ -1,5 +1,7 @@
 package dev.zelenin.film_finder.utils;
 
+import dev.zelenin.film_finder.data.data_sets.marks.ActingPersonMark;
+import dev.zelenin.film_finder.data.data_sets.marks.MovieMark;
 import dev.zelenin.film_finder.data.data_sets.movies.Genre;
 import dev.zelenin.film_finder.data.data_sets.movies.MovieType;
 import dev.zelenin.film_finder.data.data_sets.users.util.Gender;
@@ -117,5 +119,25 @@ public class Util {
         }
 
         return genres;
+    }
+
+    public static double calculateAverageMovieMark(List<MovieMark> movieMarks) {
+        double averageMark = 0d;
+
+        for (MovieMark movieMark : movieMarks) {
+            averageMark += movieMark.getMark();
+        }
+
+        return averageMark / movieMarks.size();
+    }
+
+    public static double calculateAveragePersonMark(List<ActingPersonMark> personMarks) {
+        double averageMark = 0d;
+
+        for (ActingPersonMark mark : personMarks) {
+            averageMark += mark.getMark();
+        }
+
+        return averageMark / personMarks.size();
     }
 }

@@ -54,6 +54,7 @@ public class MarkService extends DatabaseService {
         return actingPersonMark;
     }
 
+
     public static MovieMark getMovieMarkByClient(Client client, Movie movie) {
         Connection connection = DatabaseManager.getConnection();
         IMovieMarkDAO dao = new DAOFactory(connection).getMovieMarkDAO();
@@ -66,6 +67,7 @@ public class MarkService extends DatabaseService {
 
     public static List<MovieMark> getAllMovieMarks(Movie movie) {
         Connection connection = DatabaseManager.getConnection();
+//        Connection connection = DatabaseManager.getDebugConnection();
         IMovieMarkDAO dao = new DAOFactory(connection).getMovieMarkDAO();
         List<MovieMark> movieMarks = dao.findMovieMarksByMovie(movie);
 

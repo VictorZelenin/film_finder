@@ -1,6 +1,6 @@
 package service_test;
 
-import dev.zelenin.film_finder.services.LoginService;
+import dev.zelenin.film_finder.services.ClientService;
 import org.junit.Test;
 
 import static junit.framework.TestCase.assertNotNull;
@@ -15,7 +15,7 @@ public class LoginServiceTest {
         String email = "zelenin.victor95@gmail.com";
         String password = "1q2w3e4r5t";
 
-        assertNotNull(LoginService.createClient(email, password));
+        assertNotNull(ClientService.createClient(email, password));
 
     }
 }

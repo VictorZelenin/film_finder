@@ -3,8 +3,6 @@ package dev.zelenin.film_finder.commands.client_commands.accept_commands;
 import dev.zelenin.film_finder.commands.Command;
 import dev.zelenin.film_finder.commands.client_commands.PersonalCabinetCommand;
 import dev.zelenin.film_finder.data.data_sets.users.Client;
-import dev.zelenin.film_finder.services.ClientSignupService;
-import dev.zelenin.film_finder.services.ImageUploaderService;
 import dev.zelenin.film_finder.utils.Paths;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
@@ -17,6 +15,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+
+import static dev.zelenin.film_finder.services.ClientService.*;
 
 /**
  * Created by victor on 22.08.16.
@@ -59,7 +59,7 @@ public class AcceptClientSignupFormCommand implements Command {
 
             return Paths.SIGN_UP;
 
-        } else if (ClientSignupService.exists((String) attributes.get("email"))) {
+        } else if (exists((String) attributes.get("email"))) {
             // setup attributes
             request.setAttribute("isRegistered", true);
             System.out.println("Existed");
@@ -72,7 +72,7 @@ public class AcceptClientSignupFormCommand implements Command {
             }
 
             String name = attributes.get("first_name") + " " + attributes.get("last_name");
-            Client client = ClientSignupService.register(
+            Client client = register(
                     name,
                     (String) attributes.get("gender"),
                     (String) attributes.get("email"),
@@ -81,7 +81,7 @@ public class AcceptClientSignupFormCommand implements Command {
             );
 
             try {
-                ImageUploaderService.uploadImage(DIRECTORY + File.separator,
+                uploadImage(DIRECTORY + File.separator,
                         (FileItem) attributes.get("photo_item"));
             } catch (Exception e) {
 

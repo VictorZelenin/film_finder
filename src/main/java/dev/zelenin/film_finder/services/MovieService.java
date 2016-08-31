@@ -35,7 +35,7 @@ public class MovieService extends DatabaseService {
     }
 
     public static List<Movie> getMoviesByClientsRating(double minRatingValue) {
-        Connection connection  = DatabaseManager.getConnection();
+        Connection connection = DatabaseManager.getConnection();
         IMovieDAO dao = new DAOFactory(connection).getMovieDAO();
         List<Movie> movies = dao.findMoviesWithHighestMarks(minRatingValue);
 

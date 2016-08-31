@@ -30,5 +30,6 @@ public class ClientCommandPool extends CommandPool {
         addCommand(Commands.EDIT, new ClientEditCommand());
         addCommand(Commands.ACCEPT_EDIT, new AcceptEditCommand());
         addCommand(Commands.ADD_MARK, new AddMarkCommand());
+        addCommand(Commands.ADD_MOVIE, new AddToFavouritesMovieCommand());
     }
 }

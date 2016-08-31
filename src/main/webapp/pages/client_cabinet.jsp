@@ -45,7 +45,9 @@
                 <c:when test="${movieList.size() != 0}">
                     <ul class="media-list">
                         <c:forEach var="movie" items="${movieList}">
-                            <li><a>${movie.title}</a></li>
+                            <li>
+                                <a href="/controller?command=show_movie&movie_id=${movie.id}">${movie.title}</a>
+                            </li>
                         </c:forEach>
                     </ul>
                 </c:when>

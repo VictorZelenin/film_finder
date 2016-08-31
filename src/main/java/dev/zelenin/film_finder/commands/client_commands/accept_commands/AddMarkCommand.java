@@ -15,7 +15,6 @@ import java.util.Date;
 /**
  * Created by victor on 30.08.16.
  */
-// TODO movie and people
 public class AddMarkCommand implements Command {
     @Override
     public String execute(HttpServletRequest request) {

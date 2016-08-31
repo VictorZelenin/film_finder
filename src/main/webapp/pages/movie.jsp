@@ -24,9 +24,20 @@
         </div>
         <div class="col-md-offset-1 col-md-3">
             <br/>
+            <c:choose>
+                <c:when test="${movie.averageClientMark != 'NaN'}">
+                    <h4>Ср. оценка - ${movie.averageClientMark}</h4>
+                </c:when>
+                <c:otherwise>
+                    <h4>Ср. оценка - 0</h4>
+                </c:otherwise>
+            </c:choose>
+
+            <%--<h4>Ср. оценка - ${movie.averageClientMark}</h4>--%>
             <br/>
             <br/>
-            <br/>
+            <%--<br/>--%>
+
             <ul class="media-list">
                 <li>IMDB Rating: ${movie.imdbRating}(IMDB votes - ${movie.imdbVotes})</li>
                 <li>Country: ${movie.country}</li>
@@ -72,6 +83,12 @@
             </ul>
             <br/>
             <p>${requestScope.movie.plot}</p>
+            <br/>
+            <c:if test="${client != null}">
+                <form method="post" action="/controller?command=add_movie&movie_id=${movie.id}">
+                    <button class="btn-primary" type="submit">Add to favourites</button>
+                </form>
+            </c:if>
         </div>
     </div>
     <br/>
@@ -98,13 +115,7 @@
             <br/>
         </form>
     </c:if>
-    <c:forEach var="movie_mark" items="${requestScope.marks}">
-        ${movie_mark}
-        <%--<textarea cols="15" rows="5" class=" form-control"--%>
-        <%--readonly="readonly">${movie_mark.description}</textarea>--%>
-
-    </c:forEach>
-    <%--foreach mark show comments--%>
+    <br/>
     <c:if test="${client != null}">
         <div class="row">
             <div class="form-group">
@@ -131,7 +142,23 @@
                 <button form="mark_form" type="submit" class="btn-primary">Оставить</button>
             </div>
         </div>
+        <br/>
     </c:if>
+    <c:forEach var="movie_mark" items="${requestScope.marks}">
+        <div class="row">
+            <div class="col-md-offset-1">
+                <h3>${movie_mark.client.name}, Оценка - ${movie_mark.mark}</h3>
+                <h5>${movie_mark.date}</h5>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-offset-2 col-md-6">
+                <textarea cols="15" rows="5" class=" form-control"
+                          readonly="readonly">${movie_mark.description}</textarea>
+            </div>
+        </div>
+        <br/>
+    </c:forEach>
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>

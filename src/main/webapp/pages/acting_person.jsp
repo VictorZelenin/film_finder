@@ -26,8 +26,17 @@
         <div class="col-md-offset-1 col-md-3">
             <br/>
             <br/>
-            <br/>
-            <br/>
+            <%--<br/>--%>
+            <%--<br/>--%>
+            <c:choose>
+                <c:when test="${acting_person.averageClientMark != 'NaN'}">
+                    <h4>Ср. оценка - ${acting_person.averageClientMark}</h4>
+                </c:when>
+                <c:otherwise>
+                    <h4>Ср. оценка - 0</h4>
+                </c:otherwise>
+            </c:choose>
+
             <ul class="media-list">
                 <c:if test="${roles.size() > 0}">
                     <li>Амплуа:
@@ -55,13 +64,22 @@
     </div>
     <br/>
     <c:if test="${client != null}">
-        <form method="post" action="/controller?command=add_mark?...">
+        <form method="post" action="/controller?command=add_mark&person_id=${acting_person.id}">
             <div class="row">
                 <div class="form-group">
                     <label class="control-label col-md-offset-2 col-md-2" for="mark">Ваша оценка:</label>
                     <div class="col-md-2">
-                        <input type="number" min="0" max="10" class="form-control" id="mark" name="mark"
-                               value="">
+                        <c:choose>
+                            <c:when test="${mark != null}">
+                                <input type="number" min="0" max="10" class="form-control" id="mark" name="mark"
+                                       value="${mark.mark}">
+                            </c:when>
+                            <c:otherwise>
+                                <input type="number" min="0" max="10" class="form-control" id="mark" name="mark"
+                                       value="">
+                            </c:otherwise>
+                        </c:choose>
+
                     </div>
                 </div>
             </div>
@@ -72,8 +90,18 @@
                     <label class="control-label col-md-offset-2 col-md-4 col-md-offset-4" for="comment">Оставьте
                         комментарий:</label>
                     <div class="col-md-offset-2 col-md-6">
-                    <textarea cols="15" rows="5" class=" form-control" id="comment"
-                              placeholder="comment here..."></textarea>
+                        <c:choose>
+                            <c:when test="${mark != null}">
+                                <textarea cols="15" rows="5" class=" form-control" id="comment"
+                                          name="comment"
+                                          placeholder="comment here...">${mark.description}</textarea>
+                            </c:when>
+                            <c:otherwise>
+                                <textarea cols="15" rows="5" class=" form-control" id="comment"
+                                          name="comment"
+                                          placeholder="comment here..."></textarea>
+                            </c:otherwise>
+                        </c:choose>
                     </div>
                 </div>
             </div>
@@ -85,6 +113,21 @@
             </div>
         </form>
     </c:if>
+    <c:forEach var="person_mark" items="${requestScope.marks}">
+        <div class="row">
+            <div class="col-md-offset-1">
+                <h3>${person_mark.client.name}, Оценка - ${person_mark.mark}</h3>
+                <h5>${person_mark.date}</h5>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-offset-2 col-md-6">
+                <textarea cols="15" rows="5" class=" form-control"
+                          readonly="readonly">${person_mark.description}</textarea>
+            </div>
+        </div>
+        <br/>
+    </c:forEach>
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>

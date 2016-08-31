@@ -4,6 +4,7 @@ import dev.zelenin.film_finder.data.dao.dao_impl.ClientDAO;
 import dev.zelenin.film_finder.data.data_sets.marks.ActingPersonMark;
 import dev.zelenin.film_finder.data.data_sets.marks.MovieMark;
 import dev.zelenin.film_finder.data.data_sets.movies.Movie;
+import dev.zelenin.film_finder.data.data_sets.movies.MovieType;
 import dev.zelenin.film_finder.data.data_sets.users.Client;
 import dev.zelenin.film_finder.data.data_sets.users.util.Gender;
 import org.junit.Before;
@@ -12,6 +13,7 @@ import org.junit.Test;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -117,5 +119,12 @@ public class ClientDAOTests {
     @Test
     public void testGetClientsByGender() {
         assertTrue(clientDAO.findClientsByGender(Gender.MALE).size() > 1);
+    }
+
+    @Test
+    public void testIsAddedAlready() {
+        boolean res = clientDAO.isAddedMovie(new Movie(1, "", MovieType.EPISODE,
+                new Date(), 0, "", "", 0, 0, 0, ""), new Client(0, "a", Gender.FEMALE, "b", "c", "g"));
+        assertTrue(res);
     }
 }

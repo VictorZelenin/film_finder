@@ -3,7 +3,7 @@ package dev.zelenin.film_finder.commands.shared_commands;
 import dev.zelenin.film_finder.commands.Command;
 import dev.zelenin.film_finder.commands.client_commands.PersonalCabinetCommand;
 import dev.zelenin.film_finder.data.data_sets.users.Client;
-import dev.zelenin.film_finder.services.LoginService;
+import dev.zelenin.film_finder.services.ClientService;
 import dev.zelenin.film_finder.utils.Paths;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,7 +23,7 @@ public class AcceptLoginFormCommand implements Command {
         String password = request.getParameter(PASSWORD_PARAM);
 
         try {
-            user = LoginService.createClient(email, password);
+            user = ClientService.createClient(email, password);
             request.getSession().setAttribute("client", user);
 
             return new PersonalCabinetCommand().execute(request);
