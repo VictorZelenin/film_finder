@@ -25,7 +25,6 @@ public class FrontController extends HttpServlet {
     public void init() throws ServletException {
         List<Genre> genres = MovieService.getAllGenres();
         getServletContext().setAttribute("genres", genres);
-
     }
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -41,6 +40,7 @@ public class FrontController extends HttpServlet {
         dispatch(request, response, page);
     }
 
+    // TODO need refactoring here !!!
     private void dispatch(HttpServletRequest request, HttpServletResponse response,
                           String page) throws ServletException, IOException {
         System.out.println(page + ", " + request.getRequestURI());
@@ -71,5 +71,4 @@ public class FrontController extends HttpServlet {
             throws ServletException, IOException {
         processRequest(req, resp);
     }
-
 }

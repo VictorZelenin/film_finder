@@ -1,7 +1,6 @@
 package dev.zelenin.film_finder.commands.client_commands;
 
 import dev.zelenin.film_finder.commands.Command;
-import dev.zelenin.film_finder.commands.shared_commands.MainCommand;
 import dev.zelenin.film_finder.data.data_sets.marks.MovieMark;
 import dev.zelenin.film_finder.data.data_sets.movies.Movie;
 import dev.zelenin.film_finder.data.data_sets.users.Client;
@@ -52,7 +51,5 @@ public class MovieDescriptionCommand implements Command {
         }
 
         request.setAttribute("marks", movieMarks);
-
     }
-
 }

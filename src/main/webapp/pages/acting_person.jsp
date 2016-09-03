@@ -21,13 +21,10 @@
             <div class="movie_image">
                 <img src="${acting_person.photoURL}" class="img-responsive" width="300" height="400">
             </div>
-            <%--<p>${requestScope.movie.plot}</p>--%>
         </div>
         <div class="col-md-offset-1 col-md-3">
             <br/>
             <br/>
-            <%--<br/>--%>
-            <%--<br/>--%>
             <c:choose>
                 <c:when test="${acting_person.averageClientMark != 'NaN'}">
                     <h4>Ср. оценка - ${acting_person.averageClientMark}</h4>
@@ -84,7 +81,6 @@
                 </div>
             </div>
             <br/>
-                <%--foreach mark show comments--%>
             <div class="row">
                 <div class="form-group">
                     <label class="control-label col-md-offset-2 col-md-4 col-md-offset-4" for="comment">Оставьте

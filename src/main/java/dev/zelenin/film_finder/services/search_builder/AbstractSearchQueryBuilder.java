@@ -29,9 +29,8 @@ public abstract class AbstractSearchQueryBuilder {
                 break;
             case "actor":
                 ActingPerson actingPerson = ActingPersonService.getActingPersonByLastName(values[0]);
-                if (actingPerson != null) {
+                if (actingPerson != null)
                     addActorsPart(actingPerson, isLast);
-                }
                 break;
             case "runtime":
                 addRuntimePart(Integer.parseInt(values[0]), isLast);

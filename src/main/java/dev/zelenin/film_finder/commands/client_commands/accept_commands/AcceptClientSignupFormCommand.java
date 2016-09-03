@@ -3,133 +3,59 @@ package dev.zelenin.film_finder.commands.client_commands.accept_commands;
 import dev.zelenin.film_finder.commands.Command;
 import dev.zelenin.film_finder.commands.client_commands.PersonalCabinetCommand;
 import dev.zelenin.film_finder.data.data_sets.users.Client;
+import dev.zelenin.film_finder.services.form_parser.ClientFormHandler;
+import dev.zelenin.film_finder.services.form_parser.FormHandler;
 import dev.zelenin.film_finder.utils.Paths;
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileUploadException;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.File;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-import static dev.zelenin.film_finder.services.ClientService.*;
+import static dev.zelenin.film_finder.services.ClientService.exists;
+import static dev.zelenin.film_finder.services.ClientService.register;
 
 /**
  * Created by victor on 22.08.16.
  */
-// TODO need refactoring here
+
 // TODO validation
 public class AcceptClientSignupFormCommand implements Command {
-    private ServletFileUpload uploader = null;
-    private static final String DIRECTORY = "/home/victor/IdeaProjects/film_finder_github/" +
-            "src/main/webapp/resources/images/clients";
-
-    private void init() {
-        DiskFileItemFactory fileFactory = new DiskFileItemFactory();
-        this.uploader = new ServletFileUpload(fileFactory);
-    }
 
     @Override
     public String execute(HttpServletRequest request) {
-        String directory = "/resources/images/clients/";
+        FormHandler handler = new ClientFormHandler();
 
-        init();
+        Map<String, Object> attributes = handler.handle(request);
 
-        Map<String, Object> attributes;
-        try {
-            attributes = parseClientAttributes(uploader.parseRequest(request));
-        } catch (FileUploadException e) {
-            System.err.println("can not upload data");
-            // set up request attribute
+        String name = constructClientName(attributes);
+        String email = (String) attributes.get("email");
+        String password = (String) attributes.get("password");
+        String confirmPassword = (String) attributes.get("password_confirmation");
+        String gender = (String) attributes.get("gender");
+        String photoUrl = (String) attributes.get("photo_url");
 
-            return Paths.SIGN_UP;
+        if (!isCorrect(password, confirmPassword, email)) {
+            return Paths.LOG_IN;
         }
 
-        System.out.println(attributes);
+        Client client = register(name, gender, email, password, photoUrl);
 
-        if (!isCorrectPassword((String) attributes.get("password"),
-                (String) attributes.get("password_confirmation"))) {
-            // setup attributes
-            System.out.println("Different passwords");
-            request.setAttribute("samePassword", false);
-
-            return Paths.SIGN_UP;
-
-        } else if (exists((String) attributes.get("email"))) {
-            // setup attributes
-            request.setAttribute("isRegistered", true);
-            System.out.println("Existed");
-
-            return Paths.SIGN_UP;
-        } else {
-            if (attributes.get("photo_url") != null &&
-                    attributes.get("photo_url").equals(directory.trim())) {
-                attributes.put("photo_url", null);
-            }
-
-            String name = attributes.get("first_name") + " " + attributes.get("last_name");
-            Client client = register(
-                    name,
-                    (String) attributes.get("gender"),
-                    (String) attributes.get("email"),
-                    (String) attributes.get("password"),
-                    (String) attributes.get("photo_url")
-            );
-
-            try {
-                uploadImage(DIRECTORY + File.separator,
-                        (FileItem) attributes.get("photo_item"));
-            } catch (Exception e) {
-
-                return Paths.SIGN_UP;
-            }
-
-            request.getSession().setAttribute("client", client);
-        }
+        request.getSession().setAttribute("client", client);
 
         return new PersonalCabinetCommand().execute(request);
     }
 
-    static Map<String, Object> parseClientAttributes(List<FileItem> fileItemList) {
-        String directory = "/resources/images/clients/";
-        Map<String, Object> map = new HashMap<>();
-
-        for (FileItem fileItem : fileItemList) {
-            if (fileItem.isFormField()) {
-                switch (fileItem.getFieldName()) {
-                    case "first_name":
-                        map.put("first_name", fileItem.getString());
-                        break;
-                    case "last_name":
-                        map.put("last_name", fileItem.getString());
-                        break;
-                    case "email":
-                        map.put("email", fileItem.getString());
-                        break;
-                    case "gender":
-                        map.put("gender", fileItem.getString());
-                        break;
-                    case "password":
-                        map.put("password", fileItem.getString());
-                        break;
-                    case "password_confirmation":
-                        map.put("password_confirmation", fileItem.getString());
-                        break;
-                }
-            } else {
-                map.put("photo_url", directory + fileItem.getName());
-                map.put("photo_item", fileItem);
-            }
-        }
-
-        return map;
+    private String constructClientName(Map<String, Object> attributes) {
+        return attributes.get("first_name") + " " + attributes.get("last_name");
     }
 
-    static boolean isCorrectPassword(String password, String passwordConfirmation) {
-        return password.equals(passwordConfirmation) && !Objects.equals(password, "");
+
+    private boolean isCorrect(String password, String confirmPassword, String email) {
+        return isCorrectPassword(password, confirmPassword) && !exists(email);
+
+    }
+
+    private boolean isCorrectPassword(String password, String confirmPassword) {
+        return password.equals(confirmPassword) && !Objects.equals(password, "");
     }
 }

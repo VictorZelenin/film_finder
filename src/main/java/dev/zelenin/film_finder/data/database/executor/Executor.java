@@ -9,7 +9,6 @@ import java.sql.Statement;
  * Created by victor on 03.08.16.
  */
 public class Executor {
-
     public static int executeUpdate(Connection connection, String query) {
         int updated = 0;
 

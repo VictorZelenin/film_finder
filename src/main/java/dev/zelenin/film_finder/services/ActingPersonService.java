@@ -82,9 +82,6 @@ public class ActingPersonService extends DatabaseService {
         IActingPersonDAO dao = new DAOFactory(connection).getActingPersonDAO();
         ActingPerson actingPerson = dao.findActingPersonByLastName(lastName);
 
-        if (actingPerson == null) {
-
-        }
 
         closeConnection(connection);
 

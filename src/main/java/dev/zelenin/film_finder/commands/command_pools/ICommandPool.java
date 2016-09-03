@@ -8,4 +8,5 @@ import dev.zelenin.film_finder.commands.Command;
 public interface ICommandPool {
 
     Command getCommand(String name);
+
 }

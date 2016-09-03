@@ -20,10 +20,6 @@ public abstract class CommandPool implements ICommandPool {
         commandMap.put(name, command);
     }
 
-    private Command removeCommand(String name) {
-        return commandMap.remove(name);
-    }
-
     @Override
     public Command getCommand(String name) {
         return commandMap.get(name);

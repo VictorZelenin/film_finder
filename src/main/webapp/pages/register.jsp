@@ -77,9 +77,6 @@
                                 <span class="login_error_msg">Different passwords!</span>
                             </c:when>
                         </c:choose>
-                        <%--<c:otherwise>--%>
-                            <%--<span class="login_error_msg">Error</span>--%>
-                        <%--</c:otherwise>--%>
                     </form>
                 </div>
             </div>

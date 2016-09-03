@@ -32,15 +32,19 @@ public class ClientService extends DatabaseService {
         return client;
     }
 
-    public static Client register(String name, String gender, String email, String password, String photoUrl) {
+    public static Client register(String name, String gender, String email, String password,
+                                  String photoUrl) {
         Client client = new Client(name, Util.parseGender(gender), email, password, photoUrl);
         Connection connection = DatabaseManager.getConnection();
         IClientDAO dao = new DAOFactory(connection).getClientDAO();
+
         dao.save(client);
+
+        Client clientWithCorrectID = dao.getClientByEmail(email);
 
         closeConnection(connection);
 
-        return client;
+        return clientWithCorrectID;
     }
 
 
@@ -78,7 +82,7 @@ public class ClientService extends DatabaseService {
     }
 
 
-    public static void uploadImage(String path, FileItem imageItem) throws Exception {
+    public static void uploadClientImage(String path, FileItem imageItem) throws Exception {
         File file = new File(path + imageItem.getName());
         imageItem.write(file);
     }
@@ -90,7 +94,6 @@ public class ClientService extends DatabaseService {
         if (!dao.isAddedMovie(movie, client)) {
             dao.addNewMovie(client, movie);
         }
-
 
         closeConnection(connection);
     }

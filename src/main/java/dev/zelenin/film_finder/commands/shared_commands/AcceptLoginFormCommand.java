@@ -29,7 +29,6 @@ public class AcceptLoginFormCommand implements Command {
 
         if (request.getParameter(TYPE_PARAM).equals("admin")) {
             try {
-                System.out.println("over here!!!!!");
                 admin = AdminService.createAdmin(email, password);
                 request.getSession().setAttribute("admin", admin);
 
@@ -54,6 +53,5 @@ public class AcceptLoginFormCommand implements Command {
                 return Paths.LOG_IN;
             }
         }
-
     }
 }

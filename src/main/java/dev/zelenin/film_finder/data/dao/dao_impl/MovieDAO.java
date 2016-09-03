@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import static dev.zelenin.film_finder.data.data_sets.movies.MovieType.parseMovieType;
 import static dev.zelenin.film_finder.utils.Util.*;
 
 /**

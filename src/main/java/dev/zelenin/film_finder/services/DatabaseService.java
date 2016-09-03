@@ -9,7 +9,9 @@ import java.sql.SQLException;
 public abstract class DatabaseService {
     /* common functionality */
 
-//    protected <T>
+    protected static <T> T getDAO(Connection connection) {
+        return null;
+    }
 
     protected static void closeConnection(Connection connection) {
         try {

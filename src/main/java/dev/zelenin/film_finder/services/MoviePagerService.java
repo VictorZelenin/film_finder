@@ -12,7 +12,6 @@ import java.util.List;
 /**
  * Created by victor on 23.08.16.
  */
-// TODO debug this 
 public class MoviePagerService extends DatabaseService {
 
     public static void setupMovieList(HttpServletRequest request, int moviesPerPage, List<Movie> movies) {

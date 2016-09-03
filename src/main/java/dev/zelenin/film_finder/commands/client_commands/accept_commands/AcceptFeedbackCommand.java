@@ -1,7 +1,7 @@
 package dev.zelenin.film_finder.commands.client_commands.accept_commands;
 
 import dev.zelenin.film_finder.commands.Command;
-import dev.zelenin.film_finder.commands.shared_commands.MainCommand;
+import dev.zelenin.film_finder.commands.client_commands.MainCommand;
 import dev.zelenin.film_finder.data.data_sets.users.Client;
 import dev.zelenin.film_finder.services.FeedbackService;
 

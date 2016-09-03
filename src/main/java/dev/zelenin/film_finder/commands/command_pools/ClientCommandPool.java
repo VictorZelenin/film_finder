@@ -5,7 +5,7 @@ import dev.zelenin.film_finder.commands.client_commands.accept_commands.*;
 import dev.zelenin.film_finder.commands.shared_commands.AcceptLoginFormCommand;
 import dev.zelenin.film_finder.commands.shared_commands.LoginCommand;
 import dev.zelenin.film_finder.commands.shared_commands.LogoutCommand;
-import dev.zelenin.film_finder.commands.shared_commands.MainCommand;
+import dev.zelenin.film_finder.commands.client_commands.MainCommand;
 import dev.zelenin.film_finder.utils.Commands;
 
 /**

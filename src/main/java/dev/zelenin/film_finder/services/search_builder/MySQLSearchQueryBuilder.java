@@ -2,7 +2,7 @@ package dev.zelenin.film_finder.services.search_builder;
 
 import dev.zelenin.film_finder.data.data_sets.acting_person.ActingPerson;
 import dev.zelenin.film_finder.data.data_sets.movies.Genre;
-import dev.zelenin.film_finder.utils.Util;
+import dev.zelenin.film_finder.data.data_sets.movies.MovieType;
 
 import java.util.List;
 
@@ -93,7 +93,7 @@ public class MySQLSearchQueryBuilder extends AbstractSearchQueryBuilder {
     @Override
     public void addMovieTypePart(String movieType, boolean isLast) {
         queryBuilder.append("movie_type = '")
-                .append(Util.parseMovieType(movieType))
+                .append(MovieType.parseMovieType(movieType))
                 .append("'");
         addLast(isLast);
     }

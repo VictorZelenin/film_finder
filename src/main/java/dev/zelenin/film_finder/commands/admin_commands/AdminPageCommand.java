@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * Created by victor on 31.08.16.
  */
-public class GetAdminPageCommand implements Command {
+public class AdminPageCommand implements Command {
     @Override
     public String execute(HttpServletRequest request) {
         if (request.getSession().getAttribute("admin") == null)

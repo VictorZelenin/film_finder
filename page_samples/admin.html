@@ -1,9 +1,15 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
+<html lang="en">
 
-<%--TODO edit this--%>
-<html>
-<%@ include file="/WEB-INF/pages/fragments/header.jspf" %>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="../src/main/webapp/resources/bootstrap-3.3.7-dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="../src/main/webapp/resources/bootstrap-3.3.7-dist/css/bootstrap.css"/>
+    <link rel="stylesheet" href="css/style.css">
+</head>
 <body>
 <div class="container-fluid">
     <div class="row">
@@ -14,12 +20,12 @@
         <div class="row control-row">
             <div class="col-md-offset-2 col-md-2">
                 <button class="btn-primary">
-                    <a class="control" href="/admin?command=add_movie">Добавить фильм</a>
+                    <a class="control" href="#">Добавить фильм</a>
                 </button>
             </div>
             <div class="col-md-offset-4 col-md-2">
                 <button class="btn-primary">
-                    <a class="control" href="/admin?command=edit_movie">Редактировать фильм</a>
+                    <a class="control" href="#">Редактировать фильм</a>
                 </button>
             </div>
         </div>
@@ -27,12 +33,12 @@
         <div class="row control-row">
             <div class="col-md-offset-2 col-md-3">
                 <button class="btn-primary">
-                    <a class="control" href="/admin?command=add_person">Добавить актера/режиссера/..</a>
+                    <a class="control" href="#">Добавить актера/режиссера/..</a>
                 </button>
             </div>
             <div class="col-md-offset-3 col-md-3">
                 <button class="btn-primary">
-                    <a class="control" href="/admin?command=edit_person">Редактировать актера/режиссера/..</a>
+                    <a class="control" href="#">Редактировать актера/режиссера/..</a>
                 </button>
             </div>
         </div>
@@ -40,12 +46,12 @@
         <div class="row control-row">
             <div class="col-md-offset-2 col-md-2">
                 <button class="btn-primary">
-                    <a class="control" href="/admin?command=show_clients">Посмотреть клиентов</a>
+                    <a class="control" href="#">Посмотреть клиентов</a>
                 </button>
             </div>
             <div class="col-md-offset-4 col-md-2">
                 <button class="btn-primary">
-                    <a class="control" href="/admin?command=show_feedback">Читать отзывы..</a>
+                    <a class="control" href="#">Читать отзывы..</a>
                 </button>
             </div>
         </div>
@@ -56,15 +62,16 @@
     <br>
     <div class="row control-row">
         <div class="col-md-offset-10">
-            <form method="post" action="/admin?command=log_out">
+            <form method="post" action="/admin?command=logout">
                 <button class="btn-primary" type="submit">Exit</button>
             </form>
         </div>
     </div>
 </div>
 
+
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="<c:url value="/resources/bootstrap-3.3.7-dist/js/bootstrap.min.js"/>"></script>
-<script src="<c:url value="/resources/bootstrap-3.3.7-dist/js/bootstrap.js"/>"></script>
+<script src="../src/main/webapp/resources/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
 </body>
 </html>

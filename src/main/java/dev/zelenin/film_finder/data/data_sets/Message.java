@@ -18,6 +18,7 @@ public class Message extends DataSet implements Serializable {
 
     public Message(String value, Client client) {
         this.value = value;
+        date = new Date();
         this.client = client;
     }
 

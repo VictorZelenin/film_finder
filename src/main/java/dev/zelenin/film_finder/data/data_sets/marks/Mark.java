@@ -8,7 +8,6 @@ import java.util.Date;
  * Created by victor on 01.08.16.
  */
 public abstract class Mark extends DataSet {
-    /* оценка и дата меняются одновременно*/
     protected int mark; // 0...10
     protected Date date;
 

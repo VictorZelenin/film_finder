@@ -27,3 +27,16 @@
     width: 300px;
     height: 450px;
 }
+
+.control {
+    color: white;
+}
+
+.control:visited {
+    color: white;
+    text-decoration: none;
+}
+
+.control-row {
+    margin-top: 80px;
+}

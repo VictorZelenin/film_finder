@@ -22,12 +22,10 @@
                 <c:if test="${requestScope.previous_page != null}">
                     <li><a href="<c:url value="/controller?command=main&page=${previous_page}"/>">
                         <span aria-hidden="true">&larr;</span>
-                            <%--<fmt:message key="previous"/>--%>
                     </a></li>
                 </c:if>
                 <c:if test="${requestScope.next_page != null}">
                     <li><a href="<c:url value="/controller?command=main&page=${next_page}"/>">
-                            <%--<fmt:message key="next"/>--%>
                         <span aria-hidden="true">&rarr;</span>
                     </a></li>
                 </c:if>

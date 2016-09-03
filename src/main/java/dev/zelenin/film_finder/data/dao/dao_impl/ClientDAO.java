@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import static dev.zelenin.film_finder.data.data_sets.movies.MovieType.parseMovieType;
 import static dev.zelenin.film_finder.utils.Util.*;
 
 /**
@@ -179,11 +180,19 @@ public class ClientDAO extends DAO<Client> implements IClientDAO {
     }
 
     private Movie parseMovie(ResultSet resultSet) throws SQLException {
-        return new Movie(resultSet.getLong(5), resultSet.getString(6),
-                parseMovieType(resultSet.getString(7)), new Date(resultSet.getDate(8).getTime()),
-                resultSet.getInt(9), resultSet.getString(10), resultSet.getString(11),
-                resultSet.getDouble(12), resultSet.getDouble(13), resultSet.getDouble(14),
-                resultSet.getString(15));
+        return new Movie(
+                resultSet.getLong(5),
+                resultSet.getString(6),
+                parseMovieType(resultSet.getString(7)),
+                new Date(resultSet.getDate(8).getTime()),
+                resultSet.getInt(9),
+                resultSet.getString(10),
+                resultSet.getString(11),
+                resultSet.getDouble(12),
+                resultSet.getDouble(13),
+                resultSet.getDouble(14),
+                resultSet.getString(15)
+        );
     }
 
     @Override

@@ -28,15 +28,15 @@ public class PersonalCabinetCommand implements Command {
         return Paths.PERSONAL_CABINET_PAGE;
     }
 
-    public static void setupClientProfile(HttpServletRequest request) {
+    private static void setupClientProfile(HttpServletRequest request) {
         Client client = (Client) request.getSession().getAttribute("client");
 
-        if (client != null) {
-            List<Movie> movieList = MovieService.getMoviesByClient(client);
-            List<MovieMark> markList = MovieService.getMovieMarks(client);
+        List<Movie> movieList = MovieService.getMoviesByClient(client);
+        List<MovieMark> markList = MovieService.getMovieMarks(client);
 
-            request.getSession().setAttribute("movieList", movieList);
-            request.getSession().setAttribute("markList", markList);
-        }
+        System.out.println(client);
+        request.getSession().setAttribute("movieList", movieList);
+        request.getSession().setAttribute("markList", markList);
+
     }
 }

@@ -11,7 +11,6 @@ import java.io.Serializable;
 public class Admin extends User implements Serializable {
 
     public Admin() {
-
     }
 
     public Admin(String name, String email, String password) {
@@ -21,7 +20,6 @@ public class Admin extends User implements Serializable {
     public Admin(long adminId, String name, String email, String password) {
         super(name, email, password);
         this.id = adminId;
-
     }
 
     @Override

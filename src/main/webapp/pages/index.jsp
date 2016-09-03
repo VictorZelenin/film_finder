@@ -19,9 +19,7 @@
             </ul>
         </div>
         <div class="col-md-6 center-block">
-            <%-- TODO TAG for movie block--%>
             <jsp:include page="/WEB-INF/pages/movie_list.jsp"/>
-
         </div>
         <div class="col-md-3"></div>
     </div>

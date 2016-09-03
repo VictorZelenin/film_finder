@@ -24,17 +24,11 @@ public class Movie extends DataSet implements Serializable {
     private double imdbVotes;
     private double averageClientMark;
 
-//    private List<Genre> genres;
-//    private ActingPerson director;
-//    private List<ActingPerson> actorsList;
-//    private List<ActingPerson> screenWriters;
-//    private List<ActingPerson> producers;
-
     private String posterURL;
 
 
     public Movie() {
-   }
+    }
 
     public Movie(long movieId, String title, MovieType movieType, Date releaseDate, int runtime,
                  String plot, String country, double imdbRating,
@@ -50,10 +44,6 @@ public class Movie extends DataSet implements Serializable {
         this.imdbVotes = imdbVotes;
         this.posterURL = posterURL;
         this.averageClientMark = averageClientMark;
-//        genres = new ArrayList<>();
-//        actorsList = new ArrayList<>();
-//        screenWriters = new ArrayList<>();
-//        producers = new ArrayList<>();
     }
 
     public String getTitle() {

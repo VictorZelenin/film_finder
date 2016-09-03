@@ -1,7 +1,6 @@
 package dev.zelenin.film_finder.commands.client_commands;
 
 import dev.zelenin.film_finder.commands.Command;
-import dev.zelenin.film_finder.commands.shared_commands.MainCommand;
 import dev.zelenin.film_finder.data.data_sets.acting_person.ActingPerson;
 import dev.zelenin.film_finder.data.data_sets.marks.ActingPersonMark;
 import dev.zelenin.film_finder.data.data_sets.users.Client;

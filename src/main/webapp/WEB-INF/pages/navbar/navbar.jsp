@@ -40,14 +40,12 @@
                                 <button class="btn btn-primary"><a class="signup" href="/controller?command=signup">Sign
                                     up</a></button>
                             </div>
-
                         </c:when>
                         <c:otherwise>
                             <form method="post" action="/controller?command=log_out">
                                 <div class="control-button navbar-right">
                                     <button name="exit" type="submit" class="btn-primary">EXIT</button>
                                 </div>
-
                             </form>
                         </c:otherwise>
                     </c:choose>

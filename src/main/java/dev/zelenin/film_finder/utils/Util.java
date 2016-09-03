@@ -18,22 +18,6 @@ import java.util.List;
  */
 public class Util {
 
-    public static MovieType parseMovieType(String type) {
-        if (type == null) {
-            return null;
-        }
-        switch (type.toLowerCase()) {
-            case "movie":
-                return MovieType.FILM;
-            case "series":
-                return MovieType.SERIES;
-            case "episode":
-                return MovieType.EPISODE;
-            default:
-                return MovieType.FILM;
-        }
-    }
-
     public static String putInStringMovieType(MovieType movieType) {
         if (movieType == null) {
             return null;

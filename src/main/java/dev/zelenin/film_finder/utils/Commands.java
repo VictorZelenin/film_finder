@@ -3,7 +3,8 @@ package dev.zelenin.film_finder.utils;
 /**
  * Created by victor on 18.08.16.
  */
-public class Commands {
+public class
+Commands {
     public static final String MAIN = "main";
     public static final String LOG_IN = "login";
     public static final String SIGN_UP = "signup";
