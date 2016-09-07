@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Adding Person</title>
+    <link rel="stylesheet" href="../src/main/webapp/resources/bootstrap-3.3.7-dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="../src/main/webapp/resources/bootstrap-3.3.7-dist/css/bootstrap.css"/>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-offset-4 col-md-6">
+            <h2>Adding New Acting Person</h2>
+        </div>
+    </div>
+    <br/>
+    <div class="row">
+        <div class="form-group">
+            <label class="control-label col-md-offset-1 col-md-1" for="first_name">First name:</label>
+            <div class="col-md-3">
+                <input type="text" class="form-control" id="first_name" name="first_name">
+            </div>
+            <label class="control-label col-md-offset-1 col-md-1" for="last_name">Last name:</label>
+            <div class="col-md-3">
+                <input type="text" class="form-control" id="last_name" name="last_name">
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="row">
+        <div class="form-group">
+            <label class="control-label col-md-offset-3 col-md-1">Пол:</label>
+            <div class="col-md-4">
+                <select class="form-control" name="gender">
+                    <option value="male" selected>Мужской</option>
+                    <option value="female">Женский</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="row">
+        <label class="control-label col-md-offset-3 col-md-1">Рост</label>
+        <div class="col-md-4">
+            <input class="form-control" type="number" min="50" max="250">
+        </div>
+    </div>
+    <br/>
+    <div class="row">
+        <label class="control-label col-md-offset-3 col-md-1">Страна</label>
+        <div class="col-md-4">
+            <input class="form-control" type="text">
+        </div>
+    </div>
+    <br/>
+    <div class="row">
+        <div class="form-group">
+            <label class="control-label col-md-offset-1 col-md-1" for="age">Возраст: </label>
+            <div class="col-md-3">
+                <input type="number" min="0" max="120" class="form-control" id="age" name="age">
+            </div>
+            <label class="control-label col-md-offset-1 col-md-1" for="death_date">Дата смерти: </label>
+            <div class="col-md-3">
+                <input type="date" class="form-control" id="death_date" name="death_date">
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="row">
+        <label class="control-label col-md-offset-3 col-md-1">Кількість фільмів:</label>
+        <div class="col-md-4">
+            <input class="form-control" type="number" min="0">
+        </div>
+    </div>
+    <br/>
+    <div class="row">
+        <label class="control-label col-md-offset-3 col-md-1">Жанры:</label>
+        <div class="col-md-4">
+            <select class="form-control" multiple="multiple">
+                <option>Genre 1</option>
+                <option>Genre 2</option>
+                <option>Genre 3</option>
+                <option>Genre 4</option>
+            </select>
+        </div>
+    </div>
+    <br/>
+    <div class="row">
+        <label class="control-label col-md-offset-3 col-md-1">Амплуа:</label>
+        <div class="col-md-4">
+            <select class="form-control" multiple="multiple">
+                <option>Role 1</option>
+                <option>Role 2</option>
+                <option>Role 3</option>
+            </select>
+        </div>
+    </div>
+    <br/>
+    <div class="row">
+        <div class="form-group">
+            <label class="col-md-offset-3 col-md-2">Загрузите фото:</label>
+            <label class="col-md-1 btn btn-primary btn-file">
+                Upload photo
+                <input name="client_image" type="file" style="display: none;">
+            </label>
+        </div>
+    </div>
+    <br/>
+    <br/>
+    <div class="row">
+        <button type="submit" class="btn btn-primary col-md-offset-9">Изменить</button>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="../src/main/webapp/resources/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+</body>
+</html>

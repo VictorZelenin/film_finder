@@ -35,7 +35,7 @@ public class AcceptClientSignupFormCommand implements Command {
         String photoUrl = (String) attributes.get("photo_url");
 
         if (!isCorrect(password, confirmPassword, email)) {
-            return Paths.LOG_IN;
+            return Paths.SIGN_UP;
         }
 
         Client client = register(name, gender, email, password, photoUrl);
@@ -49,10 +49,8 @@ public class AcceptClientSignupFormCommand implements Command {
         return attributes.get("first_name") + " " + attributes.get("last_name");
     }
 
-
     private boolean isCorrect(String password, String confirmPassword, String email) {
         return isCorrectPassword(password, confirmPassword) && !exists(email);
-
     }
 
     private boolean isCorrectPassword(String password, String confirmPassword) {

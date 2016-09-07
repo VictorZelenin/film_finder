@@ -22,7 +22,7 @@ public class ClientCommandPool extends CommandPool {
         addCommand(Commands.ACCEPT_SIGN_UP_FORM, new AcceptClientSignupFormCommand());
         addCommand(Commands.SHOW_MOVIE, new MovieDescriptionCommand());
         addCommand(Commands.SHOW_MOVIE_LIST, new ShowMovieListCommand());
-        addCommand(Commands.SEARCH, new GetSearchCommand());
+        addCommand(Commands.SEARCH, new SearchCommand());
         addCommand(Commands.ACCEPT_SEARCH_FORM, new AcceptSearchCommand());
         addCommand(Commands.SHOW_ACTING_PERSON, new ActingPersonDescriptionCommand());
         addCommand(Commands.FEEDBACK, new FeedbackCommand());

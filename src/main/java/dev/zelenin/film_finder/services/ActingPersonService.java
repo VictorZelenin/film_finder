@@ -11,14 +11,28 @@ import dev.zelenin.film_finder.data.database.DatabaseManager;
 
 import javax.servlet.http.HttpServletRequest;
 import java.sql.Connection;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static dev.zelenin.film_finder.utils.Util.parseGender;
 
 /**
  * Created by victor on 10.08.16.
  */
 public class ActingPersonService extends DatabaseService {
+    public static List<ActingRole> getRoles() {
+        Connection connection = DatabaseManager.getConnection();
+        IDAOFactory factory = new DAOFactory(connection);
+        IActingPersonDAO dao = factory.getActingPersonDAO();
+
+        List<ActingRole> roles = dao.findAllRoles();
+
+        closeConnection(connection);
+
+        return roles;
+    }
 
     public static Map<ActingRole, List<ActingPerson>> getMapByActingRoles(Movie movie) {
         Map<ActingRole, List<ActingPerson>> map = new HashMap<>();
@@ -101,4 +115,40 @@ public class ActingPersonService extends DatabaseService {
         request.setAttribute("person_genres", genres);
     }
 
+    public static ActingPerson saveActingPerson(String name, String gender, double height,
+                                                String country, int age, Date deathDate, int moviesNumber,
+                                                String photoUrl, List<ActingRole> roles,
+                                                List<Genre> genres) {
+        Connection connection = DatabaseManager.getConnection();
+        IActingPersonDAO actingPersonDAO = new DAOFactory(connection).getActingPersonDAO();
+        ActingPerson actingPerson = new ActingPerson(name, parseGender(gender), height, country, age,
+                deathDate, moviesNumber, photoUrl);
+
+        actingPersonDAO.save(actingPerson);
+
+        ActingPerson actingPersonWithCorrectId =
+                actingPersonDAO.findActingPersonByLastName(actingPerson.getName());
+
+        actingPersonDAO.savePersonRoles(actingPersonWithCorrectId, roles);
+        actingPersonDAO.savePersonGenres(actingPersonWithCorrectId, genres);
+
+        closeConnection(connection);
+
+        return actingPersonWithCorrectId;
+    }
+
+    public static ActingPerson updateActingPerson(long id, String name, String gender, double height,
+                                                  String country, int age, Date deathDate,
+                                                  int moviesNumber, String photoUrl) {
+        Connection connection = DatabaseManager.getConnection();
+        IActingPersonDAO actingPersonDAO = new DAOFactory(connection).getActingPersonDAO();
+        ActingPerson actingPerson = new ActingPerson(name, parseGender(gender), height, country, age,
+                deathDate, moviesNumber, photoUrl);
+
+        actingPersonDAO.update(id, actingPerson);
+
+        closeConnection(connection);
+
+        return actingPerson;
+    }
 }

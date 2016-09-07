@@ -40,6 +40,18 @@ public class ActingPerson extends DataSet implements Serializable {
         this.photoURL = photoURL;
     }
 
+    public ActingPerson(String name, Gender gender, double height, String country,
+                        int age, Date deathDate, int totalMoviesNumber,
+                        String photoURL) {
+        this.name = name;
+        this.gender = gender;
+        this.height = height;
+        this.country = country;
+        this.age = age;
+        this.deathDate = deathDate;
+        this.totalMoviesNumber = totalMoviesNumber;
+        this.photoURL = photoURL;
+    }
 
     public ActingPerson(long actingPersonId, String name, Gender gender, double height, String country,
                         int age, Date deathDate, int totalMoviesNumber, double averageClientMark,

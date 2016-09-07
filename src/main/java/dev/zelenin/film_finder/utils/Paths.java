@@ -21,5 +21,8 @@ public class Paths {
 
     public static final String ADMIN_PAGE = "/WEB-INF/pages/admin.jsp";
     public static final String ADMIN_LOGIN = "/pages/admin/admin_login.jsp";
-//    public static final String ADD
+    public static final String ADMIN_ADD_PERSON = "/pages/admin/add_person.jsp";
+    public static final String ADMIN_EDIT_PERSON = "/pages/admin/edit_person.jsp";
+    public static final String ADMIN_ADD_MOVIE = "/pages/admin/add_movie.jsp";
+    public static final String ADMIN_EDIT_MOVIE = "/pages/admin/edit_movie.jsp";
 }

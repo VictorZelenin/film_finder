@@ -11,6 +11,7 @@ import org.junit.Test;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertNotNull;
@@ -149,5 +150,28 @@ public class ActingPersonDAOTests {
         System.out.println(person);
 
         assertNotNull(person);
+    }
+
+    @Test
+    public void testSaveGenres() {
+        ActingPerson person = actingPersonDAO.findActingPersonByLastName("Damon");
+        System.out.println(person);
+
+        List<Genre> genres = new ArrayList<>();
+        genres.add(Genre.CRIME);
+        genres.add(Genre.ACTION);
+
+        assertTrue(actingPersonDAO.savePersonGenres(person, genres) > 0);
+    }
+
+    @Test
+    public void testSaveRoles() {
+        ActingPerson person = actingPersonDAO.findActingPersonByLastName("Damon");
+        System.out.println(person);
+
+        List<ActingRole> roles = new ArrayList<>();
+        roles.add(ActingRole.ACTOR);
+
+        assertTrue(actingPersonDAO.savePersonRoles(person, roles) > 0);
     }
 }

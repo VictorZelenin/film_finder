@@ -2,7 +2,9 @@ package dev.zelenin.film_finder.controllers;
 
 import dev.zelenin.film_finder.commands.Command;
 import dev.zelenin.film_finder.commands.CommandProvider;
+import dev.zelenin.film_finder.data.data_sets.acting_person.ActingRole;
 import dev.zelenin.film_finder.data.data_sets.movies.Genre;
+import dev.zelenin.film_finder.services.ActingPersonService;
 import dev.zelenin.film_finder.services.MovieService;
 import dev.zelenin.film_finder.utils.Paths;
 
@@ -24,7 +26,9 @@ public class FrontController extends HttpServlet {
     @Override
     public void init() throws ServletException {
         List<Genre> genres = MovieService.getAllGenres();
+        List<ActingRole> roles = ActingPersonService.getRoles();
         getServletContext().setAttribute("genres", genres);
+        getServletContext().setAttribute("roles", roles);
     }
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response)

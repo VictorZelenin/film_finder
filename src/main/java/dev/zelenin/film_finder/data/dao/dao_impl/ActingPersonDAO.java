@@ -29,6 +29,46 @@ public class ActingPersonDAO extends DAO<ActingPerson> implements IActingPersonD
     }
 
     @Override
+    public int savePersonRoles(ActingPerson person, List<ActingRole> roles) {
+        String query = "insert into acting_person_roles values(?, ?)";
+        int updated = 0;
+
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            for (ActingRole role : roles) {
+                statement.setLong(1, person.getId());
+                statement.setLong(2, role.ordinal() + 1);
+
+                statement.execute();
+                updated = statement.getUpdateCount();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return updated;
+    }
+
+    @Override
+    public int savePersonGenres(ActingPerson person, List<Genre> genres) {
+        String query = "insert into acting_person_genres values(?, ?)";
+        int updated = 0;
+
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            for (Genre genre : genres) {
+                statement.setLong(1, person.getId());
+                statement.setLong(2, genre.ordinal() + 1);
+
+                statement.execute();
+                updated = statement.getUpdateCount();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return updated;
+    }
+
+    @Override
     public int save(ActingPerson object) {
         String insertQuery = "insert into acting_people(name, gender, height, country, age, death_date," +
                 " total_movies_number, average_client_mark, photo_url) values(?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -143,6 +183,21 @@ public class ActingPersonDAO extends DAO<ActingPerson> implements IActingPersonD
     }
 
     @Override
+    public List<ActingRole> findAllRoles() {
+        String query = "select distinct role from acting_person_roles " +
+                "join roles_in_movie on roles_in_movie.id = role_id";
+        List<ActingRole> roles = new ArrayList<>();
+
+        return Executor.executeQuery(connection, query, resultSet -> {
+            while (resultSet.next()) {
+                roles.add(ActingRole.valueOf(resultSet.getString(1).toUpperCase()));
+            }
+
+            return roles;
+        });
+    }
+
+    @Override
     public List<ActingRole> findActingPersonRoleList(ActingPerson actingPerson) {
         String query = "select role from acting_person_roles " +
                 "join roles_in_movie on roles_in_movie.id = role_id " +
@@ -150,7 +205,7 @@ public class ActingPersonDAO extends DAO<ActingPerson> implements IActingPersonD
         LOG.trace("QUERY: " + query);
         List<ActingRole> roles = new ArrayList<>();
 
-        Executor.executeQuery(connection, query, resultSet -> {
+        return Executor.executeQuery(connection, query, resultSet -> {
             while (resultSet.next()) {
                 roles.add(ActingRole.valueOf(resultSet.getString(1).toUpperCase()));
             }
@@ -158,8 +213,6 @@ public class ActingPersonDAO extends DAO<ActingPerson> implements IActingPersonD
             LOG.info("Roles of acting person -  " + actingPerson + ": " + roles);
             return roles;
         });
-
-        return roles;
     }
 
     @Override

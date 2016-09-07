@@ -7,12 +7,6 @@ import java.sql.SQLException;
  * Created by victor on 29.08.16.
  */
 public abstract class DatabaseService {
-    /* common functionality */
-
-    protected static <T> T getDAO(Connection connection) {
-        return null;
-    }
-
     protected static void closeConnection(Connection connection) {
         try {
             if (connection != null) {

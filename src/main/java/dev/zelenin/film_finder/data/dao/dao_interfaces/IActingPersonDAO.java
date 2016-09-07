@@ -11,7 +11,13 @@ import java.util.List;
  * Created by victor on 04.08.16.
  */
 public interface IActingPersonDAO extends IDAO<ActingPerson> {
+    int savePersonRoles(ActingPerson person, List<ActingRole> roles);
+
+    int savePersonGenres(ActingPerson person, List<Genre> genres);
+
     List<ActingPerson> findByMovie(Movie movie);
+
+    List<ActingRole> findAllRoles();
 
     List<ActingRole> findActingPersonRoleList(ActingPerson actingPerson);
 

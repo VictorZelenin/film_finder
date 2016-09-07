@@ -51,7 +51,13 @@ public class ClientService extends DatabaseService {
     public static boolean exists(String email) {
         Connection connection = DatabaseManager.getConnection();
         IClientDAO dao = new DAOFactory(connection).getClientDAO();
-        boolean exists = dao.getClientByEmail(email) != null;
+        boolean exists = false;
+
+        try {
+            exists = dao.getClientByEmail(email) != null;
+
+        } catch (Exception ignored) {
+        }
 
         closeConnection(connection);
 
@@ -83,6 +89,7 @@ public class ClientService extends DatabaseService {
 
 
     public static void uploadClientImage(String path, FileItem imageItem) throws Exception {
+        System.out.println("over here !!!");
         File file = new File(path + imageItem.getName());
         imageItem.write(file);
     }

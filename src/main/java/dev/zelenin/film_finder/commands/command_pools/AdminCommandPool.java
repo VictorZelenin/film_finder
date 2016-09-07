@@ -1,6 +1,7 @@
 package dev.zelenin.film_finder.commands.command_pools;
 
 import dev.zelenin.film_finder.commands.admin_commands.*;
+import dev.zelenin.film_finder.commands.admin_commands.accept_commands.AcceptAddingPersonCommand;
 import dev.zelenin.film_finder.commands.shared_commands.AcceptLoginFormCommand;
 import dev.zelenin.film_finder.commands.shared_commands.LogoutCommand;
 import dev.zelenin.film_finder.utils.Commands;
@@ -19,6 +20,6 @@ public class AdminCommandPool extends CommandPool {
         addCommand(Commands.ADMIN_SHOW_CLIENTS, new ShowClientsCommand());
         addCommand(Commands.ADMIN_SHOW_FEEDBACK, new ShowFeedbackCommand());
         addCommand(Commands.LOG_OUT, new LogoutCommand());
-//        addCommand();
+        addCommand(Commands.ADMIN_ACCEPT_ADDING_PERSON, new AcceptAddingPersonCommand());
     }
 }

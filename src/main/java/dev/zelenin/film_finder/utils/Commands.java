@@ -31,5 +31,7 @@ Commands {
     public static final String ADMIN_EDIT_PERSON = "edit_person";
     public static final String ADMIN_SHOW_CLIENTS = "show_clients";
     public static final String ADMIN_SHOW_FEEDBACK = "show_feedback";
+    public static final String ADMIN_ACCEPT_ADDING_PERSON = "accept_adding_person";
+    public static final String ADMIN_ACCPET_EDITING_PERSON = "accept_editing_person";
 
 }

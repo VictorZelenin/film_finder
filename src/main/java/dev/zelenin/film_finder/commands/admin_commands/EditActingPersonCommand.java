@@ -1,6 +1,7 @@
 package dev.zelenin.film_finder.commands.admin_commands;
 
 import dev.zelenin.film_finder.commands.Command;
+import dev.zelenin.film_finder.utils.Paths;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -10,6 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 public class EditActingPersonCommand implements Command {
     @Override
     public String execute(HttpServletRequest request) {
-        return null;
+        return Paths.ADMIN_EDIT_PERSON;
     }
 }
